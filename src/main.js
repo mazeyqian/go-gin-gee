@@ -9,6 +9,7 @@ import Banana from './components/banana'
 Vue.use(VRouter)
 
 let router = new VRouter({
+  mode: 'history',
   routes: [
     {
       path: '/apple',
