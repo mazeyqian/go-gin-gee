@@ -12,7 +12,7 @@ let router = new VRouter({
   mode: 'history',
   routes: [
     {
-      path: '/apple',
+      path: '/apple/:color',
       component: Apple
     },
     {
