@@ -6,10 +6,9 @@
 </template>
 
 <script>
-let com = {
+export default {
   name: 'app'
 }
-export { com }
 </script>
 
 <style>

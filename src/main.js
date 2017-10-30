@@ -2,14 +2,32 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import VRouter from 'vue-router'
+import Apple from './components/apple'
+import Banana from './components/banana'
 
-Vue.config.productionTip = false
+Vue.use(VRouter)
 
-/* eslint-disable no-new */
-new Vue({
+let router = new VRouter({
+  routes: [
+    {
+      path: '/apple',
+      component: Apple
+    },
+    {
+      path: '/banana',
+      component: Banana
+    }
+  ]
+})
+
+let mazey = new Vue({
   el: '#app',
   router,
   template: '<App/>',
   components: { App }
+})
+
+Vue.use({
+  mazey
 })
