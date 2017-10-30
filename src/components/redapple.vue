@@ -1,8 +1,6 @@
 <template>
   <div>
     <h1>{{ msg }}</h1>
-    <p>{{ $route.params.color }}</p>
-    <button @click="getParam">get param</button>
 
     <router-view></router-view>
   </div>
@@ -13,7 +11,7 @@
   export default {
     data () {
       return {
-        msg: 'i am apple'
+        msg: 'i am red apple'
       }
     },
     methods: {
