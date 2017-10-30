@@ -4,8 +4,8 @@
     <router-view></router-view>
 
     <router-link :to="'apple'">to apple</router-link>
+    <router-link :to="{path:'banana', param:{color:'yellow'}}">to banana</router-link>
     <router-link :to="{path:'apple/red'}">to red apple</router-link>
-    <router-link :to="{path:'banana'}">to banana</router-link>
   </div>
 </template>
 
