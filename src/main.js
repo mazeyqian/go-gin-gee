@@ -9,7 +9,7 @@ import Banana from './components/banana'
 Vue.use(VRouter)
 
 let router = new VRouter({
-  mode: 'history',
+  mode: 'history', //不需要要/#/来保存浏览器前进后退
   routes: [
     {
       path: '/apple',
