@@ -15,6 +15,7 @@ let router = new VRouter({
     {
       path: '/apple',
       component: Apple,
+      name: 'applePage',
       children: [
         {
           path: 'red',
@@ -28,6 +29,13 @@ let router = new VRouter({
     }
   ]
 })
+
+router.push(
+  {
+    path: 'apple'
+  }
+)
+
 
 let mazey = new Vue({
   el: '#app',
