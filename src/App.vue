@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view></router-view>
+    <router-view name="viewA"></router-view>
+    <router-view name="viewB"></router-view>
 
     <router-link :to="'apple'" tag="li">to apple</router-link>
     <router-link :to="{name: 'applePage'}">to banana</router-link>

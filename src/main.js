@@ -14,7 +14,10 @@ let router = new VRouter({
   routes: [
     {
       path: '/apple',
-      component: Apple,
+      component: {
+        viewA: Apple,
+        viewB: RedApple
+      },
       name: 'applePage',
       children: [
         {
