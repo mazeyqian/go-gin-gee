@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view name="viewA"></router-view>
-    <router-view name="viewB"></router-view>
+    <transition name="fade">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
 
     <router-link :to="'apple'" tag="li">to apple</router-link>
     <router-link :to="{name: 'applePage'}">to banana</router-link>
