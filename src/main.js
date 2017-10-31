@@ -13,6 +13,10 @@ let router = new VRouter({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      redirect: '/apple'
+    },
+    {
       path: '/apple',
       component: {
         viewA: Apple,
@@ -38,7 +42,6 @@ router.push(
     path: 'apple'
   }
 )
-
 
 let mazey = new Vue({
   el: '#app',
