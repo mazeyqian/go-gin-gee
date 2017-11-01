@@ -11,8 +11,18 @@ import Banana from './components/banana'
 Vue.use(VRouter)
 Vue.use(Vuex)
 
-let store = new Vuex.store({
-
+let store = new Vuex.Store({
+  state: {
+    totalPrice: 0
+  },
+  mutations: {
+    increment (state, price) {
+      state.totalPrice += price
+    },
+    decrement (state, price) {
+      state.totalPrice -= price
+    }
+  }
 })
 
 let router = new VRouter({
@@ -52,6 +62,7 @@ router.push(
 let mazey = new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

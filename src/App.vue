@@ -1,21 +1,26 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <transition name="fade">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </transition>
-
-    <router-link :to="'apple'" tag="li">to apple</router-link>
-    <router-link :to="{name: 'applePage'}">to banana</router-link>
-    <router-link :to="{path:'apple/red'}">to red apple</router-link>
+    {{ totalPrice }}
+    <apple></apple>
+    <banana></banana>
   </div>
 </template>
 
 <script>
+import Apple from './components/apple'
+import Banana from './components/banana'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Apple,
+    Banana
+  },
+  computed: {
+    totalPrice () {
+      return this.$store.state.totalPrice
+    }
+  }
 }
 </script>
 
