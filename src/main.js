@@ -15,6 +15,11 @@ let store = new Vuex.Store({
   state: {
     totalPrice: 0
   },
+  getters: {
+    getTotal (state) {
+      return state.totalPrice
+    }
+  },
   mutations: {
     increment (state, price) {
       state.totalPrice += price
@@ -24,10 +29,8 @@ let store = new Vuex.Store({
     }
   },
   actions: {
-    increase (context, id) {
-      api(id, function (price) {
-        context.commit('increment', price)
-      })
+    increase (context, price) {
+      context.commit('increment', price)
     }
   }
 })

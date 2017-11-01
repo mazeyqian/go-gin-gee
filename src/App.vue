@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     totalPrice () {
-      return this.$store.state.totalPrice
+      return this.$store.getters.getTotal
     }
   }
 }
