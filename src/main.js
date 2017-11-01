@@ -3,11 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import VRouter from 'vue-router'
+import Vuex from 'vuex'
 import Apple from './components/apple'
 import RedApple from './components/redapple'
 import Banana from './components/banana'
 
 Vue.use(VRouter)
+Vue.use(Vuex)
+
+let store = new Vuex.store({
+
+})
 
 let router = new VRouter({
   mode: 'history',
