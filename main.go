@@ -8,6 +8,24 @@ import (
 
 var db = make(map[string]string)
 
+type StructA struct {
+	FieldA string `form:"field_a"`
+}
+
+type StructB struct {
+	NestedStruct StructA
+	FieldB       string `form:"field_b"`
+}
+
+func GetDataB(c *gin.Context) {
+	var b StructB
+	c.Bind(&b)
+	c.JSON(200, gin.H{
+		"a": b.NestedStruct,
+		"b": b.FieldB,
+	})
+}
+
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
 	// Disable Console Color
@@ -29,6 +47,9 @@ func setupRouter() *gin.Engine {
 		// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
 		c.AsciiJSON(http.StatusOK, data)
 	})
+
+	// Bind form-data request with custom struct
+	r.GET("/Get-Custom-Struct", GetDataB)
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
