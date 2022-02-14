@@ -19,6 +19,17 @@ func setupRouter() *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
+	// Using AsciiJSON to Generates ASCII-only JSON with escaped non-ASCII characters.
+	r.GET("/AsciiJSON", func(c *gin.Context) {
+		data := map[string]interface{}{
+			"lang": "GO语言",
+			"tag":  "<br>",
+		}
+
+		// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
+		c.AsciiJSON(http.StatusOK, data)
+	})
+
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
 		user := c.Params.ByName("name")
@@ -71,5 +82,5 @@ func setupRouter() *gin.Engine {
 func main() {
 	r := setupRouter()
 	// Listen and Server in 0.0.0.0:8080
-	r.Run(":8080")
+	r.Run(":8214")
 }

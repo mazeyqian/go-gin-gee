@@ -1,3 +1,7 @@
 # go-start
 
-开始！
+## run
+
+```
+go run main.go
+```
