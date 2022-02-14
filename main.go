@@ -26,6 +26,16 @@ func GetDataB(c *gin.Context) {
 	})
 }
 
+type myForm struct {
+	Colors []string `form:"colors[]"`
+}
+
+func formHandler(c *gin.Context) {
+	var fakeForm myForm
+	c.ShouldBind(&fakeForm)
+	c.JSON(200, gin.H{"color": fakeForm.Colors})
+}
+
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
 	// Disable Console Color
@@ -38,6 +48,7 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Using AsciiJSON to Generates ASCII-only JSON with escaped non-ASCII characters.
+	// https://gin-gonic.com/docs/examples/ascii-json/
 	r.GET("/AsciiJSON", func(c *gin.Context) {
 		data := map[string]interface{}{
 			"lang": "GO语言",
@@ -49,7 +60,12 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Bind form-data request with custom struct
+	// https://gin-gonic.com/docs/examples/bind-form-data-request-with-custom-struct/
 	r.GET("/Get-Custom-Struct", GetDataB)
+
+	// Bind html checkboxes
+	// https://gin-gonic.com/docs/examples/bind-html-checkbox/
+	r.POST("/Bind-html-checkboxes", formHandler)
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
