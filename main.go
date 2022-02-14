@@ -1,7 +1,9 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,6 +38,26 @@ func formHandler(c *gin.Context) {
 	c.JSON(200, gin.H{"color": fakeForm.Colors})
 }
 
+type Person struct {
+	Name     string    `form:"name"`
+	Address  string    `form:"address"`
+	Birthday time.Time `form:"birthday" time_format:"2006-01-02" time_utc:"1"`
+}
+
+func startPage(c *gin.Context) {
+	var person Person
+	// If `GET`, only `Form` binding engine (`query`) used.
+	// If `POST`, first checks the `content-type` for `JSON` or `XML`, then uses `Form` (`form-data`).
+	// See more at https://github.com/gin-gonic/gin/blob/master/binding/binding.go#L48
+	if c.ShouldBind(&person) == nil {
+		log.Println(person.Name)
+		log.Println(person.Address)
+		log.Println(person.Birthday)
+	}
+
+	c.String(200, "Success")
+}
+
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
 	// Disable Console Color
@@ -66,6 +88,10 @@ func setupRouter() *gin.Engine {
 	// Bind html checkboxes
 	// https://gin-gonic.com/docs/examples/bind-html-checkbox/
 	r.POST("/Bind-html-checkboxes", formHandler)
+
+	// Bind query string or post data
+	// https://gin-gonic.com/docs/examples/bind-query-or-post/
+	r.GET("/bind-query-or-post", startPage)
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
