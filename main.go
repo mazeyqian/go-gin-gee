@@ -58,6 +58,11 @@ func startPage(c *gin.Context) {
 	c.String(200, "Success")
 }
 
+type PersonBindUrl struct {
+	ID   string `uri:"id" binding:"required,uuid"`
+	Name string `uri:"name" binding:"required"`
+}
+
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
 	// Disable Console Color
@@ -92,6 +97,17 @@ func setupRouter() *gin.Engine {
 	// Bind query string or post data
 	// https://gin-gonic.com/docs/examples/bind-query-or-post/
 	r.GET("/bind-query-or-post", startPage)
+
+	// Bind Uri
+	// https://gin-gonic.com/docs/examples/bind-uri/
+	r.GET("/:name/:id", func(c *gin.Context) {
+		var person PersonBindUrl
+		if err := c.ShouldBindUri(&person); err != nil {
+			c.JSON(400, gin.H{"msg": err})
+			return
+		}
+		c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
+	})
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
