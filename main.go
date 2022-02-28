@@ -63,11 +63,44 @@ type PersonBindUrl struct {
 	Name string `uri:"name" binding:"required"`
 }
 
+func Logger() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		t := time.Now()
+
+		// Set example variable
+		c.Set("example", "12345")
+
+		// before request
+
+		c.Next()
+
+		// after request
+		latency := time.Since(t)
+		log.Print(latency)
+
+		// access the status we are sending
+		status := c.Writer.Status()
+		log.Println(status)
+	}
+}
+
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
+
+	// Custom Middleware
+	// https://gin-gonic.com/docs/examples/custom-middleware/
+	r.Use(Logger())
+	r.GET("/Middleware", func(c *gin.Context) {
+		example := c.MustGet("example").(string)
+
+		// it would print: "12345"
+		log.Println(example)
+
+		c.JSON(200, gin.H{"testMiddleware": example})
+	})
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
