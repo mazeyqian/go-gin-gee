@@ -76,11 +76,11 @@ func Logger() gin.HandlerFunc {
 
 		// after request
 		latency := time.Since(t)
-		log.Print(latency)
+		log.Print("Consume Time: ", latency)
 
 		// access the status we are sending
 		status := c.Writer.Status()
-		log.Println(status)
+		log.Println("StatusCode: ", status)
 	}
 }
 
