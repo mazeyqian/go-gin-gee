@@ -153,6 +153,13 @@ func setupRouter() *gin.Engine {
 		}
 	})
 
+	// Grouping routes
+	v2 := r.Group("/v2")
+	{
+		v2.GET("/bind-query-or-post", startPage)
+		v2.POST("/Bind-html-checkboxes", formHandler)
+	}
+
 	// Authorized group (uses gin.BasicAuth() middleware)
 	// Same than:
 	// authorized := r.Group("/")
