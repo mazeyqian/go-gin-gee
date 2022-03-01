@@ -90,6 +90,8 @@ func setupRouter() *gin.Engine {
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 
+	// Gin Examples - begin
+
 	// Custom Middleware
 	// https://gin-gonic.com/docs/examples/custom-middleware/
 	r.Use(Logger())
@@ -160,6 +162,19 @@ func setupRouter() *gin.Engine {
 		v2.POST("/Bind-html-checkboxes", formHandler)
 	}
 
+	// HTML rendering
+	r.LoadHTMLGlob("templates/*")
+	//router.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
+	r.GET("/index", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title": "Main website",
+		})
+	})
+
+	// Gin Examples - end
+
+	// Gin Introduction - begin
+
 	// Authorized group (uses gin.BasicAuth() middleware)
 	// Same than:
 	// authorized := r.Group("/")
@@ -194,6 +209,8 @@ func setupRouter() *gin.Engine {
 			c.JSON(http.StatusOK, gin.H{"status": "ok"})
 		}
 	})
+
+	// Gin Introduction - end
 
 	return r
 }
