@@ -171,6 +171,18 @@ func setupRouter() *gin.Engine {
 		})
 	})
 
+	// JSONP
+	// https://gin-gonic.com/docs/examples/jsonp/
+	r.GET("/JSONP?callback=x", func(c *gin.Context) {
+		data := map[string]interface{}{
+			"foo": "bar",
+		}
+
+		//callback is x
+		// Will output  :   x({\"foo\":\"bar\"})
+		c.JSONP(http.StatusOK, data)
+	})
+
 	// Gin Examples - end
 
 	// Gin Introduction - begin
