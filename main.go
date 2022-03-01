@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-resty/resty/v2"
 )
 
 var db = make(map[string]string)
@@ -235,6 +237,43 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Gin Introduction - end
+
+	// test - begin
+	r.GET("/resty-ping", func(c *gin.Context) {
+		// Create a Resty Client
+		client := resty.New()
+		resp, err := client.R().
+			EnableTrace().
+			Get("https://httpbin.org/get")
+		// Explore response object
+		log.Println("Response Info:")
+		log.Println("  Error      :", err)
+		log.Println("  Status Code:", resp.StatusCode())
+		log.Println("  Status     :", resp.Status())
+		log.Println("  Proto      :", resp.Proto())
+		log.Println("  Time       :", resp.Time())
+		log.Println("  Received At:", resp.ReceivedAt())
+		log.Println("  Body       :\n", resp)
+		log.Println()
+
+		// Explore trace info
+		fmt.Println("Request Trace Info:")
+		ti := resp.Request.TraceInfo()
+		fmt.Println("  DNSLookup     :", ti.DNSLookup)
+		fmt.Println("  ConnTime      :", ti.ConnTime)
+		fmt.Println("  TCPConnTime   :", ti.TCPConnTime)
+		fmt.Println("  TLSHandshake  :", ti.TLSHandshake)
+		fmt.Println("  ServerTime    :", ti.ServerTime)
+		fmt.Println("  ResponseTime  :", ti.ResponseTime)
+		fmt.Println("  TotalTime     :", ti.TotalTime)
+		fmt.Println("  IsConnReused  :", ti.IsConnReused)
+		fmt.Println("  IsConnWasIdle :", ti.IsConnWasIdle)
+		fmt.Println("  ConnIdleTime  :", ti.ConnIdleTime)
+		fmt.Println("  RequestAttempt:", ti.RequestAttempt)
+		fmt.Println("  RemoteAddr    :", ti.RemoteAddr.String())
+		c.JSONP(http.StatusOK, gin.H{"msg": "ok"})
+	})
+	// test - end
 
 	return r
 }
