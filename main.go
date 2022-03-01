@@ -173,6 +173,7 @@ func setupRouter() *gin.Engine {
 
 	// JSONP
 	// https://gin-gonic.com/docs/examples/jsonp/
+	// Wrong
 	r.GET("/JSONP?callback=x", func(c *gin.Context) {
 		data := map[string]interface{}{
 			"foo": "bar",
@@ -181,6 +182,17 @@ func setupRouter() *gin.Engine {
 		//callback is x
 		// Will output  :   x({\"foo\":\"bar\"})
 		c.JSONP(http.StatusOK, data)
+	})
+
+	// Map as querystring or postform parameters
+	// https://gin-gonic.com/docs/examples/map-as-querystring-or-postform/
+	r.POST("/postform-parameters", func(c *gin.Context) {
+
+		ids := c.QueryMap("ids")
+		names := c.PostFormMap("names")
+
+		log.Printf("ids: %v; names: %v", ids, names)
+		c.JSONP(http.StatusOK, gin.H{"ids": ids, "names": names})
 	})
 
 	// Gin Examples - end
