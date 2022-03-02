@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -85,6 +86,9 @@ func Logger() gin.HandlerFunc {
 		log.Println("StatusCode: ", status)
 	}
 }
+
+// resty client
+var client = resty.New()
 
 func setupRouter() *gin.Engine {
 	db["mazey"] = "cherrie"
@@ -194,7 +198,7 @@ func setupRouter() *gin.Engine {
 		names := c.PostFormMap("names")
 
 		log.Printf("ids: %v; names: %v", ids, names)
-		c.JSONP(http.StatusOK, gin.H{"ids": ids, "names": names})
+		c.JSON(http.StatusOK, gin.H{"ids": ids, "names": names})
 	})
 
 	// Gin Examples - end
@@ -271,7 +275,30 @@ func setupRouter() *gin.Engine {
 		fmt.Println("  ConnIdleTime  :", ti.ConnIdleTime)
 		fmt.Println("  RequestAttempt:", ti.RequestAttempt)
 		fmt.Println("  RemoteAddr    :", ti.RemoteAddr.String())
-		c.JSONP(http.StatusOK, gin.H{"msg": "ok"})
+		c.JSON(http.StatusOK, gin.H{"msg": "ok"})
+	})
+
+	r.GET("/resty-upload", func(c *gin.Context) {
+		// POST of raw bytes for file upload. For example: upload file to Dropbox
+		fileBytes, _ := ioutil.ReadFile("./data/test.csv")
+
+		// See we are not setting content-type header, since go-resty automatically detects Content-Type for you
+		resp, err := client.R().
+			SetBody(fileBytes).
+			SetContentLength(true). // Dropbox expects this value
+			Post("http://localhost:9000/upload")
+
+		// Explore response object
+		log.Println("Response Info:")
+		log.Println("  Error      :", err)
+		log.Println("  Status Code:", resp.StatusCode())
+		log.Println("  Status     :", resp.Status())
+		log.Println("  Proto      :", resp.Proto())
+		log.Println("  Time       :", resp.Time())
+		log.Println("  Received At:", resp.ReceivedAt())
+		log.Println("  Body       :\n", resp)
+		log.Println()
+		c.JSON(http.StatusOK, gin.H{"msg": "ok"})
 	})
 	// test - end
 
