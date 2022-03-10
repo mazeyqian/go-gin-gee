@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -279,14 +280,15 @@ func setupRouter() *gin.Engine {
 	})
 
 	r.GET("/resty-upload", func(c *gin.Context) {
-		// POST of raw bytes for file upload. For example: upload file to Dropbox
-		fileBytes, _ := ioutil.ReadFile("./data/test.csv")
+		// POST of raw bytes for file upload.
+		fileBytes, _ := ioutil.ReadFile("./data/in.csv")
 
 		// See we are not setting content-type header, since go-resty automatically detects Content-Type for you
 		resp, err := client.R().
-			SetBody(fileBytes).
+			SetHeader("Content-Type", "application/octet-stream").
+			SetBody(bytes.NewReader(fileBytes)).
 			SetContentLength(true). // Dropbox expects this value
-			Post("http://localhost:9000/upload")
+			Post("http://localhost:3002/")
 
 		// Explore response object
 		log.Println("Response Info:")
