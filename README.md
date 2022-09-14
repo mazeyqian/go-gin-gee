@@ -1,5 +1,11 @@
 # go-gin-gee
 
+## install
+
+```
+go get
+```
+
 ## run
 
 ```
