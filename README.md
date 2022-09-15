@@ -3,7 +3,7 @@
 ## install
 
 ```
-go get
+go install
 ```
 
 ## run
