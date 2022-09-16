@@ -6,6 +6,12 @@
 go get
 ```
 
+If `i/o timeout`, run the command to alter the proxy: 
+
+```
+go env -w GOPROXY=https://goproxy.cn
+```
+
 ## Run
 
 ```
