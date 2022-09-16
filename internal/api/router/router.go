@@ -57,5 +57,8 @@ func Setup() *gin.Engine {
 	app.PUT("/api/tasks/:id", controllers.UpdateTask)
 	app.DELETE("/api/tasks/:id", controllers.DeleteTask)
 
+	// Gin
+	app.GET("/api/ping", controllers.Ping)
+
 	return app
 }
