@@ -1,18 +1,18 @@
 # go-gin-gee
 
-## install
+## Install
 
 ```
-go install
+go get
 ```
 
-## run
+## Run
 
 ```
 go run main.go
 ```
 
-## build
+## Build
 
 ```
 go build main.go
