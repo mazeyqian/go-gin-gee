@@ -9,7 +9,7 @@ import (
 	"github.com/mazeyqian/go-gin-gee/internal/api/controllers"
 	"github.com/mazeyqian/go-gin-gee/internal/api/middlewares"
 	swaggerFiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func Setup() *gin.Engine {
@@ -59,6 +59,15 @@ func Setup() *gin.Engine {
 
 	// Gin
 	app.GET("/api/ping", controllers.Ping)
+	app.GET("/api/Get-Custom-Struct", controllers.GetDataB)
+	app.GET("/api/AsciiJSON", controllers.AsciiJSON)
+	app.POST("/api/Bind-html-checkboxes", controllers.FormHandler)
+	// Grouping routes
+	v2 := app.Group("/api/v2")
+	{
+		// v2.GET("/bind-query-or-post", startPage)
+		v2.POST("/Bind-html-checkboxes", controllers.FormHandler)
+	}
 
 	return app
 }

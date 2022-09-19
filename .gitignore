@@ -1,3 +1,12 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Others
 .DS_Store
 node_modules/
 dist/
@@ -8,11 +17,3 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 data/
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln

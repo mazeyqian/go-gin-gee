@@ -112,29 +112,29 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
+	// r.GET("/ping", func(c *gin.Context) {
+	// 	c.String(http.StatusOK, "pong")
+	// })
 
 	// Using AsciiJSON to Generates ASCII-only JSON with escaped non-ASCII characters.
 	// https://gin-gonic.com/docs/examples/ascii-json/
-	r.GET("/AsciiJSON", func(c *gin.Context) {
-		data := map[string]interface{}{
-			"lang": "GO语言",
-			"tag":  "<br>",
-		}
+	// r.GET("/AsciiJSON", func(c *gin.Context) {
+	// 	data := map[string]interface{}{
+	// 		"lang": "GO语言",
+	// 		"tag":  "<br>",
+	// 	}
 
-		// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
-		c.AsciiJSON(http.StatusOK, data)
-	})
+	// 	// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
+	// 	c.AsciiJSON(http.StatusOK, data)
+	// })
 
 	// Bind form-data request with custom struct
 	// https://gin-gonic.com/docs/examples/bind-form-data-request-with-custom-struct/
-	r.GET("/Get-Custom-Struct", GetDataB)
+	// r.GET("/Get-Custom-Struct", GetDataB)
 
 	// Bind html checkboxes
 	// https://gin-gonic.com/docs/examples/bind-html-checkbox/
-	r.POST("/Bind-html-checkboxes", formHandler)
+	// r.POST("/Bind-html-checkboxes", formHandler)
 
 	// Bind query string or post data
 	// https://gin-gonic.com/docs/examples/bind-query-or-post/
