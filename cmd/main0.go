@@ -1,9 +1,6 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -193,14 +190,14 @@ func setupRouter() *gin.Engine {
 
 	// Map as querystring or postform parameters
 	// https://gin-gonic.com/docs/examples/map-as-querystring-or-postform/
-	r.POST("/postform-parameters", func(c *gin.Context) {
+	// r.POST("/postform-parameters", func(c *gin.Context) {
 
-		ids := c.QueryMap("ids")
-		names := c.PostFormMap("names")
+	// 	ids := c.QueryMap("ids")
+	// 	names := c.PostFormMap("names")
 
-		log.Printf("ids: %v; names: %v", ids, names)
-		c.JSON(http.StatusOK, gin.H{"ids": ids, "names": names})
-	})
+	// 	log.Printf("ids: %v; names: %v", ids, names)
+	// 	c.JSON(http.StatusOK, gin.H{"ids": ids, "names": names})
+	// })
 
 	// Gin Examples - end
 
@@ -244,64 +241,64 @@ func setupRouter() *gin.Engine {
 	// Gin Introduction - end
 
 	// test - begin
-	r.GET("/resty-ping", func(c *gin.Context) {
-		// Create a Resty Client
-		client := resty.New()
-		resp, err := client.R().
-			EnableTrace().
-			Get("https://httpbin.org/get")
-		// Explore response object
-		log.Println("Response Info:")
-		log.Println("  Error      :", err)
-		log.Println("  Status Code:", resp.StatusCode())
-		log.Println("  Status     :", resp.Status())
-		log.Println("  Proto      :", resp.Proto())
-		log.Println("  Time       :", resp.Time())
-		log.Println("  Received At:", resp.ReceivedAt())
-		log.Println("  Body       :\n", resp)
-		log.Println()
+	// r.GET("/resty-ping", func(c *gin.Context) {
+	// 	// Create a Resty Client
+	// 	client := resty.New()
+	// 	resp, err := client.R().
+	// 		EnableTrace().
+	// 		Get("https://httpbin.org/get")
+	// 	// Explore response object
+	// 	log.Println("Response Info:")
+	// 	log.Println("  Error      :", err)
+	// 	log.Println("  Status Code:", resp.StatusCode())
+	// 	log.Println("  Status     :", resp.Status())
+	// 	log.Println("  Proto      :", resp.Proto())
+	// 	log.Println("  Time       :", resp.Time())
+	// 	log.Println("  Received At:", resp.ReceivedAt())
+	// 	log.Println("  Body       :\n", resp)
+	// 	log.Println()
 
-		// Explore trace info
-		fmt.Println("Request Trace Info:")
-		ti := resp.Request.TraceInfo()
-		fmt.Println("  DNSLookup     :", ti.DNSLookup)
-		fmt.Println("  ConnTime      :", ti.ConnTime)
-		fmt.Println("  TCPConnTime   :", ti.TCPConnTime)
-		fmt.Println("  TLSHandshake  :", ti.TLSHandshake)
-		fmt.Println("  ServerTime    :", ti.ServerTime)
-		fmt.Println("  ResponseTime  :", ti.ResponseTime)
-		fmt.Println("  TotalTime     :", ti.TotalTime)
-		fmt.Println("  IsConnReused  :", ti.IsConnReused)
-		fmt.Println("  IsConnWasIdle :", ti.IsConnWasIdle)
-		fmt.Println("  ConnIdleTime  :", ti.ConnIdleTime)
-		fmt.Println("  RequestAttempt:", ti.RequestAttempt)
-		fmt.Println("  RemoteAddr    :", ti.RemoteAddr.String())
-		c.JSON(http.StatusOK, gin.H{"msg": "ok"})
-	})
+	// 	// Explore trace info
+	// 	fmt.Println("Request Trace Info:")
+	// 	ti := resp.Request.TraceInfo()
+	// 	fmt.Println("  DNSLookup     :", ti.DNSLookup)
+	// 	fmt.Println("  ConnTime      :", ti.ConnTime)
+	// 	fmt.Println("  TCPConnTime   :", ti.TCPConnTime)
+	// 	fmt.Println("  TLSHandshake  :", ti.TLSHandshake)
+	// 	fmt.Println("  ServerTime    :", ti.ServerTime)
+	// 	fmt.Println("  ResponseTime  :", ti.ResponseTime)
+	// 	fmt.Println("  TotalTime     :", ti.TotalTime)
+	// 	fmt.Println("  IsConnReused  :", ti.IsConnReused)
+	// 	fmt.Println("  IsConnWasIdle :", ti.IsConnWasIdle)
+	// 	fmt.Println("  ConnIdleTime  :", ti.ConnIdleTime)
+	// 	fmt.Println("  RequestAttempt:", ti.RequestAttempt)
+	// 	fmt.Println("  RemoteAddr    :", ti.RemoteAddr.String())
+	// 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
+	// })
 
-	r.GET("/resty-upload", func(c *gin.Context) {
-		// POST of raw bytes for file upload.
-		fileBytes, _ := ioutil.ReadFile("./data/in.csv")
+	// r.GET("/resty-upload", func(c *gin.Context) {
+	// 	// POST of raw bytes for file upload.
+	// 	fileBytes, _ := ioutil.ReadFile("./data/in.csv")
 
-		// See we are not setting content-type header, since go-resty automatically detects Content-Type for you
-		resp, err := client.R().
-			SetHeader("Content-Type", "application/octet-stream").
-			SetBody(bytes.NewReader(fileBytes)).
-			SetContentLength(true). // Dropbox expects this value
-			Post("http://localhost:3002/")
+	// 	// See we are not setting content-type header, since go-resty automatically detects Content-Type for you
+	// 	resp, err := client.R().
+	// 		SetHeader("Content-Type", "application/octet-stream").
+	// 		SetBody(bytes.NewReader(fileBytes)).
+	// 		SetContentLength(true). // Dropbox expects this value
+	// 		Post("http://localhost:3002/")
 
-		// Explore response object
-		log.Println("Response Info:")
-		log.Println("  Error      :", err)
-		log.Println("  Status Code:", resp.StatusCode())
-		log.Println("  Status     :", resp.Status())
-		log.Println("  Proto      :", resp.Proto())
-		log.Println("  Time       :", resp.Time())
-		log.Println("  Received At:", resp.ReceivedAt())
-		log.Println("  Body       :\n", resp)
-		log.Println()
-		c.JSON(http.StatusOK, gin.H{"msg": "ok"})
-	})
+	// 	// Explore response object
+	// 	log.Println("Response Info:")
+	// 	log.Println("  Error      :", err)
+	// 	log.Println("  Status Code:", resp.StatusCode())
+	// 	log.Println("  Status     :", resp.Status())
+	// 	log.Println("  Proto      :", resp.Proto())
+	// 	log.Println("  Time       :", resp.Time())
+	// 	log.Println("  Received At:", resp.ReceivedAt())
+	// 	log.Println("  Body       :\n", resp)
+	// 	log.Println()
+	// 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
+	// })
 	// test - end
 
 	return r

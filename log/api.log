@@ -18,14 +18,19 @@
 [GIN-debug] GET    /api/bind-query-or-post   --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
 [GIN-debug] GET    /api/Middleware           --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Middleware0920 (5 handlers)
 [GIN-debug] Loaded HTML Templates (2): 
-	- 
 	- index.tmpl
+	- 
 
 [GIN-debug] GET    /api/index                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Index0920 (5 handlers)
 [GIN-debug] GET    /api/JSONP?callback=x     --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.JSONP0920 (5 handlers)
 [GIN-debug] GET    /:name/:id                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.NameId0920 (5 handlers)
+[GIN-debug] POST   /api/postform-parameters  --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.PostformParameters (5 handlers)
+[GIN-debug] GET    /resty-ping               --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyPing (5 handlers)
+[GIN-debug] GET    /resty-upload             --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyUpload (5 handlers)
 [GIN-debug] GET    /api/v2/bind-query-or-post --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
 [GIN-debug] POST   /api/v2/Bind-html-checkboxes --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.FormHandler (5 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :3000
+127.0.0.1 - - [20/Sep/2022:13:54:59 +0800] "GET /api/resty-upload HTTP/1.1 400 360.108µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:13:55:07 +0800] "GET /api/resty-upload HTTP/1.1 400 108.083µs " " PostmanRuntime/7.29.2" " "
