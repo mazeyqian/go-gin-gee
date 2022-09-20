@@ -68,3 +68,12 @@ Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-
 127.0.0.1 - - [20/Sep/2022:21:16:40 +0800] "POST /api/login HTTP/1.1 200 7.722765ms " " PostmanRuntime/7.29.2" " "
 127.0.0.1 - - [20/Sep/2022:21:16:54 +0800] "POST /api/login HTTP/1.1 200 4.347663ms " " PostmanRuntime/7.29.2" " "
 127.0.0.1 - - [20/Sep/2022:21:16:55 +0800] "POST /api/login HTTP/1.1 200 3.581508ms " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:22:05 +0800] "GET /api/docs/login HTTP/1.1 400 98.572µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:23:24 +0800] "GET /api/docs/*any HTTP/1.1 400 51.456µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:23:54 +0800] "GET /docs/*any HTTP/1.1 404 103.32µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:24:03 +0800] "GET /docs/login HTTP/1.1 404 52.972µs " " PostmanRuntime/7.29.2" " "
+[GIN-debug] redirecting request 301: /docs/ --> /docs/
+127.0.0.1 - - [20/Sep/2022:21:24:15 +0800] "GET /docs/ HTTP/1.1 404 31.673µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:24:55 +0800] "GET /docs/GetUserById HTTP/1.1 404 44.46µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:27:01 +0800] "POST /api/login HTTP/1.1 200 7.319774ms " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:21:27:24 +0800] "POST /api/login/add HTTP/1.1 400 4.345991ms " " PostmanRuntime/7.29.2" " "
