@@ -58,7 +58,7 @@ func Setup() *gin.Engine {
 	app.PUT("/api/tasks/:id", controllers.UpdateTask)
 	app.DELETE("/api/tasks/:id", controllers.DeleteTask)
 
-	// Gin
+	// Gin - begin
 	app.GET("/api/ping", controllers.Ping)
 	app.GET("/api/Get-Custom-Struct", controllers.GetDataB)
 	app.GET("/api/AsciiJSON", controllers.AsciiJSON)
@@ -78,6 +78,7 @@ func Setup() *gin.Engine {
 		v2.GET("/bind-query-or-post", controllers.StartPage)
 		v2.POST("/Bind-html-checkboxes", controllers.FormHandler)
 	}
+	// Gin - end
 
 	return app
 }
