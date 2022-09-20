@@ -102,14 +102,14 @@ func setupRouter() *gin.Engine {
 	// Custom Middleware
 	// https://gin-gonic.com/docs/examples/custom-middleware/
 	r.Use(Logger())
-	r.GET("/Middleware", func(c *gin.Context) {
-		example := c.MustGet("example").(string)
+	// r.GET("/Middleware", func(c *gin.Context) {
+	// 	example := c.MustGet("example").(string)
 
-		// it would print: "12345"
-		log.Println(example)
+	// 	// it would print: "12345"
+	// 	log.Println(example)
 
-		c.JSON(200, gin.H{"testMiddleware": example})
-	})
+	// 	c.JSON(200, gin.H{"testMiddleware": example})
+	// })
 
 	// Ping test
 	// r.GET("/ping", func(c *gin.Context) {
@@ -138,18 +138,18 @@ func setupRouter() *gin.Engine {
 
 	// Bind query string or post data
 	// https://gin-gonic.com/docs/examples/bind-query-or-post/
-	r.GET("/bind-query-or-post", startPage)
+	// r.GET("/bind-query-or-post", startPage)
 
 	// Bind Uri
 	// https://gin-gonic.com/docs/examples/bind-uri/
-	r.GET("/:name/:id", func(c *gin.Context) {
-		var person PersonBindUrl
-		if err := c.ShouldBindUri(&person); err != nil {
-			c.JSON(400, gin.H{"msg": err})
-			return
-		}
-		c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
-	})
+	// r.GET("/:name/:id", func(c *gin.Context) {
+	// 	var person PersonBindUrl
+	// 	if err := c.ShouldBindUri(&person); err != nil {
+	// 		c.JSON(400, gin.H{"msg": err})
+	// 		return
+	// 	}
+	// 	c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
+	// })
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
@@ -163,33 +163,33 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Grouping routes
-	v2 := r.Group("/v2")
-	{
-		v2.GET("/bind-query-or-post", startPage)
-		v2.POST("/Bind-html-checkboxes", formHandler)
-	}
+	// v2 := r.Group("/v2")
+	// {
+	// 	v2.GET("/bind-query-or-post", startPage)
+	// 	v2.POST("/Bind-html-checkboxes", formHandler)
+	// }
 
 	// HTML rendering
-	r.LoadHTMLGlob("templates/*")
+	// r.LoadHTMLGlob("templates/*")
 	//router.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
-	r.GET("/index", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title": "Main website",
-		})
-	})
+	// r.GET("/index", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+	// 		"title": "Main website",
+	// 	})
+	// })
 
 	// JSONP
 	// https://gin-gonic.com/docs/examples/jsonp/
 	// Wrong
-	r.GET("/JSONP?callback=x", func(c *gin.Context) {
-		data := map[string]interface{}{
-			"foo": "bar",
-		}
+	// r.GET("/JSONP?callback=x", func(c *gin.Context) {
+	// 	data := map[string]interface{}{
+	// 		"foo": "bar",
+	// 	}
 
-		//callback is x
-		// Will output  :   x({\"foo\":\"bar\"})
-		c.JSONP(http.StatusOK, data)
-	})
+	// 	//callback is x
+	// 	// Will output  :   x({\"foo\":\"bar\"})
+	// 	c.JSONP(http.StatusOK, data)
+	// })
 
 	// Map as querystring or postform parameters
 	// https://gin-gonic.com/docs/examples/map-as-querystring-or-postform/

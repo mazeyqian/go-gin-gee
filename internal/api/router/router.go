@@ -36,6 +36,7 @@ func Setup() *gin.Engine {
 	}))
 	app.Use(gin.Recovery())
 	app.Use(middlewares.CORS())
+	app.Use(middlewares.Logger())
 	app.NoRoute(middlewares.NoRouteHandler())
 
 	// Routes
@@ -62,10 +63,16 @@ func Setup() *gin.Engine {
 	app.GET("/api/Get-Custom-Struct", controllers.GetDataB)
 	app.GET("/api/AsciiJSON", controllers.AsciiJSON)
 	app.POST("/api/Bind-html-checkboxes", controllers.FormHandler)
+	app.GET("/api/bind-query-or-post", controllers.StartPage)
+	app.GET("/api/Middleware", controllers.Middleware0920)
+	app.LoadHTMLGlob("templates/*")
+	app.GET("/api/index", controllers.Index0920)
+	app.GET("/api/JSONP?callback=x", controllers.JSONP0920)
+	app.GET("/:name/:id", controllers.NameId0920)
 	// Grouping routes
 	v2 := app.Group("/api/v2")
 	{
-		// v2.GET("/bind-query-or-post", startPage)
+		v2.GET("/bind-query-or-post", controllers.StartPage)
 		v2.POST("/Bind-html-checkboxes", controllers.FormHandler)
 	}
 

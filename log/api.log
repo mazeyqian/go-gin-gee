@@ -1,1 +1,31 @@
-127.0.0.1 - - [19/Sep/2022:13:49:51 +0800] "POST /api/v2/Bind-html-checkboxes HTTP/1.1 200 185.263µs " " PostmanRuntime/7.29.2" " "
+[GIN-debug] POST   /api/login                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Login (5 handlers)
+[GIN-debug] POST   /api/login/add            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.CreateUser (5 handlers)
+[GIN-debug] GET    /docs/*any                --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (5 handlers)
+[GIN-debug] GET    /api/users                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.GetUsers (5 handlers)
+[GIN-debug] GET    /api/users/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.GetUserById (5 handlers)
+[GIN-debug] POST   /api/users                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.CreateUser (5 handlers)
+[GIN-debug] PUT    /api/users/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.UpdateUser (5 handlers)
+[GIN-debug] DELETE /api/users/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.DeleteUser (5 handlers)
+[GIN-debug] GET    /api/tasks/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.GetTaskById (5 handlers)
+[GIN-debug] GET    /api/tasks                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.GetTasks (5 handlers)
+[GIN-debug] POST   /api/tasks                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.CreateTask (5 handlers)
+[GIN-debug] PUT    /api/tasks/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.UpdateTask (5 handlers)
+[GIN-debug] DELETE /api/tasks/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.DeleteTask (5 handlers)
+[GIN-debug] GET    /api/ping                 --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Ping (5 handlers)
+[GIN-debug] GET    /api/Get-Custom-Struct    --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.GetDataB (5 handlers)
+[GIN-debug] GET    /api/AsciiJSON            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.AsciiJSON (5 handlers)
+[GIN-debug] POST   /api/Bind-html-checkboxes --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.FormHandler (5 handlers)
+[GIN-debug] GET    /api/bind-query-or-post   --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
+[GIN-debug] GET    /api/Middleware           --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Middleware0920 (5 handlers)
+[GIN-debug] Loaded HTML Templates (2): 
+	- 
+	- index.tmpl
+
+[GIN-debug] GET    /api/index                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Index0920 (5 handlers)
+[GIN-debug] GET    /api/JSONP?callback=x     --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.JSONP0920 (5 handlers)
+[GIN-debug] GET    /:name/:id                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.NameId0920 (5 handlers)
+[GIN-debug] GET    /api/v2/bind-query-or-post --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
+[GIN-debug] POST   /api/v2/Bind-html-checkboxes --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.FormHandler (5 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :3000
