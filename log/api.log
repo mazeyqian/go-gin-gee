@@ -18,19 +18,47 @@
 [GIN-debug] GET    /api/bind-query-or-post   --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
 [GIN-debug] GET    /api/Middleware           --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Middleware0920 (5 handlers)
 [GIN-debug] Loaded HTML Templates (2): 
-	- index.tmpl
 	- 
+	- index.tmpl
 
 [GIN-debug] GET    /api/index                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.Index0920 (5 handlers)
-[GIN-debug] GET    /api/JSONP?callback=x     --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.JSONP0920 (5 handlers)
-[GIN-debug] GET    /:name/:id                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.NameId0920 (5 handlers)
+[GIN-debug] GET    /api/JSONP                --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.JSONP0920 (5 handlers)
+[GIN-debug] GET    /api/:name/:id            --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.NameId0920 (5 handlers)
 [GIN-debug] POST   /api/postform-parameters  --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.PostformParameters (5 handlers)
-[GIN-debug] GET    /resty-ping               --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyPing (5 handlers)
-[GIN-debug] GET    /resty-upload             --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyUpload (5 handlers)
+[GIN-debug] GET    /api/resty-ping           --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyPing (5 handlers)
+[GIN-debug] GET    /api/resty-upload         --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.RestyUpload (5 handlers)
 [GIN-debug] GET    /api/v2/bind-query-or-post --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.StartPage (5 handlers)
 [GIN-debug] POST   /api/v2/Bind-html-checkboxes --> github.com/mazeyqian/go-gin-gee/internal/api/controllers.FormHandler (5 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :3000
-127.0.0.1 - - [20/Sep/2022:13:54:59 +0800] "GET /api/resty-upload HTTP/1.1 400 360.108µs " " PostmanRuntime/7.29.2" " "
-127.0.0.1 - - [20/Sep/2022:13:55:07 +0800] "GET /api/resty-upload HTTP/1.1 400 108.083µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:16:21:15 +0800] "GET /api/JSONP?callback=x HTTP/1.1 200 212.798µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:16:21:22 +0800] "GET /api/JSONP?callback=x233 HTTP/1.1 200 40.178µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/Get-Custom-Struct HTTP/1.1 200 300.486µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/AsciiJSON HTTP/1.1 200 889.543µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "POST /api/Bind-html-checkboxes HTTP/1.1 200 875.139µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "POST /api/v2/Bind-html-checkboxes HTTP/1.1 200 121.811µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/bind-query-or-post HTTP/1.1 200 61.237µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/v2/bind-query-or-post HTTP/1.1 200 50.387µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/thinkerou/987fbc97-4bed-5078-9f07-9141ba07c9f3 HTTP/1.1 200 118.998µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/Middleware HTTP/1.1 200 39.919µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/index HTTP/1.1 200 2.365937ms " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "GET /api/JSONP?callback=x233 HTTP/1.1 200 37.516µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:04 +0800] "POST /api/postform-parameters?ids[a]=1234&ids[b]=hello HTTP/1.1 200 1.930136ms " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:05 +0800] "GET /api/resty-ping HTTP/1.1 200 1.080839562s " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:05 +0800] "GET /api/resty-upload HTTP/1.1 200 2.357571ms " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:05 +0800] "GET /api/ping HTTP/1.1 200 29.154µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/Get-Custom-Struct HTTP/1.1 200 49.782µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/AsciiJSON HTTP/1.1 200 119.44µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "POST /api/Bind-html-checkboxes HTTP/1.1 200 137.766µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "POST /api/v2/Bind-html-checkboxes HTTP/1.1 200 113.093µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/bind-query-or-post HTTP/1.1 200 61.443µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/v2/bind-query-or-post HTTP/1.1 200 48.912µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/thinkerou/987fbc97-4bed-5078-9f07-9141ba07c9f3 HTTP/1.1 200 72.094µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/Middleware HTTP/1.1 200 40.62µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/index HTTP/1.1 200 889.115µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "GET /api/JSONP?callback=x233 HTTP/1.1 200 38.322µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:24 +0800] "POST /api/postform-parameters?ids[a]=1234&ids[b]=hello HTTP/1.1 200 104.453µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:26 +0800] "GET /api/resty-ping HTTP/1.1 200 1.517861146s " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:26 +0800] "GET /api/resty-upload HTTP/1.1 200 975.689µs " " PostmanRuntime/7.29.2" " "
+127.0.0.1 - - [20/Sep/2022:18:06:26 +0800] "GET /api/ping HTTP/1.1 200 31.911µs " " PostmanRuntime/7.29.2" " "
