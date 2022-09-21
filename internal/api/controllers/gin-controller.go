@@ -12,13 +12,7 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-func Ping(c *gin.Context) {
-	t := time.Now()
-	// https://stackoverflow.com/questions/33119748/convert-time-time-to-string
-	ret := "pong/" + t.Format("2006-01-02 15:04:05")
-	c.String(http.StatusOK, ret)
-}
-
+// Struct - begin
 type StructA struct {
 	FieldA string `form:"field_a"`
 }
@@ -26,6 +20,30 @@ type StructA struct {
 type StructB struct {
 	NestedStruct StructA
 	FieldB       string `form:"field_b"`
+}
+
+type myForm struct {
+	Colors []string `form:"colors[]"`
+}
+
+type Person struct {
+	Name     string    `form:"name"`
+	Address  string    `form:"address"`
+	Birthday time.Time `form:"birthday" time_format:"2006-01-02" time_utc:"1"`
+}
+
+type PersonBindUrl struct {
+	ID   string `uri:"id" binding:"required,uuid"`
+	Name string `uri:"name" binding:"required"`
+}
+
+// Struct - end
+
+func Ping(c *gin.Context) {
+	t := time.Now()
+	// https://stackoverflow.com/questions/33119748/convert-time-time-to-string
+	ret := "pong/" + t.Format("2006-01-02 15:04:05")
+	c.String(http.StatusOK, ret)
 }
 
 func GetDataB(c *gin.Context) {
@@ -47,20 +65,10 @@ func AsciiJSON(c *gin.Context) {
 	c.AsciiJSON(http.StatusOK, data)
 }
 
-type myForm struct {
-	Colors []string `form:"colors[]"`
-}
-
 func FormHandler(c *gin.Context) {
 	var fakeForm myForm
 	c.ShouldBind(&fakeForm)
 	c.JSON(200, gin.H{"color": fakeForm.Colors})
-}
-
-type Person struct {
-	Name     string    `form:"name"`
-	Address  string    `form:"address"`
-	Birthday time.Time `form:"birthday" time_format:"2006-01-02" time_utc:"1"`
 }
 
 func StartPage(c *gin.Context) {
@@ -100,11 +108,6 @@ func JSONP0920(c *gin.Context) {
 	//callback is x
 	// Will output  :   x({\"foo\":\"bar\"})
 	c.JSONP(http.StatusOK, data)
-}
-
-type PersonBindUrl struct {
-	ID   string `uri:"id" binding:"required,uuid"`
-	Name string `uri:"name" binding:"required"`
 }
 
 func NameId0920(c *gin.Context) {
