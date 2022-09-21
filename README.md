@@ -23,5 +23,5 @@ Visit: `http://127.0.0.1:3000/api/ping`
 ## Build
 
 ```
-go build main.go
+go build cmd/api/main.go
 ```
