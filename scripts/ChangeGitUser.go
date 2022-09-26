@@ -19,8 +19,8 @@ func main() {
 	script.ListFiles("/Users/mazey/Web/Mazey/*/.git").FilterLine(func(s string) string {
 		// cmdLines := "echo " + s + " - begin -;"
 		cmdLines := "echo - begin -;"
-		cmdLines += fmt.Sprintf("echo Path: %s;", s)
-		cmdLines += fmt.Sprintf("cd %s;", s) // "cd " + s + ";"
+		cmdLines += fmt.Sprintf("echo Path: %s;", s) // https://pkg.go.dev/fmt#Sprintf
+		cmdLines += fmt.Sprintf("cd %s;", s)         // "cd " + s + ";"
 		// cmdLines += "pwd;"
 		cmdLines += `git config user.email "mazey@mazey.net";`
 		cmdLines += `git config user.name "Mazey Chu";`
