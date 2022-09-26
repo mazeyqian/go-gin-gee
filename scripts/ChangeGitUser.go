@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("I am scripts.")
+	// fmt.Println("I am scripts.")
 	// script.Exec("ping 127.0.0.1").Stdout()
 	// https://bitfieldconsulting.com/golang/scripting
 	// cmdLines := "echo 233 && pwd"
@@ -17,8 +17,10 @@ func main() {
 	// cmdLines += " && echo ---"
 	// script.ListFiles("/Users/mazey/Web/Mazey/*/.git/config").ExecForEach(`/bin/sh -c echo "222222"; echo "333"; echo "444";`).Stdout()
 	script.ListFiles("/Users/mazey/Web/Mazey/*/.git").FilterLine(func(s string) string {
-		cmdLines := "echo " + s + " - begin -;"
-		cmdLines += "cd " + s + ";"
+		// cmdLines := "echo " + s + " - begin -;"
+		cmdLines := "echo - begin -;"
+		cmdLines += fmt.Sprintf("echo Path: %s;", s)
+		cmdLines += fmt.Sprintf("cd %s;", s) // "cd " + s + ";"
 		// cmdLines += "pwd;"
 		cmdLines += `git config user.email "mazey@mazey.net";`
 		cmdLines += `git config user.name "Mazey Chu";`
@@ -26,9 +28,9 @@ func main() {
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
-			fmt.Println("err", err)
+			fmt.Println("Err:", err)
 		}
-		fmt.Printf("Output: %s", result)
+		fmt.Printf("%s", result)
 		// script.Exec("(echo 222 && echo 333)").Stdout()
 		// fmt.Println("print " + s)
 		// cmdLines1 := `git config user.email "mazey@mazey.net"`
