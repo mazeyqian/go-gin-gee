@@ -23,7 +23,7 @@ go run scripts/init/main.go
 go run cmd/api/main.go
 
 # or
-go run scripts/ChangeGitUser.go
+go run scripts/change-git-user/main.go
 ```
 
 Visit: `http://127.0.0.1:3000/api/ping`
@@ -39,7 +39,7 @@ go build cmd/api/main.go
 ### Linux
 
 ```
-GOOS=linux GOARCH=amd64 go build cmd/api/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go
 ```
 
 ### Mac
@@ -57,4 +57,16 @@ GOOS=darwin GOARCH=amd64 go build -o dist/init scripts/init/main.go
 
 ```
 GOOS=windows GOARCH=amd64 go build cmd/api/main.go
+```
+
+### Deploy
+
+```
+[program:api]
+directory=/web/go-gin-gee
+command=/web/go-gin-gee/dist/api
+autostart=true
+autorestart=true
+stderr_logfile=/web/go-gin-gee/log/api.err
+stdout_logfile=/web/go-gin-gee/log/api.log
 ```
