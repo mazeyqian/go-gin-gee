@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	// fmt.Println("I am scripts.")
+	fmt.Println("Change git user...")
 	// script.Exec("ping 127.0.0.1").Stdout()
 	// https://bitfieldconsulting.com/golang/scripting
 	// cmdLines := "echo 233 && pwd"

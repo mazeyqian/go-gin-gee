@@ -18,6 +18,8 @@ go env -w GOPROXY=https://goproxy.cn
 ## Run
 
 ```
+go run scripts/init/main.go
+
 go run cmd/api/main.go
 
 # or
@@ -46,9 +48,9 @@ GOOS=linux GOARCH=amd64 go build cmd/api/main.go
 GOOS=darwin GOARCH=amd64 go build cmd/api/main.go
 
 # or
-GOOS=darwin GOARCH=amd64 go build -o dist/ChangeGitUserMac scripts/ChangeGitUser/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac scripts/change-git-user/main.go
 
-GOOS=darwin GOARCH=amd64 go build -o dist/Init scripts/Init/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/init scripts/init/main.go
 ```
 
 ### Windows
