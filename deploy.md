@@ -85,3 +85,7 @@ systemctl restart nginx
 systemctl status nginx
 
 curl http://127.0.0.1:3000/api/ping
+
+setsebool -P httpd_can_network_connect 1
+
+setsebool -P httpd_can_network_relay 1
