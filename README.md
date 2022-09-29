@@ -3,9 +3,10 @@
 ## Install
 
 ```
+# All Dependences
 go get
 
-# or
+# Single
 go get github.com/bitfield/script
 ```
 
@@ -18,15 +19,21 @@ go env -w GOPROXY=https://goproxy.cn
 ## Run
 
 ```
+# Init
 go run scripts/init/main.go
 
+# Serve
 go run cmd/api/main.go
 
-# or
+# Other Scripts
 go run scripts/change-git-user/main.go
 ```
 
 Visit: `http://127.0.0.1:3000/api/ping`
+
+```
+pong/2022-09-29 04:52:43
+```
 
 ## Build
 
@@ -39,9 +46,10 @@ go build cmd/api/main.go
 ### Linux
 
 ```
+# Default
 GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go
 
-# or
+# Rename Output
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
 ```
 
@@ -54,7 +62,7 @@ GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
 # Init
 GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go
 
-# Change git user
+# Change Git User
 GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go
 ```
 
