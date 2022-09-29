@@ -40,26 +40,31 @@ go build cmd/api/main.go
 
 ```
 GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go
+
+# or
+GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
 ```
 
 ### Mac
 
 ```
-GOOS=darwin GOARCH=amd64 go build cmd/api/main.go
+# Api
+GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
 
-# or
-GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac scripts/change-git-user/main.go
+# Init
+GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go
 
-GOOS=darwin GOARCH=amd64 go build -o dist/init scripts/init/main.go
+# Change git user
+GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go
 ```
 
 ### Windows
 
 ```
-GOOS=windows GOARCH=amd64 go build cmd/api/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 ```
 
-### Deploy
+### Config
 
 ```
 [program:api]
@@ -71,9 +76,15 @@ stderr_logfile=/web/go-gin-gee/log/api.err
 stdout_logfile=/web/go-gin-gee/log/api.log
 ```
 
-### scripts
+### Scripts
 
-Git pull.
+Init
+
+```
+go run scripts/init/main.go
+```
+
+Git Pull
 
 ```
 go run scripts/batch-git-pull/main.go

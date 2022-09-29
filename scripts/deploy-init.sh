@@ -1,4 +1,4 @@
-# Tokyo-CentOS-9-x64
+# Linux-CentOS-9-x64
 
 # Install
 cd ~;
