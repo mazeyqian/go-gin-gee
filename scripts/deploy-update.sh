@@ -1,10 +1,10 @@
 # Linux-CentOS-9-x64
 
 # Start
-supervisorctl start api
+supervisorctl start api;
 
 # Stop
-supervisorctl stop api
+supervisorctl stop api;
 
 # Restart
-supervisorctl restart api
+supervisorctl restart api;
