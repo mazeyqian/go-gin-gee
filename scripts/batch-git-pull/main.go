@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("Change git user...")
 
-	script.ListFiles("/Users/mazey/Web/Example").FilterLine(func(s string) string {
+	script.ListFiles("/Users/mazey/Web/Mazey").FilterLine(func(s string) string {
 		cmdLines := "echo - begin -;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
 		cmdLines += fmt.Sprintf("cd %s;", s)

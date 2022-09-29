@@ -70,3 +70,11 @@ autorestart=true
 stderr_logfile=/web/go-gin-gee/log/api.err
 stdout_logfile=/web/go-gin-gee/log/api.log
 ```
+
+### scripts
+
+Git pull.
+
+```
+go run scripts/batch-git-pull/main.go
+```
