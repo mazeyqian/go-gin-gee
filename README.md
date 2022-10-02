@@ -4,10 +4,13 @@
 
 ```
 # All Dependences
-go get
+go mod download
 
 # Single
-go get github.com/bitfield/script
+go get github.com/example/name
+
+# Update
+go get -u github.com/example/name
 ```
 
 If `i/o timeout`, run the command to replace the proxy: 
