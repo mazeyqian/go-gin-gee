@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("Check website...")
 	type Person struct {
-		Name string `json:"name`
+		Name string `json:"name"`
 		Id   string `json:"uuid"`
 	}
 	p := &Person{}
