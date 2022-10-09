@@ -29,6 +29,7 @@ go run scripts/init/main.go;
 go run cmd/api/main.go;
 
 # Restart
+# cd /web/go-gin-gee;
 go run scripts/restart/main.go;
 
 # Other Scripts
