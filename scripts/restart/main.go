@@ -13,7 +13,9 @@ func main() {
 	cmdLines += `git checkout master;`
 	cmdLines += `git pull;`
 	cmdLines += `GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;`
-	cmdLines += `supervisorctl restart api;`
+	// cmdLines += `supervisorctl restart api;`
+	cmdLines += `systemctl restart supervisord;`
+	cmdLines += `supervisorctl status;`
 	cmdLines += "echo - end -;"
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)
 	result, err := cmd.CombinedOutput()
