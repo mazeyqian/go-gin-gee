@@ -4,35 +4,38 @@
 
 ```
 # All Dependences
-go mod download
+go mod download;
 
 # Single
-go get github.com/example/name
+go get github.com/example/name;
 
 # Update
-go get -u github.com/example/name
+go get -u github.com/example/name;
 ```
 
 If `i/o timeout`, run the command to replace the proxy: 
 
 ```
-go env -w GOPROXY=https://goproxy.cn
+go env -w GOPROXY=https://goproxy.cn;
 ```
 
 ## Run
 
 ```
 # Init
-go run scripts/init/main.go
+go run scripts/init/main.go;
 
 # Serve
-go run cmd/api/main.go
+go run cmd/api/main.go;
+
+# Restart
+go run scripts/restart/main.go;
 
 # Other Scripts
-go run scripts/change-git-user/main.go
+go run scripts/change-git-user/main.go;
 ```
 
-Visit: `http://127.0.0.1:3000/api/ping`
+Visit: `http://127.0.0.1:3000/api/ping`.
 
 ```
 pong/2022-09-29 04:52:43
@@ -43,36 +46,36 @@ pong/2022-09-29 04:52:43
 ### Default
 
 ```
-go build cmd/api/main.go
+go build cmd/api/main.go;
 ```
 
 ### Linux
 
 ```
 # Default
-GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go;
 
 # Rename Output
-GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;
 ```
 
 ### Mac
 
 ```
 # Api
-GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go;
 
 # Init
-GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go;
 
 # Change Git User
-GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go;
 ```
 
 ### Windows
 
 ```
-GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go;
 ```
 
 ### Config
@@ -80,7 +83,7 @@ GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 ```
 [program:api]
 directory=/web/go-gin-gee
-command=/web/go-gin-gee/dist/api
+command=/web/go-gin-gee/dist/api-linux-amd64
 autostart=true
 autorestart=true
 stderr_logfile=/web/go-gin-gee/log/api.err
@@ -92,11 +95,11 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 Init
 
 ```
-go run scripts/init/main.go
+go run scripts/init/main.go;
 ```
 
 Git Pull
 
 ```
-go run scripts/batch-git-pull/main.go
+go run scripts/batch-git-pull/main.go;
 ```

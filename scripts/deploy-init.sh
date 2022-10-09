@@ -22,7 +22,8 @@ cd web;
 git clone git@github.com:mazeyqian/go-gin-gee.git;
 cd /web/go-gin-gee;
 go run scripts/init/main.go;
-GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go;
+GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
+# GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go;
 # go run cmd/api/main.go;
 
 # Supervisor
