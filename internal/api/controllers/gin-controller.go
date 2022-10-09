@@ -42,7 +42,7 @@ type PersonBindUrl struct {
 func Ping(c *gin.Context) {
 	t := time.Now()
 	// https://stackoverflow.com/questions/33119748/convert-time-time-to-string
-	ret := "pong/" + t.Format("2006-01-02 15:04:05")
+	ret := "pong/v1.0.0/" + t.Format("2006-01-02 15:04:05")
 	c.String(http.StatusOK, ret)
 }
 
