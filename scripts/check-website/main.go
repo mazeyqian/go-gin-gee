@@ -33,3 +33,21 @@ func main() {
 	log.Println("  Id:", p.Id)
 
 }
+
+func getWebSiteStatus(url string) (int, error) {
+	client := resty.New()
+	resp, err := client.R().
+		Get(url)
+	if err != nil {
+		return 0, err
+	}
+	log.Println("Response Info:")
+	log.Println("  Error      :", err)
+	log.Println("  Status Code:")
+	log.Println("  Status     :", resp.Status())
+	log.Println("  Proto      :", resp.Proto())
+	log.Println("  Time       :", resp.Time())
+	log.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :", resp)
+	return resp.StatusCode(), err
+}
