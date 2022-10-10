@@ -7,6 +7,38 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
+type Sites struct {
+	List map[string]int
+}
+
+func (s *Sites) getWebSiteStatus() ([]string, error) {
+	okUrls := []string{}
+	client := resty.New()
+	for url, code := range s.List {
+		log.Println("url:", url)
+		log.Println("code expect:", code)
+		resCode := 0
+		resp, err := client.R().
+			Get(url)
+		if err != nil {
+			// return 0, err
+			log.Println("error:", err)
+		} else {
+			resCode = resp.StatusCode()
+			log.Println("code get:", resp.StatusCode())
+		}
+		if code == resCode {
+			okUrls = append(okUrls, url)
+		}
+	}
+	// resp, err := client.R().
+	// 	Get(url)
+	// if err != nil {
+	// 	return []string{"0"}, err
+	// }
+	return okUrls, nil
+}
+
 func main() {
 	fmt.Println("Check website...")
 	type Person struct {
@@ -32,22 +64,13 @@ func main() {
 	log.Println("  Name:", p.Name)
 	log.Println("  Id:", p.Id)
 
-}
-
-func getWebSiteStatus(url string) (int, error) {
-	client := resty.New()
-	resp, err := client.R().
-		Get(url)
+	ss := &Sites{}
+	ss.List = make(map[string]int)
+	ss.List["https://blog.mazey.net/"] = 200
+	ss.List["https://tool.mazey.net/markdown/"] = 200
+	okUrls, err := ss.getWebSiteStatus()
 	if err != nil {
-		return 0, err
+		log.Println("  Error      :", err)
 	}
-	log.Println("Response Info:")
-	log.Println("  Error      :", err)
-	log.Println("  Status Code:")
-	log.Println("  Status     :", resp.Status())
-	log.Println("  Proto      :", resp.Proto())
-	log.Println("  Time       :", resp.Time())
-	log.Println("  Received At:", resp.ReceivedAt())
-	log.Println("  Body       :", resp)
-	return resp.StatusCode(), err
+	log.Println("okUrls:", okUrls)
 }
