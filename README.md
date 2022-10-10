@@ -31,9 +31,6 @@ go run cmd/api/main.go;
 # Restart
 # cd /web/go-gin-gee;
 go run scripts/restart/main.go;
-
-# Other Scripts
-go run scripts/change-git-user/main.go;
 ```
 
 Visit: `http://127.0.0.1:3000/api/ping`.
@@ -79,7 +76,7 @@ GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scrip
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go;
 ```
 
-### Config
+## Supervisor Config
 
 ```
 [program:api]
@@ -91,16 +88,23 @@ stderr_logfile=/web/go-gin-gee/log/api.err
 stdout_logfile=/web/go-gin-gee/log/api.log
 ```
 
-### Scripts
+## Scripts
 
-Init
+
+Change git user and e-mail in a folder.
 
 ```
-go run scripts/init/main.go;
+go run scripts/change-git-user/main.go;
 ```
 
-Git Pull
+Git pull all projects in a folder.
 
 ```
 go run scripts/batch-git-pull/main.go;
+```
+
+Transfer apple note table to markdown table. 
+
+```
+go run scripts/transfer-notes-to-md-table/main.go;
 ```
