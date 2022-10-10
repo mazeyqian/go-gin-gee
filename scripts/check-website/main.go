@@ -8,15 +8,21 @@ import (
 )
 
 type Sites struct {
-	List map[string]int
+	List map[string]SiteStatus
+}
+
+type SiteStatus struct {
+	Name string
+	Code int
 }
 
 func (s *Sites) getWebSiteStatus() ([]string, error) {
+	// http://c.biancheng.net/view/32.html
 	okUrls := []string{}
 	client := resty.New()
-	for url, code := range s.List {
+	for url, status := range s.List {
 		log.Println("url:", url)
-		log.Println("code expect:", code)
+		log.Println("code expect:", status.Code)
 		resCode := 0
 		resp, err := client.R().
 			Get(url)
@@ -27,8 +33,8 @@ func (s *Sites) getWebSiteStatus() ([]string, error) {
 			resCode = resp.StatusCode()
 			log.Println("code get:", resp.StatusCode())
 		}
-		if code == resCode {
-			okUrls = append(okUrls, url)
+		if status.Code == resCode {
+			okUrls = append(okUrls, status.Name)
 		}
 	}
 	// resp, err := client.R().
@@ -65,9 +71,9 @@ func main() {
 	log.Println("  Id:", p.Id)
 
 	ss := &Sites{}
-	ss.List = make(map[string]int)
-	ss.List["https://blog.mazey.net/"] = 200
-	ss.List["https://tool.mazey.net/markdown/"] = 200
+	ss.List = make(map[string]SiteStatus)
+	ss.List["https://blog.mazey.net/"] = SiteStatus{"博客首页", 200}
+	ss.List["https://tool.mazey.net/markdown/"] = SiteStatus{"Markdown", 200}
 	okUrls, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("  Error      :", err)
