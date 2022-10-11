@@ -18,7 +18,7 @@ type SiteStatus struct {
 
 func (s *Sites) getWebSiteStatus() ([]string, error) {
 	// http://c.biancheng.net/view/32.html
-	okUrls := []string{}
+	healthySites := []string{}
 	client := resty.New()
 	for url, status := range s.List {
 		log.Println("url:", url)
@@ -34,7 +34,7 @@ func (s *Sites) getWebSiteStatus() ([]string, error) {
 			log.Println("code get:", resp.StatusCode())
 		}
 		if status.Code == resCode {
-			okUrls = append(okUrls, status.Name)
+			healthySites = append(healthySites, status.Name)
 		}
 	}
 	// resp, err := client.R().
@@ -42,7 +42,7 @@ func (s *Sites) getWebSiteStatus() ([]string, error) {
 	// if err != nil {
 	// 	return []string{"0"}, err
 	// }
-	return okUrls, nil
+	return healthySites, nil
 }
 
 func main() {
@@ -74,9 +74,9 @@ func main() {
 	ss.List = make(map[string]SiteStatus)
 	ss.List["https://blog.mazey.net/"] = SiteStatus{"博客首页", 200}
 	ss.List["https://tool.mazey.net/markdown/"] = SiteStatus{"Markdown", 200}
-	okUrls, err := ss.getWebSiteStatus()
+	healthySites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("  Error      :", err)
 	}
-	log.Println("okUrls:", okUrls)
+	log.Println("Healthy Sites:", healthySites)
 }
