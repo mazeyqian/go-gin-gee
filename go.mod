@@ -37,6 +37,7 @@ require (
 	github.com/spf13/viper v1.13.0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/swaggo/swag v1.8.1 // indirect
+	github.com/vimsucks/wxwork-bot-go v0.0.0-20210525031914-b584a24ed8c5 // indirect
 	golang.org/x/tools v0.1.7 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
