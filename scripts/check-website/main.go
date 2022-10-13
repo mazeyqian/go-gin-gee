@@ -8,5 +8,5 @@ import (
 
 func main() {
 	fmt.Println("Check website...")
-	schedules.RunCheck()
+	schedules.Check()
 }

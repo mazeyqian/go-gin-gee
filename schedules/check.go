@@ -19,9 +19,10 @@ type SiteStatus struct {
 	Code int
 }
 
-func (s *Sites) getWebSiteStatus() ([]string, error) {
+func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 	// http://c.biancheng.net/view/32.html
 	healthySites := []string{}
+	failSites := []string{}
 	client := resty.New()
 	for url, status := range s.List {
 		log.Println("url:", url)
@@ -38,6 +39,8 @@ func (s *Sites) getWebSiteStatus() ([]string, error) {
 		}
 		if status.Code == resCode {
 			healthySites = append(healthySites, status.Name)
+		} else {
+			failSites = append(failSites, status.Name)
 		}
 	}
 	// resp, err := client.R().
@@ -45,7 +48,7 @@ func (s *Sites) getWebSiteStatus() ([]string, error) {
 	// if err != nil {
 	// 	return []string{"0"}, err
 	// }
-	return healthySites, nil
+	return healthySites, failSites, nil
 }
 
 func Check() {
@@ -77,7 +80,7 @@ func Check() {
 	ss.List["https://blog.mazey.net/"] = SiteStatus{"博客首页", 200}
 	ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"博客搜索页", 200}
 	ss.List["https://tool.mazey.net/markdown/"] = SiteStatus{"Markdown", 200}
-	healthySites, err := ss.getWebSiteStatus()
+	healthySites, failSites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("  Error      :", err)
 	}
@@ -86,7 +89,10 @@ func Check() {
 	for _, siteName := range healthySites {
 		mdStr += fmt.Sprintf("%s OK\n", siteName)
 	}
-	mdStr += fmt.Sprintf("%s%d", "Sum: ", len(healthySites))
+	for _, siteName := range failSites {
+		mdStr += fmt.Sprintf("%s FAIL\n", siteName)
+	}
+	mdStr += fmt.Sprintf("%s%d", "Sum: ", len(healthySites)+len(failSites))
 	log.Println(mdStr)
 	// https://github.com/vimsucks/wxwork-bot-go
 	bot := wxworkbot.New("b2d57746-7146-44f2-8207-86cb0ca832be")
@@ -102,7 +108,8 @@ func Check() {
 func RunCheck() {
 	// https://github.com/go-co-op/gocron
 	s := gocron.NewScheduler(time.UTC)
-	s.Every(10).Seconds().Do(Check)
+	// s.Every(10).Seconds().Do(Check)
+	s.Every(1).Day().At("10:00").Do(Check)
 	s.StartAsync()
 	// Check()
 }
