@@ -3,6 +3,7 @@ package main
 import (
 	_ "github.com/mazeyqian/go-gin-gee/docs"
 	"github.com/mazeyqian/go-gin-gee/internal/api"
+	"github.com/mazeyqian/go-gin-gee/schedules"
 )
 
 // @Golang API REST
@@ -23,5 +24,6 @@ import (
 // @name Authorization
 
 func main() {
+	schedules.RunCheck()
 	api.Run("")
 }
