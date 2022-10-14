@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	_ "github.com/mazeyqian/go-gin-gee/docs"
 	"github.com/mazeyqian/go-gin-gee/internal/api"
 	"github.com/mazeyqian/go-gin-gee/schedules"
@@ -24,6 +26,8 @@ import (
 // @name Authorization
 
 func main() {
+	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
+	os.Setenv("TZ", "Asia/Shanghai")
 	schedules.RunCheck()
 	api.Run("")
 }
