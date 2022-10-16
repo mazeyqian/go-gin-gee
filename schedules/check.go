@@ -107,7 +107,9 @@ func Check() {
 
 func RunCheck() {
 	// https://github.com/go-co-op/gocron
-	s := gocron.NewScheduler(time.UTC)
+	// s := gocron.NewScheduler(time.UTC)
+	shanghai, _ := time.LoadLocation("Asia/Shanghai")
+	s := gocron.NewScheduler(shanghai)
 	// s.Every(10).Seconds().Do(Check)
 	s.Every(1).Day().At("10:00").Do(Check)
 	s.StartAsync()
