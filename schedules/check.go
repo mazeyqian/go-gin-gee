@@ -77,9 +77,12 @@ func Check() {
 
 	ss := &Sites{}
 	ss.List = make(map[string]SiteStatus)
-	ss.List["https://blog.mazey.net/"] = SiteStatus{"博客首页", 200}
-	ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"博客搜索页", 200}
-	ss.List["https://tool.mazey.net/markdown/"] = SiteStatus{"Markdown", 200}
+	ss.List["https://blog.mazey.net/"] = SiteStatus{"Blog Home", 200}
+	ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"Blog Search", 200}
+	ss.List["https://i.mazey.net/tool/markdown/"] = SiteStatus{"Markdown Converter", 200}
+	ss.List["https://mazey.cn/feperf/monitor/get/topic?userName=%E5%90%8E%E9%99%A4"] = SiteStatus{"FE Perf Monitor Topic", 200}
+	ss.List["https://mazey.cn/server/nut/feeds?currentPage=1&pageSize=10&total=0&isPrivacy=1"] = SiteStatus{"Nut Read Feeds", 200}
+	ss.List["https://mazey.cn/t/k"] = SiteStatus{"Tiny Redirect", 200}
 	healthySites, failSites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("  Error      :", err)
