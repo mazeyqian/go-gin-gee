@@ -85,6 +85,9 @@ func Check() {
 	ss.List["https://mazey.cn/feperf/monitor/get/topic?userName=%E5%90%8E%E9%99%A4"] = SiteStatus{"FE Perf Monitor Topic", 200}
 	ss.List["https://mazey.cn/server/nut/feeds?currentPage=1&pageSize=10&total=0&isPrivacy=1"] = SiteStatus{"Nut Read Feeds", 200}
 	ss.List["https://mazey.cn/t/k"] = SiteStatus{"Tiny Redirect", 200}
+	ss.List["https://www.zhibaifa.com/"] = SiteStatus{"Treat White Home", 200}
+	ss.List["https://mazey.cn/server/weather/new-daily?location=shanghai"] = SiteStatus{"Weather Shanghai", 200}
+	ss.List["https://mazey.cn/server/user/info"] = SiteStatus{"Location", 200}
 	healthySites, failSites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("  Error      :", err)
