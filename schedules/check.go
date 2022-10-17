@@ -24,6 +24,8 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 	healthySites := []string{}
 	failSites := []string{}
 	client := resty.New()
+	// https://github.com/go-resty/resty/blob/master/redirect.go
+	// client.SetRedirectPolicy(resty.NoRedirectPolicy())
 	for url, status := range s.List {
 		log.Println("url:", url)
 		log.Println("code expect:", status.Code)
@@ -90,12 +92,12 @@ func Check() {
 	log.Println("Healthy Sites:", healthySites)
 	mdStr := "Health Check Result:\n"
 	for _, siteName := range healthySites {
-		mdStr += fmt.Sprintf("%s OK\n", siteName)
+		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", siteName)
 	}
 	for _, siteName := range failSites {
-		mdStr += fmt.Sprintf("%s FAIL\n", siteName)
+		mdStr += fmt.Sprintf("<font color=\"warning\">%s FAIL</font>\n", siteName)
 	}
-	mdStr += fmt.Sprintf("%s%d", "Sum: ", len(healthySites)+len(failSites))
+	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(healthySites)+len(failSites))
 	log.Println(mdStr)
 	// https://github.com/vimsucks/wxwork-bot-go
 	bot := wxworkbot.New("b2d57746-7146-44f2-8207-86cb0ca832be")
