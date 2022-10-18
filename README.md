@@ -1,5 +1,7 @@
 # go-gin-gee
 
+Gee provides several services of everyday life. The structure refers to [project-layout](https://github.com/golang-standards/project-layout).
+
 ## Install
 
 ```
