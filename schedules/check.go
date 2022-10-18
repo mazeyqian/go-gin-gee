@@ -27,8 +27,8 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 	// https://github.com/go-resty/resty/blob/master/redirect.go
 	// client.SetRedirectPolicy(resty.NoRedirectPolicy())
 	for url, status := range s.List {
-		log.Println("url:", url)
-		log.Println("code expect:", status.Code)
+		// log.Println("url:", url)
+		// log.Println("code expect:", status.Code)
 		resCode := 0
 		resp, err := client.R().
 			Get(url)
@@ -37,7 +37,7 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 			log.Println("error:", err)
 		} else {
 			resCode = resp.StatusCode()
-			log.Println("code get:", resp.StatusCode())
+			// log.Println("code get:", resp.StatusCode())
 		}
 		if status.Code == resCode {
 			healthySites = append(healthySites, status.Name)
@@ -54,28 +54,28 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 }
 
 func Check() {
-	type Person struct {
-		Name string `json:"name"`
-		Id   string `json:"uuid"`
-	}
-	p := &Person{}
-	client := resty.New()
-	resp, err := client.R().
-		// EnableTrace().
-		SetResult(p).
-		Get("https://feperf.com/api/mazeychu/413fbc97-4bed-3228-9f07-9141ba07c9f3")
+	// type Person struct {
+	// 	Name string `json:"name"`
+	// 	Id   string `json:"uuid"`
+	// }
+	// p := &Person{}
+	// client := resty.New()
+	// resp, err := client.R().
+	// 	// EnableTrace().
+	// 	SetResult(p).
+	// 	Get("https://feperf.com/api/mazeychu/413fbc97-4bed-3228-9f07-9141ba07c9f3")
 	// Explore response object
-	log.Println("Response Info:")
-	log.Println("  Error      :", err)
-	log.Println("  Status Code:", resp.StatusCode())
-	log.Println("  Status     :", resp.Status())
-	log.Println("  Proto      :", resp.Proto())
-	log.Println("  Time       :", resp.Time())
-	log.Println("  Received At:", resp.ReceivedAt())
-	log.Println("  Body       :", resp)
-	log.Println()
-	log.Println("  Name:", p.Name)
-	log.Println("  Id:", p.Id)
+	// log.Println("Response Info:")
+	// log.Println("  Error      :", err)
+	// log.Println("  Status Code:", resp.StatusCode())
+	// log.Println("  Status     :", resp.Status())
+	// log.Println("  Proto      :", resp.Proto())
+	// log.Println("  Time       :", resp.Time())
+	// log.Println("  Received At:", resp.ReceivedAt())
+	// log.Println("  Body       :", resp)
+	// log.Println()
+	// log.Println("  Name:", p.Name)
+	// log.Println("  Id:", p.Id)
 
 	ss := &Sites{}
 	ss.List = make(map[string]SiteStatus)
@@ -93,7 +93,7 @@ func Check() {
 	if err != nil {
 		log.Println("  Error      :", err)
 	}
-	log.Println("Healthy Sites:", healthySites)
+	// log.Println("Healthy Sites:", healthySites)
 	mdStr := "Health Check Result:\n"
 	for _, siteName := range healthySites {
 		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", siteName)
@@ -102,7 +102,7 @@ func Check() {
 		mdStr += fmt.Sprintf("<font color=\"warning\">%s FAIL</font>\n", siteName)
 	}
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(healthySites)+len(failSites))
-	log.Println(mdStr)
+	// log.Println(mdStr)
 	// https://github.com/vimsucks/wxwork-bot-go
 	bot := wxworkbot.New("b2d57746-7146-44f2-8207-86cb0ca832be")
 	markdown := wxworkbot.Markdown{
