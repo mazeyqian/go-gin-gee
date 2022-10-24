@@ -1,6 +1,6 @@
 # go-gin-gee
 
-Gee provides several services of everyday life. The structure refers to [project-layout](https://github.com/golang-standards/project-layout).
+Gee provides several services of everyday life. The structure refers to [project-layout](https://github.com/golang-standards/project-layout), and bases on [gin](https://github.com/gin-gonic/gin).
 
 ## Install
 
@@ -62,19 +62,17 @@ GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;
 ### Mac
 
 ```
-# Api
+# API
 GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go;
 
 # Init
 GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go;
-
-# Change Git User
-GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go;
 ```
 
 ### Windows
 
 ```
+# API
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go;
 ```
 
@@ -110,3 +108,5 @@ Transfer apple note table to markdown table.
 ```
 go run scripts/transfer-notes-to-md-table/main.go;
 ```
+
+More in folder `scripts`.
