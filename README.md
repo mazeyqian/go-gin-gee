@@ -52,10 +52,7 @@ go build cmd/api/main.go;
 ### Linux
 
 ```
-# Default
-GOOS=linux GOARCH=amd64 go build -o dist/api cmd/api/main.go;
-
-# Rename Output
+# API
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;
 ```
 
