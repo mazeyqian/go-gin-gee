@@ -1,6 +1,6 @@
 # go-gin-gee
 
-Gee provides several services of everyday life. The structure refers to [project-layout](https://github.com/golang-standards/project-layout), and bases on [gin](https://github.com/gin-gonic/gin).
+Gee provides several services for everyday life. The project is based on [gin](https://github.com/gin-gonic/gin), and the structure refers to [project-layout](https://github.com/golang-standards/project-layout). There are some daily scripts in the folder `scripts` depend on [script](https://github.com/bitfield/script), which can run by the command `go run`.
 
 ## Install
 
@@ -8,11 +8,8 @@ Gee provides several services of everyday life. The structure refers to [project
 # All Dependences
 go mod download;
 
-# Single
-go get github.com/example/name;
-
-# Update
-go get -u github.com/example/name;
+# Add/Update
+go install github.com/example/name;
 ```
 
 If `i/o timeout`, run the command to replace the proxy: 
@@ -38,7 +35,7 @@ go run scripts/restart/main.go;
 Visit: `http://127.0.0.1:3000/api/ping`.
 
 ```
-pong/2022-09-29 04:52:43
+pong/v1.0.0/2022-09-29 04:52:43
 ```
 
 ## Build
