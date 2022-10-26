@@ -80,5 +80,13 @@ func Setup() *gin.Engine {
 	}
 	// Gin - end
 
+	// Gee - begin
+	gee := app.Group("/gee")
+	{
+		gee.GET("/get-data-by-alias", controllers.GetDataByAlias)
+		gee.POST("/create-alias2data", controllers.CreateAlias2data)
+	}
+	// Gee - end
+
 	return app
 }

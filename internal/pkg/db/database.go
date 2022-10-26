@@ -9,6 +9,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/alias2data"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/tasks"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/users"
 )
@@ -66,6 +67,7 @@ func migration() {
 	DB.AutoMigrate(&users.User{})
 	DB.AutoMigrate(&users.UserRole{})
 	DB.AutoMigrate(&tasks.Task{})
+	DB.AutoMigrate(&alias2data.Alias2data{})
 }
 
 func GetDB() *gorm.DB {
