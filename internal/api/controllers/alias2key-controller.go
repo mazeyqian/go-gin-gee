@@ -13,7 +13,8 @@ import (
 
 func GetDataByAlias(c *gin.Context) {
 	s := persistence.GetAlias2dataRepository()
-	alias := c.Param("alias")
+	alias := c.Query("alias")
+	log.Println("GetDataByAlias alias", alias)
 	if data, err := s.Get(alias); err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
 		log.Println(err)

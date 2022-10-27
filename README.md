@@ -20,10 +20,9 @@ go env -w GOPROXY=https://goproxy.cn;
 
 ## Run
 
-```
-# Init
-go run scripts/init/main.go;
+It's necessary to run command `go run scripts/init/main.go;` when serving the project first.
 
+```
 # Serve
 go run cmd/api/main.go;
 

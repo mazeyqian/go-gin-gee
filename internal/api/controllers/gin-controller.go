@@ -43,7 +43,10 @@ func Ping(c *gin.Context) {
 	t := time.Now()
 	// https://stackoverflow.com/questions/33119748/convert-time-time-to-string
 	ret := "pong/v1.0.0/" + t.Format("2006-01-02 15:04:05")
-	c.String(http.StatusOK, ret)
+	// c.String(http.StatusOK, ret)
+	c.JSON(200, gin.H{
+		"message": ret,
+	})
 }
 
 func GetDataB(c *gin.Context) {

@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-co-op/gocron"
 	"github.com/go-resty/resty/v2"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/persistence"
 	wxworkbot "github.com/vimsucks/wxwork-bot-go"
 )
 
@@ -103,8 +104,15 @@ func Check() {
 	}
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(healthySites)+len(failSites))
 	// log.Println(mdStr)
+	s := persistence.GetAlias2dataRepository()
+	data, err := s.Get("WECOM_ROBOT_CHECK")
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Check data", data)
+	log.Println("Check WECOM_ROBOT_CHECK", data.Data)
 	// https://github.com/vimsucks/wxwork-bot-go
-	bot := wxworkbot.New("b2d57746-7146-44f2-8207-86cb0ca832be")
+	bot := wxworkbot.New(data.Data) // "b2d57746-7146-44f2-8207-86cb0ca832be")
 	markdown := wxworkbot.Markdown{
 		Content: mdStr, // "# 测试",
 	}
