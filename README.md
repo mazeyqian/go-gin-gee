@@ -1,6 +1,6 @@
 # go-gin-gee
 
-Gee provides several services for everyday life. The project is based on [gin](https://github.com/gin-gonic/gin), and the structure refers to [project-layout](https://github.com/golang-standards/project-layout). There are some daily scripts in the folder `scripts` depend on [script](https://github.com/bitfield/script), which can run by the command `go run`.
+Gee provides several services for everyday life. The project is based on [gin](https://github.com/gin-gonic/gin), and the structure refers to [project-layout](https://github.com/golang-standards/project-layout). There are some daily scripts in the folder `scripts` depending on [script](https://github.com/bitfield/script), which can run by the command `go run`.
 
 ## Install
 
@@ -50,6 +50,9 @@ go build cmd/api/main.go;
 ```
 # API
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;
+
+# Scripts
+GOOS=linux GOARCH=amd64 go build -o dist/init-linux-amd64 scripts/init/main.go;
 ```
 
 ### Mac
@@ -58,7 +61,7 @@ GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;
 # API
 GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go;
 
-# Init
+# Scripts
 GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/main.go;
 ```
 

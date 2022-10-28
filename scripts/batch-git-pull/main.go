@@ -11,13 +11,11 @@ import (
 
 func main() {
 	log.Println("Change git user...")
-	projectPath := "/Users/mazey/Web/Mazey"
+	projectPath := "/web/i.mazey.net"
 	projects := []string{
 		"go-gin-gee",
-		"json-to-resume",
 		"mazey",
-		"mazey-study",
-		"mazey-server",
+		"tool",
 	}
 	regexStr := "^.+("
 	for _, v := range projects {
@@ -30,9 +28,9 @@ func main() {
 		cmdLines := "echo - - begin - -;"
 		cmdLines += "echo ;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
-		// cmdLines += fmt.Sprintf("cd %s;", s)
+		cmdLines += fmt.Sprintf("cd %s;", s)
 		// cmdLines += `git checkout master;`
-		// cmdLines += `git pull;`
+		cmdLines += `git pull;`
 		cmdLines += "echo ;"
 		cmdLines += "echo - - end - - - - - - - - - - - - - - - - -;"
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
