@@ -20,7 +20,7 @@ go env -w GOPROXY=https://goproxy.cn;
 
 ## Run
 
-It's necessary to run command `go run scripts/init/main.go;` when serving the project first.
+It's necessary to run the command `go run scripts/init/main.go;` when serving the project first.
 
 ```
 # Serve
@@ -46,6 +46,8 @@ go build cmd/api/main.go;
 ```
 
 ### Linux
+
+It's usually useful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
 
 ```
 # API
