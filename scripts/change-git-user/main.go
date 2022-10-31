@@ -17,6 +17,7 @@ func main() {
 	// cmdLines += " && echo 22"
 	// cmdLines += " && echo ---"
 	// script.ListFiles("/Users/mazey/Web/Mazey/*/.git/config").ExecForEach(`/bin/sh -c echo "222222"; echo "333"; echo "444";`).Stdout()
+	// https://pkg.go.dev/github.com/bitfield/script#ListFiles
 	script.ListFiles("/Users/mazey/Web/Mazey/*/.git").FilterLine(func(s string) string {
 		// cmdLines := "echo " + s + " - begin -;"
 		cmdLines := constants.ScriptStartMsg         // "echo - begin -;"

@@ -10,14 +10,14 @@ import (
 // NoMethodHandler
 func NoMethodHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(405, gin.H{"message": "Metodo no permitido"})
+		c.JSON(405, gin.H{"message": "metodo no permitido"})
 	}
 }
 
 // NoRouteHandler
 func NoRouteHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(404, gin.H{"message": "Not Found"})
+		c.JSON(404, gin.H{"message": "not found"})
 	}
 }
 
