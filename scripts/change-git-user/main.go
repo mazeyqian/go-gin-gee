@@ -5,6 +5,7 @@ import (
 	"os/exec"
 
 	"github.com/bitfield/script"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
 )
 
 func main() {
@@ -18,13 +19,13 @@ func main() {
 	// script.ListFiles("/Users/mazey/Web/Mazey/*/.git/config").ExecForEach(`/bin/sh -c echo "222222"; echo "333"; echo "444";`).Stdout()
 	script.ListFiles("/Users/mazey/Web/Mazey/*/.git").FilterLine(func(s string) string {
 		// cmdLines := "echo " + s + " - begin -;"
-		cmdLines := "echo - begin -;"
+		cmdLines := constants.ScriptStartMsg         // "echo - begin -;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s) // https://pkg.go.dev/fmt#Sprintf
 		cmdLines += fmt.Sprintf("cd %s;", s)         // "cd " + s + ";"
 		// cmdLines += "pwd;"
 		cmdLines += `git config user.email "mazey@mazey.net";`
 		cmdLines += `git config user.name "Mazey Chu";`
-		cmdLines += "echo - end -;"
+		cmdLines += constants.ScriptEndMsg // "echo - end -;"
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
@@ -39,7 +40,7 @@ func main() {
 		// script.Exec("pwd").Stdout()
 		// script.Exec(cmdLines1).Stdout()
 		// script.Exec(cmdLines2).Stdout()
-		return s
+		return "- p -" // s
 	}).Stdout()
 	// script.FindFiles("*.go").Stdout()
 	// ExecForEach("gofmt -w {{ . }}")
