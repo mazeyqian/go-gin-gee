@@ -32,11 +32,12 @@ type ServerConfiguration struct {
 }
 
 // SetupDB initialize configuration
-func Setup(configPath string) {
+func Setup(configPath string, configType string) {
 	var configuration *Configuration
 
 	viper.SetConfigFile(configPath)
-	viper.SetConfigType("yaml")
+	// https://pkg.go.dev/github.com/spf13/viper@v1.13.0#SetConfigType
+	viper.SetConfigType(configType) // "yaml")
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Error reading config file, %s", err)

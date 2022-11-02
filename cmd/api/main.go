@@ -29,5 +29,5 @@ func main() {
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "Asia/Shanghai")
 	schedules.RunCheck()
-	api.Run("")
+	api.Run("data/config.json", "json")
 }
