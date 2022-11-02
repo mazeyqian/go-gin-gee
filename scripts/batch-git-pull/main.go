@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os/exec"
@@ -9,9 +10,19 @@ import (
 	"github.com/bitfield/script"
 )
 
+// go run scripts/batch-git-pull/main.go -path=/Users/mazey/Web/Mazey
+// go run scripts/batch-git-pull/main.go -path=/Users/mazey/Web/Bilibili -projects=placeholder
+// path required
+// projects optional
 func main() {
-	log.Println("Change git user...")
-	projectPath := "/web/i.mazey.net"
+	log.Println("Git pull...")
+	// https://gobyexample.com/command-line-flags
+	projectPath := flag.String("path", "/web/i.mazey.net", "folder of projects")
+	assignedProjects := flag.String("projects", ".", "assigned projects")
+	flag.Parse()
+	log.Println("projectPath:", *projectPath)
+	log.Println("assignedProjects:", *assignedProjects)
+	// projectPath := "/web/i.mazey.net"
 	projects := []string{
 		"go-gin-gee",
 		"mazey",
@@ -21,10 +32,10 @@ func main() {
 	for _, v := range projects {
 		regexStr += fmt.Sprintf("%s|", v)
 	}
-	regexStr += "placeholder)$"
+	regexStr += fmt.Sprintf("%s)$", *assignedProjects) // placeholder
 	log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr) // "^.+(json-to-resume|mazey-server)$")
-	script.ListFiles(projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
+	script.ListFiles(*projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
 		cmdLines := "echo - - begin - -;"
 		cmdLines += "echo ;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
