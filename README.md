@@ -14,6 +14,7 @@ Gee provides several services for everyday life. The project is based on [gin](h
     - [Windows](#windows)
   - [Supervisor Config](#supervisor-config)
   - [Scripts](#scripts)
+  - [Reference](#reference)
 
 ## Install
 
@@ -121,3 +122,7 @@ go run scripts/transfer-notes-to-md-table/main.go
 ```
 
 More in folder `scripts`.
+
+## Reference
+
+- [Gin Web Framework](https://github.com/gin-gonic/gin)
