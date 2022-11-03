@@ -13,7 +13,7 @@ Gee provides several services for everyday life. The project is based on [gin](h
     - [Mac](#mac)
     - [Windows](#windows)
   - [Supervisor Config](#supervisor-config)
-  - [Scripts](#scripts)
+  - [API Examples](#api-examples)
   - [Reference](#reference)
 
 ## Install
@@ -100,7 +100,7 @@ stderr_logfile=/web/go-gin-gee/log/api.err
 stdout_logfile=/web/go-gin-gee/log/api.log
 ```
 
-## Scripts
+## API Examples
 
 
 Change git user and e-mail in a folder.
