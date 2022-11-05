@@ -24,9 +24,10 @@ func main() {
 	log.Println("assignedProjects:", *assignedProjects)
 	// projectPath := "/web/i.mazey.net"
 	projects := []string{
-		"go-gin-gee",
-		"mazey",
-		"tool",
+		// "go-gin-gee",
+		// "mazey",
+		// "tool",
+		"placeholder",
 	}
 	regexStr := "^.+("
 	for _, v := range projects {
