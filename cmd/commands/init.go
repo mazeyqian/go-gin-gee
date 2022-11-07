@@ -19,4 +19,6 @@ func Execute() (err error) {
 	return
 }
 
-func Init() (err error) {}
+func Init() (err error) {
+	return nil
+}
