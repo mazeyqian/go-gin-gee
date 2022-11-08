@@ -1,13 +1,16 @@
-package schedules
+package controllers
 
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-co-op/gocron"
 	"github.com/go-resty/resty/v2"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/persistence"
+	"github.com/samber/lo"
 	wxworkbot "github.com/vimsucks/wxwork-bot-go"
 )
 
@@ -20,10 +23,10 @@ type SiteStatus struct {
 	Code int
 }
 
-func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
+func (s *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
 	// http://c.biancheng.net/view/32.html
-	healthySites := []string{}
-	failSites := []string{}
+	healthySites := []SiteStatus{}
+	failSites := []SiteStatus{}
 	client := resty.New()
 	// https://github.com/go-resty/resty/blob/master/redirect.go
 	// client.SetRedirectPolicy(resty.NoRedirectPolicy())
@@ -41,9 +44,9 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 			// log.Println("code get:", resp.StatusCode())
 		}
 		if status.Code == resCode {
-			healthySites = append(healthySites, status.Name)
+			healthySites = append(healthySites, status)
 		} else {
-			failSites = append(failSites, status.Name)
+			failSites = append(failSites, SiteStatus{status.Name, resCode})
 		}
 	}
 	// resp, err := client.R().
@@ -51,12 +54,14 @@ func (s *Sites) getWebSiteStatus() ([]string, []string, error) {
 	// if err != nil {
 	// 	return []string{"0"}, err
 	// }
-	return healthySites, failSites, nil
+	return &healthySites, &failSites, nil
 }
 
-func Check() {
+func Check(c *gin.Context) {
 	ss := &Sites{}
-	ss.List = make(map[string]SiteStatus)
+	ss.List = map[string]SiteStatus{
+		"https://blog.mazey.net/?s=Test": {"Blog Home Test", 300},
+	}
 	ss.List["https://blog.mazey.net/"] = SiteStatus{"Blog Home", 200}
 	ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"Blog Search", 200}
 	ss.List["https://feperf.com/api/mazeychu/413fbc97-4bed-3228-9f07-9141ba07c9f3"] = SiteStatus{"Gee Gin NameId0920", 200}
@@ -73,13 +78,29 @@ func Check() {
 	}
 	// log.Println("Healthy Sites:", healthySites)
 	mdStr := "Health Check Result:\n"
-	for _, siteName := range healthySites {
-		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", siteName)
+	for _, site := range *healthySites {
+		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", site.Name)
 	}
-	for _, siteName := range failSites {
-		mdStr += fmt.Sprintf("<font color=\"warning\">%s FAIL</font>\n", siteName)
-	}
-	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(healthySites)+len(failSites))
+	lo.ForEach(*failSites, func(site SiteStatus, _ int) {
+		log.Println("ForEach SiteStatus:", site.Name)
+		mdStr += fmt.Sprintf(
+			"<font color=\"warning\">%s FAIL</font>\n"+
+				"Error Code: %d\n"+
+				"\n",
+			site.Name,
+			site.Code,
+		)
+	})
+	// for _, site := range *failSites {
+	// 	mdStr += fmt.Sprintf(
+	// 		"<font color=\"warning\">%s FAIL</font>\n"+
+	// 			"Error Code: %d\n"+
+	// 			"\n",
+	// 		site.Name,
+	// 		site.Code,
+	// 	)
+	// }
+	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
 	// log.Println(mdStr)
 	s := persistence.GetAlias2dataRepository()
 	data, err := s.Get("WECOM_ROBOT_CHECK")
@@ -97,6 +118,7 @@ func Check() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	c.JSON(http.StatusOK, gin.H{"data": markdown})
 }
 
 func RunCheck() {

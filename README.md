@@ -22,8 +22,8 @@ Gee provides several services for everyday life. The project is based on [gin](h
 # All Dependences
 go mod download
 
-# Add/Update
-go install github.com/example/name
+# Add
+go get github.com/example/name
 ```
 
 If `i/o timeout`, run the command to replace the proxy: 
@@ -126,3 +126,4 @@ More in folder `scripts`.
 ## Reference
 
 - [Gin Web Framework](https://github.com/gin-gonic/gin)
+- [lo](https://github.com/samber/lo)
