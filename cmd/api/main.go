@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/mazeyqian/go-gin-gee/docs"
 	"github.com/mazeyqian/go-gin-gee/internal/api"
-	"github.com/mazeyqian/go-gin-gee/schedules"
+	"github.com/mazeyqian/go-gin-gee/internal/api/controllers"
 )
 
 // @Golang API REST
@@ -28,6 +28,7 @@ import (
 func main() {
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "Asia/Shanghai")
-	schedules.RunCheck()
+	// schedules.RunCheck()
+	controllers.RunCheck()
 	api.Run("data/config.json", "json")
 }

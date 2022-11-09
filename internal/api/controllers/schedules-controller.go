@@ -57,14 +57,10 @@ func (s *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
 	return &healthySites, &failSites, nil
 }
 
-func (s *Sites) ClearCheckResult() {
-
-}
-
-func Check(c *gin.Context) {
-	ss := &Sites{}
+func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
+	ss := s // &Sites{}
 	ss.List = map[string]SiteStatus{
-		"https://blog.mazey.net/?s=Test": {"Blog Home Test", 300},
+		"https://i.mazey.net/cdn/jquery-2.1.1.min.js": {"CDN jQuery", 200},
 	}
 	ss.List["https://blog.mazey.net/"] = SiteStatus{"Blog Home", 200}
 	ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"Blog Search", 200}
@@ -102,8 +98,8 @@ func Check(c *gin.Context) {
 		)
 	})
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
-	s := persistence.GetAlias2dataRepository()
-	data, err := s.Get("WECOM_ROBOT_CHECK")
+	persistenceGetAlias2dataRepository := persistence.GetAlias2dataRepository()
+	data, err := persistenceGetAlias2dataRepository.Get("WECOM_ROBOT_CHECK")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -118,17 +114,22 @@ func Check(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c.JSON(http.StatusOK, gin.H{"data": markdown})
+	return &markdown, nil
+}
+
+func CheckSitesHealth(c *gin.Context) {
+	s := &Sites{}
+	markdown, _ := s.ClearCheckResult()
+	c.JSON(http.StatusOK, gin.H{"data": *markdown})
 }
 
 func RunCheck() {
+	s := &Sites{}
 	// https://github.com/go-co-op/gocron
 	// s := gocron.NewScheduler(time.UTC)
 	// https://pkg.go.dev/time#Location
 	shanghai, _ := time.LoadLocation("Asia/Shanghai")
-	s := gocron.NewScheduler(shanghai)
-	// s.Every(10).Seconds().Do(Check)
-	s.Every(1).Day().At("10:00").Do(Check)
-	s.StartAsync()
-	// Check()
+	ss := gocron.NewScheduler(shanghai)
+	ss.Every(1).Day().At("10:00").Do(s.ClearCheckResult)
+	ss.StartAsync()
 }
