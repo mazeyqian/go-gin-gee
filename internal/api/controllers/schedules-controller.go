@@ -57,6 +57,10 @@ func (s *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
 	return &healthySites, &failSites, nil
 }
 
+func (s *Sites) ClearCheckResult() {
+
+}
+
 func Check(c *gin.Context) {
 	ss := &Sites{}
 	ss.List = map[string]SiteStatus{
@@ -83,25 +87,21 @@ func Check(c *gin.Context) {
 	}
 	lo.ForEach(*failSites, func(site SiteStatus, _ int) {
 		log.Println("ForEach SiteStatus:", site.Name)
+		siteLink, _ := lo.FindKeyBy(ss.List, func(k string, v SiteStatus) bool {
+			return v.Name == site.Name
+		})
+		log.Println("siteLink:", siteLink)
 		mdStr += fmt.Sprintf(
 			"<font color=\"warning\">%s FAIL</font>\n"+
 				"Error Code: %d\n"+
-				"\n",
+				"Link: [%s](%s)\n",
 			site.Name,
 			site.Code,
+			siteLink,
+			siteLink,
 		)
 	})
-	// for _, site := range *failSites {
-	// 	mdStr += fmt.Sprintf(
-	// 		"<font color=\"warning\">%s FAIL</font>\n"+
-	// 			"Error Code: %d\n"+
-	// 			"\n",
-	// 		site.Name,
-	// 		site.Code,
-	// 	)
-	// }
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
-	// log.Println(mdStr)
 	s := persistence.GetAlias2dataRepository()
 	data, err := s.Get("WECOM_ROBOT_CHECK")
 	if err != nil {
@@ -110,7 +110,7 @@ func Check(c *gin.Context) {
 	log.Println("Check data", data)
 	log.Println("Check WECOM_ROBOT_CHECK", data.Data)
 	// https://github.com/vimsucks/wxwork-bot-go
-	bot := wxworkbot.New(data.Data) // "b2d57746-7146-44f2-8207-86cb0ca832be")
+	bot := wxworkbot.New(data.Data)
 	markdown := wxworkbot.Markdown{
 		Content: mdStr, // "# 测试",
 	}
