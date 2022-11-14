@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mazeyqian/go-gin-gee/schedules"
+	"github.com/mazeyqian/go-gin-gee/archives/schedules"
 )
 
 func main() {
