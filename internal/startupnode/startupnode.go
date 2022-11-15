@@ -25,15 +25,15 @@ func Run(configPath string, configType string) {
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)
 	result, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println("Error:", err)
+		log.Println("error:", err)
 	}
-	log.Printf("Result: %s", result)
+	log.Printf("result: %s", result)
 	// startup - end
 	setConfiguration(configPath, configType)
 	conf := config.GetConfig()
 	log.Println("conf:", conf)
 	web := router.Setup()
-	log.Println("Go API Running on port " + conf.Server.Port)
+	log.Println("go api running on port " + conf.Server.Port)
 	log.Println("==================>")
 	_ = web.Run(":" + conf.Server.Port)
 }
