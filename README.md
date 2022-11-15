@@ -1,59 +1,29 @@
 # go-gin-gee
 
-Gee provides several services for everyday life. The project is based on [gin](https://github.com/gin-gonic/gin), and the structure refers to [project-layout](https://github.com/golang-standards/project-layout). There are some daily scripts in the folder `scripts` depending on [script](https://github.com/bitfield/script), which can run by the command `go run`.
+Gee provides several services for everyday life. The project is based on Gin, and the structure refers to ProjectLayout. There are some daily scripts in the folder Scripts depending on Script, which can run by the command Run.
 
 **Table of Contents**
 
 - [go-gin-gee](#go-gin-gee)
   - [Install](#install)
-  - [Run](#run)
   - [Build](#build)
-    - [Default](#default)
     - [Linux](#linux)
     - [Mac](#mac)
     - [Windows](#windows)
-  - [Supervisor Config](#supervisor-config)
+  - [Deploy](#deploy)
   - [API Examples](#api-examples)
+  - [Contributing](#contributing)
   - [Reference](#reference)
 
 ## Install
 
 ```
-# All Dependences
-go mod download
-
-# Add
-go get github.com/example/name
-```
-
-If `i/o timeout`, run the command to replace the proxy: 
-
-```
-go env -w GOPROXY=https://goproxy.cn
-```
-
-## Run
-
-It's necessary to run the command `go run scripts/init/main.go` when serving the project first.
-
-```
-# Serve
-go run cmd/api/main.go
-
-# Restart
-# cd /web/go-gin-gee
-go run scripts/restart/main.go
-```
-
-Visit: `http://127.0.0.1:3000/api/ping`.
-
-```
-pong/v1.0.0/2022-09-29 04:52:43
+git clone git@github.com:mazeyqian/go-gin-gee.git
 ```
 
 ## Build
 
-### Default
+Default:
 
 ```
 go build cmd/api/main.go
@@ -88,7 +58,9 @@ GOOS=darwin GOARCH=amd64 go build -o dist/init-mac-darwin-amd64 scripts/init/mai
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 ```
 
-## Supervisor Config
+## Deploy
+
+Supervisor Config:
 
 ```
 [program:api]
@@ -123,7 +95,42 @@ go run scripts/transfer-notes-to-md-table/main.go
 
 More in folder `scripts`.
 
+## Contributing
+
+```
+# All Dependences
+go mod download
+
+# Add
+go get github.com/example/name
+```
+
+If `i/o timeout`, run the command to replace the proxy: 
+
+```
+go env -w GOPROXY=https://goproxy.cn
+```
+
+It's necessary to run the command `go run scripts/init/main.go` when serving the project first.
+
+```
+# Serve
+go run cmd/api/main.go
+
+# Restart
+# cd /web/go-gin-gee
+go run scripts/restart/main.go
+```
+
+Visit: `http://127.0.0.1:3000/api/ping`.
+
+```
+pong/v1.0.0/2022-09-29 04:52:43
+```
+
 ## Reference
 
 - [Gin Web Framework](https://github.com/gin-gonic/gin)
 - [lo](https://github.com/samber/lo)
+- [project-layout](https://github.com/golang-standards/project-layout)
+- [script](https://github.com/bitfield/script)
