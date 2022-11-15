@@ -5,6 +5,9 @@ GOOS=linux GOARCH=amd64 go build -o dist/batch-git-pull-linux-amd64 scripts/batc
 # startup
 GOOS=darwin GOARCH=amd64 go build -o dist/startup-mac-darwin-amd64 cmd/startup/main.go
 
+# startupnode
+GOOS=linux GOARCH=amd64 go build -o dist/startupnode-linux-amd64 cmd/startupnode/main.go
+
 # https://linuxhint.com/check_memory_usage_process_linux/
 ps -o pid,user,%mem,command ax | sort -b -k3 -r
 
