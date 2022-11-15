@@ -18,8 +18,10 @@ func setConfiguration(configPath string, configType string) {
 func Run(configPath string, configType string) {
 	// startup - begin
 	cmdLines := constants.ScriptStartMsg
-	cmdLines += `cd ~;`
+	cmdLines += `cd /web/feperf-server;`
+	cmdLines += `. ./DockerBuild.sh;`
 	cmdLines += constants.ScriptEndMsg
+	// https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)
 	result, err := cmd.CombinedOutput()
 	if err != nil {
