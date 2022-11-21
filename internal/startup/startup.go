@@ -21,7 +21,7 @@ func Run(configPath string, configType string) {
 	cmdLines += `cd ~;`
 	cmdLines += `source .bash_profile;`
 	cmdLines += `source .zshrc;`
-	cmdLines += `nginx;`
+	cmdLines += `/usr/local/bin/nginx;`
 	cmdLines += constants.ScriptEndMsg
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)
 	result, err := cmd.CombinedOutput()

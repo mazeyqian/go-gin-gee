@@ -26,3 +26,8 @@ cat /usr/local/etc/supervisord.conf
 files = /usr/local/etc/supervisor.d/*.ini
 
 /Users/mazey/Desktop/supervisor/b-startup.ini
+
+where nginx
+brew services restart supervisor
+brew services list
+nginx -t
