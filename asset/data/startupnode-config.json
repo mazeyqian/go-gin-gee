@@ -1,4 +1,15 @@
 {
+  "database": {
+    "driver": "",
+    "dbname": "",
+    "username": "",
+    "password": "",
+    "host": "",
+    "port": "",
+    "max_lifetime": 0,
+    "max_open_conns": 0,
+    "max_idle_conns": 0
+  },
   "server": {
     "port": "3002",
     "secret": "tuenov15th2022",
