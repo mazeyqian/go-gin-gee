@@ -74,7 +74,6 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 
 ## API Examples
 
-
 Change git user and e-mail in a folder.
 
 ```
