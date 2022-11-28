@@ -11,12 +11,11 @@ import (
 
 func main() {
 	log.Println("Change git user...")
-	/*
-	 * Air Example: "/Volumes/ProjectX/Example"
-	 * "example@example.net" "Example Na"
-	 * Pro Mazey: "/Users/mazey/Web/Mazey"
-	 * "mazey@mazey.net" "Mazey Chu"
-	 */
+	// Example:
+	// Air Example: "/Volumes/ProjectX/Example"
+	// "example@example.net" "Example Na"
+	// Pro Mazey: "/Users/mazey/Web/Mazey"
+	// "mazey@mazey.net" "Mazey Chu"
 	absolutePath := "/Users/mazey/Web/Mazey"
 	userEmail := "mazey@mazey.net"
 	userName := "Mazey Chu"
@@ -27,8 +26,8 @@ func main() {
 		// https://pkg.go.dev/fmt#Sprintf
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
 		cmdLines += fmt.Sprintf("cd %s;", s)
-		cmdLines += fmt.Sprintf(`git config user.email "%s";`, userEmail)
 		cmdLines += fmt.Sprintf(`git config user.name "%s";`, userName)
+		cmdLines += fmt.Sprintf(`git config user.email "%s";`, userEmail)
 		cmdLines += constants.ScriptEndMsg
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()

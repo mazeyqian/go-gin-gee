@@ -12,14 +12,14 @@ import (
 // @version 1.0
 // @description API REST in Golang with Gin Framework
 
-// @contact.name Antonio Paya Gonzalez
-// @contact.url http://antoniopg.tk
-// @contact.email antonioalfa22@gmail.com
+// @contact.name Mazey Chu
+// @contact.url https://blog.mazey.net
+// @contact.email mazeyqian@gmail.com
 
 // @license.name MIT
 // @license.url https://github.com/mazeyqian/go-gin-gee/blob/master/LICENSE
 
-// @BasePath /
+// @BasePath /api
 
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
@@ -28,7 +28,6 @@ import (
 func main() {
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "Asia/Shanghai")
-	// schedules.RunCheck()
 	controllers.RunCheck()
 	api.Run("data/config.json", "json")
 }
