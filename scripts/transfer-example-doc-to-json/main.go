@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("- begin -")
+	log.Println("- begin -")
 	re := regexp.MustCompile("^.+$")
 	index := 0
 	script.File("./data/example-plain.txt").MatchRegexp(re).FilterLine(func(s string) string {
@@ -20,5 +20,5 @@ func main() {
 		log.Println("New line:", s)
 		return s
 	}).WriteFile("./data/example-json.txt")
-	fmt.Println("- end -")
+	log.Println("- end -")
 }
