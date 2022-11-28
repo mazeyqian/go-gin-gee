@@ -43,7 +43,7 @@ func main() {
 		if err != nil {
 			log.Println("error:", err)
 		}
-		log.Printf("%s", result)
+		log.Printf("result: %s", result)
 		return ""
 	}).Stdout()
 }
