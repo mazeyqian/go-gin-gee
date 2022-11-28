@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os/exec"
@@ -11,23 +12,31 @@ import (
 
 func main() {
 	log.Println("Change git user...")
-	// Example:
+	// Examples:
+	// go run scripts/change-git-user/main.go -path="/Users/mazey/Web/Mazey" -username="Mazey Chu" -useremail="mazey@mazey.net"
 	// Air Example: "/Volumes/ProjectX/Example"
 	// "example@example.net" "Example Na"
 	// Pro Mazey: "/Users/mazey/Web/Mazey"
 	// "mazey@mazey.net" "Mazey Chu"
-	absolutePath := "/Users/mazey/Web/Mazey"
-	userEmail := "mazey@mazey.net"
-	userName := "Mazey Chu"
+	absolutePath := flag.String("path", "/Users/mazey/Web/Mazey", "folder of projects")
+	userName := flag.String("username", "Mazey Chu", "user name")
+	userEmail := flag.String("useremail", "mazey@mazey.net", "user email")
+	log.Println("absolutePath:", *absolutePath)
+	log.Println("userName:", *userName)
+	log.Println("userEmail:", *userEmail)
+	// Previous:
+	// absolutePath := "/Users/mazey/Web/Mazey"
+	// userName := "Mazey Chu"
+	// userEmail := "mazey@mazey.net"
 	// https://bitfieldconsulting.com/golang/scripting
 	// https://pkg.go.dev/github.com/bitfield/script#ListFiles
-	script.ListFiles(fmt.Sprintf("%s/*/.git", absolutePath)).FilterLine(func(s string) string {
+	script.ListFiles(fmt.Sprintf("%s/*/.git", *absolutePath)).FilterLine(func(s string) string {
 		cmdLines := constants.ScriptStartMsg
 		// https://pkg.go.dev/fmt#Sprintf
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
 		cmdLines += fmt.Sprintf("cd %s;", s)
-		cmdLines += fmt.Sprintf(`git config user.name "%s";`, userName)
-		cmdLines += fmt.Sprintf(`git config user.email "%s";`, userEmail)
+		cmdLines += fmt.Sprintf(`git config user.name "%s";`, *userName)
+		cmdLines += fmt.Sprintf(`git config user.email "%s";`, *userEmail)
 		cmdLines += constants.ScriptEndMsg
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()

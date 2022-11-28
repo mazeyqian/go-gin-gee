@@ -10,6 +10,7 @@ import (
 	"github.com/bitfield/script"
 )
 
+// Examples:
 // go run scripts/batch-git-pull/main.go -path="/Users/mazey/Web/Mazey"
 // go run scripts/batch-git-pull/main.go -path="/Users/mazey/Web/Bilibili" -projects="placeholder"
 // path required
@@ -22,26 +23,22 @@ func main() {
 	flag.Parse()
 	log.Println("projectPath:", *projectPath)
 	log.Println("assignedProjects:", *assignedProjects)
-	// projectPath := "/web/i.mazey.net"
 	projects := []string{
-		// "go-gin-gee",
-		// "mazey",
-		// "tool",
 		"placeholder",
 	}
 	regexStr := "^.+("
 	for _, v := range projects {
 		regexStr += fmt.Sprintf("%s|", v)
 	}
-	regexStr += fmt.Sprintf("%s)$", *assignedProjects) // placeholder
+	regexStr += fmt.Sprintf("%s)$", *assignedProjects)
 	log.Println("regexStr:", regexStr)
-	regex := regexp.MustCompile(regexStr) // "^.+(json-to-resume|mazey-server)$")
+	regex := regexp.MustCompile(regexStr)
 	script.ListFiles(*projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
 		cmdLines := "echo - - begin - -;"
 		cmdLines += "echo ;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
 		cmdLines += fmt.Sprintf("cd %s;", s)
-		// cmdLines += `git checkout master;`
+		// Control the branch: cmdLines += `git checkout master;`
 		cmdLines += `git pull;`
 		cmdLines += "echo ;"
 		cmdLines += "echo - - end - - - - - - - - - - - - - - - - -;"
