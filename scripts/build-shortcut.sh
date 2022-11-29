@@ -34,3 +34,7 @@ where nginx
 brew services restart supervisor
 brew services list
 nginx -t
+
+./dist/shadowsocks2-macos-amd64 -s "ss://CHACHA20-IETF-POLY1305:your-password@:8488" -verbose
+
+./dist/shadowsocks2-macos-amd64 -s 'ss://CHACHA20-IETF-POLY1305:your-password@:8488' -verbose
