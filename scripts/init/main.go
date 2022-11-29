@@ -8,5 +8,5 @@ import (
 
 func main() {
 	fmt.Println("Init...")
-	script.ListFiles("./asset").ExecForEach("cp -R {{.}} .").Stdout()
+	script.ListFiles("./assets").ExecForEach("cp -R {{.}} .").Stdout()
 }
