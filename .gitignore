@@ -1,10 +1,10 @@
 # Output folders
 node_modules/
-log/
-data/
 test/unit/coverage
 test/e2e/reports
 /dist/
+/log/
+/data/
 
 # Cache folders
 .sass-cache/
