@@ -133,3 +133,4 @@ pong/v1.0.0/2022-09-29 04:52:43
 - [lo](https://github.com/samber/lo)
 - [project-layout](https://github.com/golang-standards/project-layout)
 - [script](https://github.com/bitfield/script)
+- [go-shadowsocks2](https://github.com/shadowsocks/go-shadowsocks2)
