@@ -1,6 +1,8 @@
 package constants
 
 const (
+	StartMsgStr    = "- - begin - - - - - - - - - - - - - - - -"
+	EndMsgStr      = "- - end - - - - - - - - - - - - - - - - -"
 	ScriptStartMsg = "echo \"- - begin - -\n\";"
 	ScriptEndMsg   = "echo \"\n- - end - - - - - - - - - - - - - - - - -\";"
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -10,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/bitfield/script"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
 )
 
 type GamecenterH5 struct {
@@ -19,12 +21,16 @@ type GamecenterH5 struct {
 	Bundleurl   string `json:"bundleurl"`
 }
 
+// Examples:
+// go run scripts/transfer-files-to-json/main.go -path="./dist" -projects="placeholder" -baseurl="//example.com/static/" -outfile="./out.json"
 func main() {
-	log.Println("- begin -")
+	log.Println(constants.StartMsgStr)
+	projectPath := flag.String("path", "./dist", "folder of projects")
+	assignedProjects := flag.String("projects", "placeholder", "assigned projects")
+	baseUrl := flag.String("baseurl", "//example.com/static/", "domain and path")
+	outFile := flag.String("outfile", "./out.json", "out file")
 	gh := &GamecenterH5{}
-	domain := "//s1.hdslb.com/bfs/static/gameweb/gamecenter-h5/"
-	projectPath := "./dist/gamecenter-h5"
-	assignedProjects := "gamecenter-h5/gamecenter-h5"
+	domain := *baseUrl
 	projects := []string{
 		"placeholder",
 	}
@@ -32,10 +38,10 @@ func main() {
 	for _, v := range projects {
 		regexStr += fmt.Sprintf("%s|", v)
 	}
-	regexStr += fmt.Sprintf("%s).+$", assignedProjects)
+	regexStr += fmt.Sprintf("%s).+$", *assignedProjects)
 	log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr)
-	script.ListFiles(projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
+	script.ListFiles(*projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
 		fileName := filepath.Base(s)
 		link := domain + fileName
 		if strings.Contains(link, ".template.html") {
@@ -53,7 +59,7 @@ func main() {
 		return link
 	}).Stdout()
 	log.Println("gh:", *gh)
-	file, _ := json.MarshalIndent(*gh, "", " ")
-	_ = ioutil.WriteFile("./dist/gamecenter-h5/config---gamecenter-h5.json", file, 0644)
-	log.Println("- end -")
+	file, _ := json.Marshal(*gh)
+	_ = ioutil.WriteFile(*outFile, file, 0644)
+	log.Println(constants.EndMsgStr)
 }
