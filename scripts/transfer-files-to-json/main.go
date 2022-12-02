@@ -29,6 +29,11 @@ func main() {
 	assignedProjects := flag.String("projects", "placeholder", "assigned projects")
 	baseUrl := flag.String("baseurl", "//example.com/static/", "domain and path")
 	outFile := flag.String("outfile", "./out.json", "out file")
+	flag.Parse()
+	log.Println("projectPath:", *projectPath)
+	log.Println("assignedProjects:", *assignedProjects)
+	log.Println("baseUrl:", *baseUrl)
+	log.Println("outFile:", *outFile)
 	gh := &GamecenterH5{}
 	domain := *baseUrl
 	projects := []string{
