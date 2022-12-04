@@ -38,6 +38,7 @@ func main() {
 		cmdLines += fmt.Sprintf(`git config user.name "%s";`, *userName)
 		cmdLines += fmt.Sprintf(`git config user.email "%s";`, *userEmail)
 		cmdLines += constants.ScriptEndMsg
+		// windows /c/'Program Files'/Git/bin/sh.exe
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
