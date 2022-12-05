@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/bitfield/script"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
 )
 
 // Examples:
@@ -30,24 +31,28 @@ func main() {
 	for _, v := range projects {
 		regexStr += fmt.Sprintf("%s|", v)
 	}
+	// Example: ^.+(placeholder|.)$
 	regexStr += fmt.Sprintf("%s)$", *assignedProjects)
+	// Example: /^(.+，)?([^（），]+)(.+)?$/
+	// exclude .DS_Store
+	if *assignedProjects == "." {
+		regexStr = "^.+[^._ae]$"
+	}
 	log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr)
 	script.ListFiles(*projectPath).MatchRegexp(regex).FilterLine(func(s string) string {
-		cmdLines := "echo - - begin - -;"
-		cmdLines += "echo ;"
+		cmdLines := constants.ScriptStartMsg // "echo - - begin - -;"
 		cmdLines += fmt.Sprintf("echo Path: %s;", s)
 		cmdLines += fmt.Sprintf("cd %s;", s)
 		// Control the branch: cmdLines += `git checkout master;`
 		cmdLines += `git pull;`
-		cmdLines += "echo ;"
-		cmdLines += "echo - - end - - - - - - - - - - - - - - - - -;"
+		cmdLines += constants.ScriptEndMsg // "echo - - end - - - - - - - - - - - - - - - - -;"
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
 			log.Println("error:", err)
 		}
 		log.Printf("result: %s", result)
-		return s
+		return ""
 	}).Stdout()
 }
