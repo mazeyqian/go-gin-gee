@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	log.Println(constants.ScriptEndMsg)
+	log.Println(constants.StartMsgStr)
 	re := regexp.MustCompile("^.*\t.*\t.*$")
 	script.File("./data/s.txt").MatchRegexp(re).FilterLine(func(s string) string {
 		ss := strings.Split(s, "\t")
@@ -28,5 +28,5 @@ func main() {
 		s = retS
 		return s
 	}).WriteFile("./data/sw.txt")
-	log.Println("- end -")
+	log.Println(constants.EndMsgStr)
 }
