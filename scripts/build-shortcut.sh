@@ -1,9 +1,11 @@
 # scripts
 GOOS=darwin GOARCH=amd64 go build -o dist/batch-git-pull-mac-darwin-amd64 scripts/batch-git-pull/main.go
 GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go
+GOOS=darwin GOARCH=amd64 go build -o dist/transfer-files-to-json-mac-darwin-amd64 scripts/transfer-files-to-json/main.go
 
 # scripts
 GOOS=linux GOARCH=amd64 go build -o dist/batch-git-pull-linux-amd64 scripts/batch-git-pull/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/transfer-files-to-json-linux-amd64 scripts/transfer-files-to-json/main.go
 
 # startup
 GOOS=darwin GOARCH=amd64 go build -o dist/startup-mac-darwin-amd64 cmd/startup/main.go
