@@ -19,6 +19,7 @@ func main() {
 	oFilename := fmt.Sprintf("./data/%s-for-typedoc.js", alias)
 	index := 0
 	hasZH := false
+	// https://gobyexample.com/regular-expressions
 	rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
 	// Determine the intel evironment.
 	script.File(iFilename).FilterLine(func(s string) string {
