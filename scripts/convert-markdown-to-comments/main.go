@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"regexp"
+	"strings"
 
 	"github.com/bitfield/script"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
@@ -16,12 +18,31 @@ func main() {
 	iFilename := fmt.Sprintf("./data/%s-for-typedoc.md", alias)
 	oFilename := fmt.Sprintf("./data/%s-for-typedoc.js", alias)
 	index := 0
+	hasZH := false
+	rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
+	// Determine the intel evironment.
+	script.File(iFilename).FilterLine(func(s string) string {
+		if strings.Contains(s, "ZH:") {
+			hasZH = true
+			log.Println("ZH exist")
+		}
+		return "- pass -"
+	}).Stdout()
+	// Add comments.
 	script.File(iFilename).FilterLine(func(s string) string {
 		retStr := s
 		if index == 0 {
-			retStr = "/**\n * " + retStr
+			if hasZH {
+				retStr = "/**\n * EN: " + retStr
+			} else {
+				retStr = "/**\n * " + retStr
+			}
 		} else {
-			retStr = " * " + retStr
+			if strings.Contains(s, "ZH:") {
+				retStr = " * " + rMatchZH.FindStringSubmatch(retStr)[1]
+			} else {
+				retStr = " * " + retStr
+			}
 		}
 		index++
 		log.Println(retStr)
