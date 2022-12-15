@@ -15,6 +15,7 @@ func main() {
 	log.Println(constants.StartMsgStr)
 	alias := "markdown"
 	endLine := " */"
+	// markdown-for-typedoc.md
 	iFilename := fmt.Sprintf("./data/%s-for-typedoc.md", alias)
 	oFilename := fmt.Sprintf("./data/%s-for-typedoc.js", alias)
 	index := 0
