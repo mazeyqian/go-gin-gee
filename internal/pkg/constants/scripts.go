@@ -6,6 +6,8 @@ const (
 	ScriptStartMsg = "echo \"- - begin - -\n\";"
 	ScriptEndMsg   = "echo \"\n- - end - - - - - - - - - - - - - - - - -\";"
 
+	RunningMsg = "running..."
+
 	CoinCode1031 = 1031
 	CoinErrMsg   = "operation error"
 

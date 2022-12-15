@@ -28,7 +28,7 @@ func main() {
 			hasZH = true
 			log.Println("ZH exist")
 		}
-		return "- pass -"
+		return constants.RunningMsg
 	}).Stdout()
 	// Add comments.
 	script.File(iFilename).FilterLine(func(s string) string {
