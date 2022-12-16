@@ -22,6 +22,8 @@ func main() {
 	hasZH := false
 	// https://gobyexample.com/regular-expressions
 	rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
+	rMatchCommentStart, _ := regexp.Compile("^<!-- (.+)$")
+	rMatchCommentEnd, _ := regexp.Compile("^(.+) -->$")
 	zhStartStr := "<!-- ZH:"
 	// Determine the intel evironment.
 	script.File(iFilename).FilterLine(func(s string) string {
@@ -34,6 +36,7 @@ func main() {
 	// Add comments.
 	script.File(iFilename).FilterLine(func(s string) string {
 		retStr := s
+		// First Line
 		if index == 0 {
 			if hasZH {
 				retStr = "/**\n * EN: " + retStr
@@ -41,9 +44,14 @@ func main() {
 				retStr = "/**\n * " + retStr
 			}
 		} else {
+			// ZH
 			if strings.Contains(s, zhStartStr) {
 				retStr = " * " + rMatchZH.FindStringSubmatch(retStr)[1]
-			} else {
+			} else if strings.Contains(s, "<!-- ") {
+				retStr = " * " + rMatchCommentStart.FindStringSubmatch(retStr)[1]
+			} else if strings.Contains(s, " -->") {
+				retStr = " * " + rMatchCommentEnd.FindStringSubmatch(retStr)[1]
+			} else { // Normal Lines
 				retStr = " * " + retStr
 			}
 		}
