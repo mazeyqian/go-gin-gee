@@ -22,9 +22,10 @@ func main() {
 	hasZH := false
 	// https://gobyexample.com/regular-expressions
 	rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
+	zhStartStr := "<!-- ZH:"
 	// Determine the intel evironment.
 	script.File(iFilename).FilterLine(func(s string) string {
-		if strings.Contains(s, "ZH:") {
+		if strings.Contains(s, zhStartStr) {
 			hasZH = true
 			log.Println("ZH exist")
 		}
@@ -40,7 +41,7 @@ func main() {
 				retStr = "/**\n * " + retStr
 			}
 		} else {
-			if strings.Contains(s, "ZH:") {
+			if strings.Contains(s, zhStartStr) {
 				retStr = " * " + rMatchZH.FindStringSubmatch(retStr)[1]
 			} else {
 				retStr = " * " + retStr
