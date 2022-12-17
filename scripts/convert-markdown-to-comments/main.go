@@ -22,6 +22,7 @@ func main() {
 	hasZH := false
 	// https://gobyexample.com/regular-expressions
 	rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
+	rMatchCommentBoth, _ := regexp.Compile("^<!-- (.+) -->$")
 	rMatchCommentStart, _ := regexp.Compile("^<!-- (.+)$")
 	rMatchCommentEnd, _ := regexp.Compile("^(.+) -->$")
 	zhStartStr := "<!-- ZH:"
@@ -47,6 +48,8 @@ func main() {
 			// ZH
 			if strings.Contains(s, zhStartStr) {
 				retStr = " * " + rMatchZH.FindStringSubmatch(retStr)[1]
+			} else if strings.Contains(s, "<!-- ") && strings.Contains(s, " -->") {
+				retStr = " * " + rMatchCommentBoth.FindStringSubmatch(retStr)[1]
 			} else if strings.Contains(s, "<!-- ") {
 				retStr = " * " + rMatchCommentStart.FindStringSubmatch(retStr)[1]
 			} else if strings.Contains(s, " -->") {
