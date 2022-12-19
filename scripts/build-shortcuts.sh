@@ -37,7 +37,7 @@ ps -o pid,user,%mem,command ax | sort -b -k3 -r
 
 brew install supervisor
 
-"""
+"
 To restart supervisor after an upgrade:
   brew services restart supervisor
 Or, if you don't want/need a background service you can just run:
@@ -51,16 +51,16 @@ cat /usr/local/etc/supervisord.conf
 files = /usr/local/etc/supervisor.d/*.ini
 
 /Users/mazey/Desktop/supervisor/b-startup.ini
-"""
+"
 
 ## Nginx
 
-"""
+"
 where nginx
 brew services restart supervisor
 brew services list
 nginx -t
-"""
+"
 
 ## Shadowsocks
 
