@@ -18,12 +18,17 @@ func main() {
 	// "example@example.net" "Example Na"
 	// Pro Mazey: "/Users/mazey/Web/Mazey"
 	// "mazey@mazey.net" "Mazey Chu"
-	absolutePath := flag.String("path", "/Users/mazey/Web/Mazey", "folder of projects")
-	userName := flag.String("username", "Mazey Chu", "user name")
-	userEmail := flag.String("useremail", "mazey@mazey.net", "user email")
+	placeholder := "unknown"
+	absolutePath := flag.String("path", placeholder, "path of projects")
+	userName := flag.String("username", placeholder, "user name")
+	userEmail := flag.String("useremail", placeholder, "user email")
+	flag.Parse()
 	log.Println("absolutePath:", *absolutePath)
 	log.Println("userName:", *userName)
 	log.Println("userEmail:", *userEmail)
+	if *absolutePath == placeholder || *userName == placeholder || *userEmail == placeholder {
+		log.Panicln("params is required")
+	}
 	// Previous:
 	// absolutePath := "/Users/mazey/Web/Mazey"
 	// userName := "Mazey Chu"
