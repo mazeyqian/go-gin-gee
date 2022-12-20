@@ -13,7 +13,7 @@ import (
 
 // Examples:
 // go run scripts/batch-git-pull/main.go -path="/Users/mazey/Web/Mazey"
-// go run scripts/batch-git-pull/main.go -path="/Users/mazey/Web/Bilibili" -projects="placeholder"
+// go run scripts/batch-git-pull/main.go -path="/Users/mazey/Web/Rabbit" -projects="placeholder"
 // path required
 // projects optional
 func main() {

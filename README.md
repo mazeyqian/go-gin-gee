@@ -1,6 +1,6 @@
 # go-gin-gee
 
-Gee provides several services for everyday life. The project is based on Gin [1], and the structure refers to ProjectLayout [3]. There are some daily scripts in the folder Scripts depending on Script [4], which can run by the command Run.
+Gee provides several services for everyday life. The project is based on Gin [1], and the structure refers to ProjectLayout [3]. Some daily scripts in the folder Scripts depend on Script [4], which can run by the command Run.
 
 **Table of Contents**
 
