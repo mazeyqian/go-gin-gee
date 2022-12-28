@@ -18,6 +18,10 @@ GOOS=windows GOARCH=amd64 go build -o dist/change-git-user-windows-amd64 scripts
 GOOS=darwin GOARCH=amd64 go build -o dist/transfer-files-to-json-mac-darwin-amd64 scripts/transfer-files-to-json/main.go
 GOOS=linux GOARCH=amd64 go build -o dist/transfer-files-to-json-linux-amd64 scripts/transfer-files-to-json/main.go
 
+### convert-files-to-json
+
+GOOS=darwin GOARCH=amd64 go build -o dist/convert-files-to-json-mac-darwin-amd64 scripts/convert-files-to-json/main.go
+
 ## cmd
 
 ### startup
