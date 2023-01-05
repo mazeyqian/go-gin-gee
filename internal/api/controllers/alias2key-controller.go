@@ -19,7 +19,12 @@ func GetDataByAlias(c *gin.Context) {
 		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
 		log.Println(err)
 	} else {
-		c.JSON(http.StatusOK, gin.H{"data": data})
+		if !data.Public {
+			// https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+			http_err.NewError(c, http.StatusForbidden, errors.New("the client does not have access rights to the content"))
+		} else {
+			c.JSON(http.StatusOK, gin.H{"data": data})
+		}
 	}
 }
 

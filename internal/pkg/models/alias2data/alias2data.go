@@ -8,8 +8,9 @@ import (
 
 type Alias2data struct {
 	models.Model
-	Alias string `gorm:"column:alias;not null;" json:"alias" form:"alias"`
-	Data  string `gorm:"column:data;not null;" json:"data" form:"data"`
+	Alias  string `gorm:"column:alias;not null;" json:"alias" form:"alias"`
+	Data   string `gorm:"column:data;not null;" json:"data" form:"data"`
+	Public bool   `gorm:"column:public;not null;" json:"public" form:"public"`
 }
 
 func (m *Alias2data) BeforeCreate() error {
