@@ -6,7 +6,9 @@ Gee provides several services for everyday life. The project is based on Gin [1]
 
 - [go-gin-gee](#go-gin-gee)
   - [Install](#install)
+  - [Script Examples](#script-examples)
   - [API Examples](#api-examples)
+    - [Save Data](#save-data)
   - [Build](#build)
     - [Linux](#linux)
     - [Mac](#mac)
@@ -21,7 +23,7 @@ Gee provides several services for everyday life. The project is based on Gin [1]
 git clone git@github.com:mazeyqian/go-gin-gee.git
 ```
 
-## API Examples
+## Script Examples
 
 Change Git name and email for different projects.
 
@@ -42,6 +44,71 @@ go run scripts/transfer-notes-to-md-table/main.go
 ```
 
 More in folder `scripts`.
+
+## API Examples
+
+Domain is `https://feperf.com`.
+
+### Save Data
+
+**Description:**
+
+Save the data for searching.
+
+**Path:** **/api/gee/create-alias2data**
+ 
+**Method:** **POST**
+
+**Params:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| alias | string | Alias | Yes |
+| data | string | Data | Yes |
+| public | bool | Public | Yes |
+
+**Example:**
+
+```shell
+curl --location --request POST 'https://feperf.com/api/gee/create-alias2data' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "alias": "alias example",
+    "data": "data example",
+    "public": true
+}'
+```
+
+**Returns:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| id | int | ID | Yes |
+| alias | string | Alias | Yes |
+| data | string | Data | Yes |
+
+**Example:**
+
+Success:
+
+```json
+{
+    "id": 2,
+    "created_at": "2023-01-07T11:14:24.572495702+08:00",
+    "updated_at": "2023-01-07T11:14:24.57882362+08:00",
+    "alias": "alias example",
+    "data": "data example"
+}
+```
+
+Failure:
+
+```json
+{
+    "code": 400,
+    "message": "data exist"
+}
+```
 
 ## Build
 
