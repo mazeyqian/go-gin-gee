@@ -145,7 +145,7 @@ Supervisor Config:
 ```
 [program:api]
 directory=/web/go-gin-gee
-command=/web/go-gin-gee/dist/api-linux-amd64
+command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="data/config.json"
 autostart=true
 autorestart=true
 stderr_logfile=/web/go-gin-gee/log/api.err

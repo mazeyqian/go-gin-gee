@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"log"
 	"os"
 
 	_ "github.com/mazeyqian/go-gin-gee/docs"
@@ -26,8 +28,11 @@ import (
 // @name Authorization
 
 func main() {
+	configPath := flag.String("configpath", "data/config.json", "path of configuration")
+	flag.Parse()
+	log.Println("configPath:", *configPath)
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "Asia/Shanghai")
 	controllers.RunCheck()
-	api.Run("data/config.json", "json")
+	api.Run(*configPath, "json")
 }

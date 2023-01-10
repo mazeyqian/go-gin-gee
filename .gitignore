@@ -34,3 +34,7 @@ selenium-debug.log*
 
 # Unique
 /main
+*.secret.conf
+*.secret.ini
+*.secret.yml
+*.secret.json
