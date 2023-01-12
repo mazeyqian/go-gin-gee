@@ -43,6 +43,12 @@ Transfer apple note table to markdown table.
 go run scripts/transfer-notes-to-md-table/main.go
 ```
 
+Convert Markdown text to TypeDoc comments.
+
+```
+go run scripts/convert-markdown-to-comments/main.go
+```
+
 More in folder `scripts`.
 
 ## API Examples
