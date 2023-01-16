@@ -42,7 +42,7 @@ func main() {
 	// if *assignedProjects == "." {
 	// 	regexStr = "^.+[^._ae]$"
 	// }
-	log.Println("regexStr:", regexStr)
+	// log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr)
 	script.ListFiles(fmt.Sprintf("%s/*/.git", *projectPath)).MatchRegexp(regex).FilterLine(func(s string) string {
 		cmdLines := constants.ScriptStartMsg
