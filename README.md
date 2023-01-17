@@ -14,6 +14,8 @@ Gee provides several services for everyday life. The project is based on Gin [1]
     - [Mac](#mac)
     - [Windows](#windows)
   - [Deploy](#deploy)
+    - [Supervisor](#supervisor)
+    - [Docker](#docker)
   - [Contributing](#contributing)
   - [References](#references)
 
@@ -146,7 +148,7 @@ GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 
 ## Deploy
 
-Supervisor Config:
+### Supervisor
 
 ```
 [program:api]
@@ -156,6 +158,12 @@ autostart=true
 autorestart=true
 stderr_logfile=/web/go-gin-gee/log/api.err
 stdout_logfile=/web/go-gin-gee/log/api.log
+```
+
+### Docker
+
+```
+bash ./scripts/docker-build.sh
 ```
 
 ## Contributing
