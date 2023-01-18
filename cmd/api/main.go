@@ -10,9 +10,9 @@ import (
 	"github.com/mazeyqian/go-gin-gee/internal/api/controllers"
 )
 
-// @Golang API REST
+// @Golang API
 // @version 1.0
-// @description API REST in Golang with Gin Framework
+// @description API in Golang with Gin Framework
 
 // @contact.name Mazey Chu
 // @contact.url https://blog.mazey.net

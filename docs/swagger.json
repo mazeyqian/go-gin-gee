@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API REST in Golang with Gin Framework",
+        "description": "API in Golang with Gin Framework",
         "contact": {
             "name": "Antonio Paya Gonzalez",
             "url": "http://antoniopg.tk",

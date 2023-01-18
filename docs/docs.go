@@ -189,7 +189,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "",
-	Description: "API REST in Golang with Gin Framework",
+	Description: "API in Golang with Gin Framework",
 }
 
 type s struct{}

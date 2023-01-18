@@ -27,7 +27,7 @@ func Run(configPath string, configType string) {
 	conf := config.GetConfig()
 	log.Println("conf:", conf)
 	web := router.Setup()
-	fmt.Println("Go API REST Running on port " + conf.Server.Port)
+	fmt.Println("Go API Running on port " + conf.Server.Port)
 	fmt.Println("==================>")
 	_ = web.Run(":" + conf.Server.Port)
 }

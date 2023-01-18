@@ -40,7 +40,7 @@ func Run(configPath string, configType string) {
 	conf := config.GetConfig()
 	log.Println("conf:", conf)
 	web := router.Setup()
-	log.Println("Go API REST Running on port " + conf.Server.Port)
+	log.Println("Go Startup Running on port " + conf.Server.Port)
 	log.Println("==================>")
 	_ = web.Run(":" + conf.Server.Port)
 }
