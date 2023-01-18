@@ -19,6 +19,9 @@ RUN go mod download
 
 COPY . .
 
+# Init
+RUN go run scripts/init/main.go
+
 # Build the Go app
 RUN go build -o ./out/app ./cmd/api/main.go
 
@@ -39,4 +42,5 @@ RUN chmod +x api
 EXPOSE 3000
 
 # Run the binary program produced by `go install`
-ENTRYPOINT ./api
+# ENTRYPOINT ./api -configpath="data/config.json"
+ENTRYPOINT ./api -configpath="data/config.secret.json"
