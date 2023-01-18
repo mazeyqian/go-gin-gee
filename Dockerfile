@@ -30,13 +30,13 @@ RUN apk --no-cache add tzdata
 
 WORKDIR /app
 
-COPY --from=build_base /src/out/app /app/restapi
+COPY --from=build_base /src/out/app /app/api
 COPY --from=build_base /src/data /app/data
 
-RUN chmod +x restapi
+RUN chmod +x api
 
 # This container exposes port 8080 to the outside world
 EXPOSE 3000
 
 # Run the binary program produced by `go install`
-ENTRYPOINT ./restapi
+ENTRYPOINT ./api
