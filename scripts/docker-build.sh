@@ -3,7 +3,7 @@ echo "Start Build Docker"
 # ProjectName/SubName
 preVersion="go-gin-gee/api"
 # Port
-visitPort="30117"
+visitPort="3000"
 innerPort="3000"
 
 # Build

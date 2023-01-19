@@ -40,5 +40,5 @@ RUN chmod +x api
 EXPOSE 3000
 
 # Run the binary program produced by `go install`
-# ENTRYPOINT ./api -configpath="data/config.json"
-ENTRYPOINT ./api -configpath="data/config.secret.json"
+# Or, "data/config.secret.json"
+ENTRYPOINT ./api -configpath="data/config.json"
