@@ -1,12 +1,13 @@
-# Example: bash ./scripts/docker-build.sh
-
-echo "Start Build Docker"
+# Example: bash ./scripts/docker-run.sh mazeyqian/go-gin-gee:v202301191427
 
 # ProjectName/SubName
-preVersion="go-gin-gee/api"
+# preVersion="go-gin-gee/api"
+combinedVersion=$1
 # Port
 visitPort="3000"
 innerPort="3000"
+
+echo "Run Docker: ${combinedVersion}"
 
 # Build
 # GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
@@ -22,13 +23,17 @@ docker ps -a -q
 docker rm $(docker ps -a -q)
 
 # Generate
-randomVersion=${RANDOM}
-combinedVersion="${preVersion}:v${randomVersion}"
-echo "Generate random version: ${combinedVersion}"
+# randomVersion=${RANDOM}
+# combinedVersion="${preVersion}:v${randomVersion}"
+# echo "Generate random version: ${combinedVersion}"
 
 # Build
-echo "Build Docker Image: ${combinedVersion}"
-docker build -t ${combinedVersion} . -f ./Dockerfile
+# echo "Build Docker Image: ${combinedVersion}"
+# docker build -t ${combinedVersion} . -f ./Dockerfile
+
+# Pull
+# Example: docker pull mazeyqian/go-gin-gee:v202301191427
+docker pull ${combinedVersion}
 
 # Run
 echo "Run Docker"
