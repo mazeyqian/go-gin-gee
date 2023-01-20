@@ -1,13 +1,14 @@
-# Example: bash ./scripts/docker-run.sh mazeyqian/go-gin-gee:v202301191427
+# Example: bash ./scripts/docker-run.sh "mazeyqian/go-gin-gee:v202301191427" "deep=purple"
 
 # ProjectName/SubName
 # preVersion="go-gin-gee/api"
 combinedVersion=$1
+envStr=$2
 # Port
 visitPort="3000"
 innerPort="3000"
 
-echo "Run Docker: ${combinedVersion}"
+echo "Run Docker: ${combinedVersion} with ${envStr}"
 
 # Build
 # GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
@@ -37,7 +38,7 @@ docker pull ${combinedVersion}
 
 # Run
 echo "Run Docker"
-docker run -d -p ${visitPort}:${innerPort} ${combinedVersion}
+docker run -e ${envStr} -d -p ${visitPort}:${innerPort} ${combinedVersion}
 
 # Notification
 echo "Complete, Visit: http://localhost:${visitPort}/api/ping"
