@@ -3,6 +3,7 @@ package persistence
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/go-resty/resty/v2"
@@ -95,13 +96,18 @@ func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
 	persistenceGetAlias2dataRepository := GetAlias2dataRepository()
 	data, err := persistenceGetAlias2dataRepository.Get("WECOM_ROBOT_CHECK")
+	wxworkRobotKey := ""
 	if err != nil {
 		log.Println("error:", err)
+		// Use ENV
+		wxworkRobotKey = os.Getenv("WECOM_ROBOT_CHECK")
+	} else {
+		wxworkRobotKey = data.Data
 	}
 	// log.Println("Check data", data)
 	// log.Println("Check WECOM_ROBOT_CHECK", data.Data)
 	// https://github.com/vimsucks/wxwork-bot-go
-	bot := wxworkbot.New(data.Data)
+	bot := wxworkbot.New(wxworkRobotKey)
 	markdown := wxworkbot.Markdown{
 		Content: mdStr,
 	}
