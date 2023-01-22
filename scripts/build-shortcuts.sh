@@ -33,6 +33,10 @@ GOOS=darwin GOARCH=amd64 go build -o dist/startup-mac-darwin-amd64 cmd/startup/m
 
 GOOS=linux GOARCH=amd64 go build -o dist/startupnode-linux-amd64 cmd/startupnode/main.go
 
+### startupjapan
+
+GOOS=linux GOARCH=amd64 go build -o dist/startupjapan-linux-amd64 cmd/startupjapan/main.go
+
 ## Check Memory Usage 
 
 # https://linuxhint.com/check_memory_usage_process_linux/
