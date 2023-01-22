@@ -1,3 +1,4 @@
+#!/bin/bash
 # Example: bash ./scripts/docker-run.sh "mazeyqian/go-gin-gee:v202301191427" "deep=purple"
 
 # ProjectName/SubName

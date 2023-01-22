@@ -1,3 +1,4 @@
+#!/bin/bash
 # Linux-CentOS-9-x64
 
 # Install

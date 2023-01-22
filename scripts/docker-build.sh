@@ -1,3 +1,4 @@
+#!/bin/bash
 # Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 
 echo "Start Build Docker"
@@ -43,6 +44,15 @@ if [ ${RUN_FLAG} = "RUN" ]; then
   # Notification
   echo "Complete, Visit: http://localhost:${visitPort}/api/ping"
 else
+  # Build
+  # Example: 20230122153113
+  # https://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
+  DATE_FORMAT=$(date +"%Y%m%d%H%M%S")
+  REPOSITORY_TAGNAME="mazeyqian/go-gin-gee:v${DATE_FORMAT}-api"
+  echo "DATE_FORMAT: ${DATE_FORMAT}"
+  docker tag ${combinedVersion} ${REPOSITORY_TAGNAME}
+  docker push ${REPOSITORY_TAGNAME}
   echo "RUN_FLAG: ${RUN_FLAG}"
+  echo "REPOSITORY_TAGNAME: ${REPOSITORY_TAGNAME}"
   echo "All done."
 fi
