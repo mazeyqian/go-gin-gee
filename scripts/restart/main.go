@@ -13,7 +13,8 @@ func main() {
 	cmdLines += `cd /web/go-gin-gee;`
 	cmdLines += `git checkout master;`
 	cmdLines += `git pull;`
-	cmdLines += `GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;`
+	cmdLines += `GOOS=linux GOARCH=amd64 go build -o dist/startupjapan-linux-amd64 cmd/startupjapan/main.go;`
+	// cmdLines += `GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go;`
 	// Another way to restart: cmdLines += `supervisorctl restart api;`
 	cmdLines += `systemctl restart supervisord;`
 	cmdLines += `supervisorctl status;`
