@@ -20,7 +20,7 @@ func Run(configPath string, configType string) {
 	cmdLines := constants.ScriptStartMsg
 	// cmdLines += `cd /web/go-gin-gee;`
 	cmdLines += `cd /Users/mazey/Web/Mazey/go-gin-gee;`
-	cmdLines += `. ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be";`
+	cmdLines += `. ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230122155129-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be";`
 	cmdLines += constants.ScriptEndMsg
 	// https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)
