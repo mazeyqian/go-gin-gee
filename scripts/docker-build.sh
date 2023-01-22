@@ -1,4 +1,3 @@
-#!/bin/bash
 # Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 
 echo "Start Build Docker"
