@@ -16,6 +16,8 @@ Gee provides several services for everyday life. The project is based on Gin [1]
   - [Deploy](#deploy)
     - [Supervisor](#supervisor)
     - [Docker](#docker)
+      - [Build](#build-1)
+      - [Run](#run)
   - [Contributing](#contributing)
   - [References](#references)
 
@@ -162,8 +164,24 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 
 ### Docker
 
+#### Build
+
 ```
-bash ./scripts/docker-build.sh
+# Command
+bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
+
+# Example
+bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+```
+
+#### Run
+
+```
+# Command
+bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
+
+# Example
+bash ./scripts/docker-run.sh "mazeyqian/go-gin-gee:v202301191427" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
 ## Contributing

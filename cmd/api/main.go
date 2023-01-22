@@ -31,6 +31,10 @@ func main() {
 	configPath := flag.String("configpath", "data/config.json", "path of configuration")
 	flag.Parse()
 	log.Println("configPath:", *configPath)
+	// ENV
+	// Robot
+	WECOM_ROBOT_CHECK := os.Getenv("WECOM_ROBOT_CHECK")
+	log.Println("WECOM_ROBOT_CHECK:", WECOM_ROBOT_CHECK)
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "Asia/Shanghai")
 	controllers.RunCheck()
