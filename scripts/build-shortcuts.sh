@@ -7,6 +7,7 @@
 
 GOOS=darwin GOARCH=amd64 go build -o dist/batch-git-pull-mac-darwin-amd64 scripts/batch-git-pull/main.go
 GOOS=linux GOARCH=amd64 go build -o dist/batch-git-pull-linux-amd64 scripts/batch-git-pull/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/batch-git-pull-windows-amd64 scripts/batch-git-pull/main.go
 
 ### change-git-user
 

@@ -37,11 +37,6 @@ func main() {
 	}
 	// Example: ^.+(placeholder|.)$
 	regexStr += fmt.Sprintf("%s)\\/\\.git$", *assignedProjects)
-	// Example: /^(.+，)?([^（），]+)(.+)?$/
-	// exclude .DS_Store
-	// if *assignedProjects == "." {
-	// 	regexStr = "^.+[^._ae]$"
-	// }
 	// log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr)
 	script.ListFiles(fmt.Sprintf("%s/*/.git", *projectPath)).MatchRegexp(regex).FilterLine(func(s string) string {
@@ -50,7 +45,6 @@ func main() {
 		cmdLines += fmt.Sprintf("cd %s;", s)
 		// Control the branch: cmdLines += `git checkout master;`
 		cmdLines += `cd ../;`
-		// cmdLines += `pwd;`
 		cmdLines += `git pull;`
 		cmdLines += constants.ScriptEndMsg
 		cmd := exec.Command("/bin/sh", "-c", cmdLines)
