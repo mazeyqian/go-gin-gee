@@ -35,10 +35,10 @@ Change Git name and email for different projects.
 go run scripts/change-git-user/main.go -path="/Users/X/Web" -username="Your Name" -useremail="your@email.com"
 ```
 
-Git pull all projects in a folder.
+`git pull` all projects in a folder.
 
 ```
-go run scripts/batch-git-pull/main.go
+go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 ```
 
 Transfer apple note table to markdown table. 
