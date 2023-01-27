@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -19,8 +21,13 @@ func RunCheck() {
 	s := persistence.GetRobotRepository()
 	// https://github.com/go-co-op/gocron
 	// https://pkg.go.dev/time#Location
-	shanghai, _ := time.LoadLocation("Asia/Shanghai")
-	ss := gocron.NewScheduler(shanghai)
-	ss.Every(1).Day().At("10:00").Do(s.ClearCheckResult)
+	// shanghai, _ := time.LoadLocation("Asia/Shanghai")
+	UTC, _ := time.LoadLocation("UTC")
+	ss := gocron.NewScheduler(UTC)
+	shTimeHour := 11
+	shTimeMinute := "45"
+	everyDayAtStr := fmt.Sprintf("%d:%s", shTimeHour-8, shTimeMinute)
+	log.Println("UTC everyDayAtStr:", everyDayAtStr)
+	ss.Every(1).Day().At(everyDayAtStr).Do(s.ClearCheckResult)
 	ss.StartAsync()
 }
