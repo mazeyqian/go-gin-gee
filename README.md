@@ -204,7 +204,7 @@ It's necessary to run the command `go run scripts/init/main.go` when serving the
 
 ```
 # Serve
-go run cmd/api/main.go
+go run cmd/api/main.go -configpath="data/config.dev.json"
 
 # Restart
 # cd /web/go-gin-gee
