@@ -24,7 +24,7 @@ Gee provides several services for everyday life. The project is based on Gin [1]
 ## Install
 
 ```
-git clone git@github.com:mazeyqian/go-gin-gee.git
+git clone https://github.com/mazeyqian/go-gin-gee.git
 ```
 
 ## Script Examples

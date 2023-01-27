@@ -13,7 +13,7 @@ GOOS=windows GOARCH=amd64 go build -o dist/batch-git-pull-windows-amd64 scripts/
 
 GOOS=darwin GOARCH=amd64 go build -o dist/change-git-user-mac-darwin-amd64 scripts/change-git-user/main.go
 GOOS=linux GOARCH=amd64 go build -o dist/change-git-user-linux-amd64 scripts/change-git-user/main.go
-GOOS=windows GOARCH=amd64 go build -o dist/change-git-user-windows-amd64 scripts/change-git-user/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/change-git-user-windows-amd64.exe scripts/change-git-user/main.go
 
 ### transfer-files-to-json
 

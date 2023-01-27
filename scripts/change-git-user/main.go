@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"runtime"
 
 	"github.com/bitfield/script"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
@@ -35,21 +36,43 @@ func main() {
 	// userEmail := "mazey@mazey.net"
 	// https://bitfieldconsulting.com/golang/scripting
 	// https://pkg.go.dev/github.com/bitfield/script#ListFiles
-	script.ListFiles(fmt.Sprintf("%s/*/.git", *absolutePath)).FilterLine(func(s string) string {
-		cmdLines := constants.ScriptStartMsg
-		// https://pkg.go.dev/fmt#Sprintf
-		cmdLines += fmt.Sprintf("echo Path: %s;", s)
-		cmdLines += fmt.Sprintf("cd %s;", s)
-		cmdLines += fmt.Sprintf(`git config user.name "%s";`, *userName)
-		cmdLines += fmt.Sprintf(`git config user.email "%s";`, *userEmail)
-		cmdLines += constants.ScriptEndMsg
-		// windows /c/'Program Files'/Git/bin/sh.exe
-		cmd := exec.Command("/bin/sh", "-c", cmdLines)
-		result, err := cmd.CombinedOutput()
-		if err != nil {
-			log.Println("error:", err)
-		}
-		log.Printf("result: %s", result)
-		return ""
-	}).Stdout()
+	// https://pkg.go.dev/runtime#pkg-constants
+	if runtime.GOOS == "windows" {
+		script.ListFiles(fmt.Sprintf("%s\\*\\.git", *absolutePath)).FilterLine(func(s string) string {
+			cmdLines := constants.ScriptStartMsgInWin + " && "
+			cmdLines += fmt.Sprintf("echo Path: %s && ", s)
+			cmdLines += fmt.Sprintf("cd %s && ", s)
+			cmdLines += fmt.Sprintf(`git config user.name %s && `, *userName)
+			cmdLines += fmt.Sprintf(`git config user.email %s && `, *userEmail)
+			cmdLines += "echo All done in Windows CMD. && "
+			cmdLines += constants.ScriptEndMsgInWin
+			log.Println("cmdLines:", cmdLines)
+			// https://stackoverflow.com/questions/13008255/how-to-execute-a-simple-windows-command-in-golang
+			cmd := exec.Command("cmd", "/C", cmdLines)
+			result, err := cmd.CombinedOutput()
+			if err != nil {
+				log.Println("error:", err)
+			}
+			log.Printf("result: %s", result)
+			return ""
+		}).Stdout()
+	} else {
+		script.ListFiles(fmt.Sprintf("%s/*/.git", *absolutePath)).FilterLine(func(s string) string {
+			cmdLines := constants.ScriptStartMsg
+			// https://pkg.go.dev/fmt#Sprintf
+			cmdLines += fmt.Sprintf("echo Path: %s;", s)
+			cmdLines += fmt.Sprintf("cd %s;", s)
+			cmdLines += fmt.Sprintf(`git config user.name "%s";`, *userName)
+			cmdLines += fmt.Sprintf(`git config user.email "%s";`, *userEmail)
+			cmdLines += constants.ScriptEndMsg
+			// windows /c/'Program Files'/Git/bin/sh.exe
+			cmd := exec.Command("/bin/sh", "-c", cmdLines)
+			result, err := cmd.CombinedOutput()
+			if err != nil {
+				log.Println("error:", err)
+			}
+			log.Printf("result: %s", result)
+			return ""
+		}).Stdout()
+	}
 }
