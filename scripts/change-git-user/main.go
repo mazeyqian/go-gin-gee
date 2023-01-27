@@ -46,7 +46,7 @@ func main() {
 			cmdLines += fmt.Sprintf(`git config user.email %s && `, *userEmail)
 			cmdLines += "echo All done in Windows CMD. && "
 			cmdLines += constants.ScriptEndMsgInWin
-			log.Println("cmdLines:", cmdLines)
+			// log.Println("cmdLines:", cmdLines)
 			// https://stackoverflow.com/questions/13008255/how-to-execute-a-simple-windows-command-in-golang
 			cmd := exec.Command("cmd", "/C", cmdLines)
 			result, err := cmd.CombinedOutput()
