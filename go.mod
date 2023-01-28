@@ -40,6 +40,7 @@ require (
 	github.com/spf13/viper v1.13.0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/swaggo/swag v1.8.1 // indirect
+	github.com/takuoki/clmconv v1.1.0 // indirect
 	github.com/vimsucks/wxwork-bot-go v0.0.0-20210525031914-b584a24ed8c5 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect

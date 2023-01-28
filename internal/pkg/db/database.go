@@ -11,6 +11,7 @@ import (
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/alias2data"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/tasks"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/tiny"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/models/users"
 )
 
@@ -68,6 +69,7 @@ func migration() {
 	DB.AutoMigrate(&users.UserRole{})
 	DB.AutoMigrate(&tasks.Task{})
 	DB.AutoMigrate(&alias2data.Alias2data{})
+	DB.AutoMigrate(&tiny.Tiny{})
 }
 
 func GetDB() *gorm.DB {

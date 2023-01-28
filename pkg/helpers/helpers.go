@@ -1,6 +1,8 @@
 package helpers
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"regexp"
 	"strconv"
 	"strings"
@@ -38,4 +40,9 @@ func ToSnakeCase(str string) string {
 	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
 
 	return strings.ToLower(snake)
+}
+
+func ConvertStringToMD5Hash(text string) string {
+	hash := md5.Sum([]byte(text))
+	return hex.EncodeToString(hash[:])
 }
