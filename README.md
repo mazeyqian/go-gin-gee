@@ -170,8 +170,11 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 # Command
 bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
-# Example
+# Example 1: Build
 bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+
+# Example 2: Build and Run
+bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
 #### Run
