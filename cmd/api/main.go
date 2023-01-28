@@ -33,6 +33,8 @@ func main() {
 	log.Println("configPath:", *configPath)
 	// ENV
 	// Robot
+	// MacOS, export WECOM_ROBOT_CHECK="b2d57746-7146-44f2-8207-86cb0ca832be"
+	// https://knowhowcommunity.org/how-to-set-environment-variables-mac/
 	WECOM_ROBOT_CHECK := os.Getenv("WECOM_ROBOT_CHECK")
 	log.Println("WECOM_ROBOT_CHECK:", WECOM_ROBOT_CHECK)
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai

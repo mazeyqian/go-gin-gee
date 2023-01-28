@@ -24,8 +24,8 @@ func RunCheck() {
 	// shanghai, _ := time.LoadLocation("Asia/Shanghai")
 	UTC, _ := time.LoadLocation("UTC")
 	ss := gocron.NewScheduler(UTC)
-	shTimeHour := 11
-	shTimeMinute := "45"
+	shTimeHour := 17
+	shTimeMinute := "40"
 	everyDayAtStr := fmt.Sprintf("%d:%s", shTimeHour-8, shTimeMinute)
 	log.Println("UTC everyDayAtStr:", everyDayAtStr)
 	ss.Every(1).Day().At(everyDayAtStr).Do(s.ClearCheckResult)
