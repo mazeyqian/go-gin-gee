@@ -23,15 +23,19 @@ func GetTinyRepository() *TinyRepository {
 
 func (t *TinyRepository) SaveOriLink(OriLink string) (*models.Tiny, error) {
 	OriMd5 := helpers.ConvertStringToMD5Hash(OriLink)
-	data, _ := t.QueryOriLinkByOriMd5(OriMd5)
+	data, err := t.QueryOriLinkByOriMd5(OriMd5)
+	if err != nil {
+		log.Println("SaveOriLink error:", err)
+		return nil, err
+	}
 	if data != nil {
 		log.Println("Tiny Exist", data)
-		return nil, errors.New("data exist")
+		return data, nil // errors.New("data exist")
 	}
 	var tiny models.Tiny
 	tiny.OriLink = OriLink
 	tiny.OriMd5 = OriMd5
-	err := Create(&tiny)
+	err = Create(&tiny)
 	if err != nil {
 		return nil, err
 	}

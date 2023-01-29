@@ -19,7 +19,7 @@ func GetTiny(c *gin.Context) {
 		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
 		log.Println("GetTiny error:", err)
 	} else {
-		c.JSON(http.StatusOK, gin.H{"data": data})
+		c.JSON(http.StatusOK, gin.H{"ori_link": data})
 	}
 }
 
