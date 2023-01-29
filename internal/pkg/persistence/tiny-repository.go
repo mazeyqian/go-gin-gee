@@ -21,27 +21,27 @@ func GetTinyRepository() *TinyRepository {
 	return tinyRepository
 }
 
-func (t *TinyRepository) SaveOriLink(OriLink string) (*models.Tiny, error) {
+func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 	OriMd5 := helpers.ConvertStringToMD5Hash(OriLink)
 	data, err := t.QueryOriLinkByOriMd5(OriMd5)
-	if err != nil {
-		log.Println("SaveOriLink error:", err)
-		return nil, err
-	}
+	// if err != nil {
+	// 	log.Println("SaveOriLink error:", err)
+	// 	return nil, err
+	// }
 	if data != nil {
 		log.Println("Tiny Exist", data)
-		return data, nil // errors.New("data exist")
+		return data.TinyLink, nil // errors.New("data exist")
 	}
 	var tiny models.Tiny
 	tiny.OriLink = OriLink
 	tiny.OriMd5 = OriMd5
 	err = Create(&tiny)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	err = Save(&tiny)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	TinyId := tiny.ID
 	// https://github.com/takuoki/clmconv
@@ -50,11 +50,11 @@ func (t *TinyRepository) SaveOriLink(OriLink string) (*models.Tiny, error) {
 	TinyLink := fmt.Sprintf("https://feperf.com/t/%s", TinyKey) // `${domain}/t/${tiny_key}`;
 	_, err = t.SaveTinyLink(TinyId, TinyLink, TinyKey)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	tiny.TinyKey = TinyKey
 	tiny.TinyLink = TinyLink
-	return &tiny, err
+	return tiny.TinyLink, err
 }
 
 func (t *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {

@@ -26,14 +26,14 @@ func GetTiny(c *gin.Context) {
 func CreateTiny(c *gin.Context) {
 	s := persistence.GetTinyRepository()
 	var tiny *models.Tiny
-	var tinyData *models.Tiny
+	var TinyLink string // *models.Tiny
 	var err error
 	// OriLink := c.Query("ori_tiny")
 	_ = c.BindJSON(&tiny)
-	if tinyData, err = s.SaveOriLink(tiny.OriLink); err != nil {
+	if TinyLink, err = s.SaveOriLink(tiny.OriLink); err != nil {
 		http_err.NewError(c, http.StatusBadRequest, err)
 		log.Println("GetTiny error:", err)
 	} else {
-		c.JSON(http.StatusCreated, gin.H{"data": tinyData})
+		c.JSON(http.StatusCreated, gin.H{"tiny_link": TinyLink})
 	}
 }
