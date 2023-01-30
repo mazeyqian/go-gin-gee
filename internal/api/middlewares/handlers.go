@@ -23,21 +23,22 @@ func NoRouteHandler() gin.HandlerFunc {
 
 func Logger() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		log.Println("Request URL:", c.Request.URL)
+
 		t := time.Now()
 
 		// Set example variable
 		c.Set("example", "12345")
 
 		// before request
-
 		c.Next()
 
 		// after request
 		latency := time.Since(t)
-		log.Print("Consume Time: ", latency)
+		log.Println("Consume Time:", latency)
 
 		// access the status we are sending
 		status := c.Writer.Status()
-		log.Println("StatusCode: ", status)
+		log.Println("StatusCode:", status)
 	}
 }

@@ -11,6 +11,19 @@ import (
 	http_err "github.com/mazeyqian/go-gin-gee/pkg/http-err"
 )
 
+func RedirectTiny(c *gin.Context) {
+	s := persistence.GetTinyRepository()
+	TinyKey := c.Param("key")
+	log.Println("GetTiny TinyKey:", TinyKey)
+	if data, err := s.QueryOriLinkByTinyKey(TinyKey); err != nil {
+		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
+		log.Println("GetTiny error:", err)
+	} else {
+		// c.JSON(http.StatusOK, gin.H{"ori_link": data})
+		c.Redirect(http.StatusFound, data)
+	}
+}
+
 func GetTiny(c *gin.Context) {
 	s := persistence.GetTinyRepository()
 	TinyKey := c.Query("tiny_key")
