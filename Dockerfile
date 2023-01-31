@@ -24,10 +24,14 @@ RUN go build -o ./out/app ./cmd/api/main.go
 # Start fresh from a smaller image
 # https://github.com/docker-library/golang/blob/8e04c39d2ce4466162418245c8b1178951021321/1.19/alpine3.17/Dockerfile
 FROM docker.io/alpine:3.17
-RUN apk add ca-certificates
+# RUN apk add ca-certificates
+# https://mozillazg.com/2020/03/use-alpine-image-common-issues.rst.html
+RUN apk --no-cache add ca-certificates && \
+    update-ca-certificates
 # time: missing Location in call to Time.In
 # https://medium.com/freethreads/panic-time-missing-location-in-call-to-date-89d171811d3
 RUN apk --no-cache add tzdata
+RUN apk --no-cache add curl
 
 WORKDIR /app
 
