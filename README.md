@@ -9,6 +9,7 @@ Gee provides several services for everyday life. The project is based on Gin [1]
   - [Script Examples](#script-examples)
   - [API Examples](#api-examples)
     - [Save Data](#save-data)
+    - [Generate Short Link](#generate-short-link)
   - [Build](#build)
     - [Linux](#linux)
     - [Mac](#mac)
@@ -99,7 +100,7 @@ curl --location --request POST 'https://feperf.com/api/gee/create-alias2data' \
 
 **Example:**
 
-Success:
+Success: Status Code 201
 
 ```json
 {
@@ -111,12 +112,62 @@ Success:
 }
 ```
 
-Failure:
+Failure: Status Code 400
 
 ```json
 {
     "code": 400,
     "message": "data exist"
+}
+```
+
+### Generate Short Link
+
+**Description:**
+
+Generate the short link for the original link.
+
+**Path:** **/api/gee/generate-short-link**
+
+**Method:** **POST**
+
+**Params:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| ori_link | string | Original Link | Yes |
+
+**Example:**
+
+```shell
+curl --location --request POST 'https://feperf.com/api/gee/generate-short-link' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
+}'
+```
+
+**Returns:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| tiny_link | string | Short Link | Yes |
+
+**Example:**
+
+Success: Status Code 201
+
+```json
+{
+    "tiny_link": "https://feperf.com/t/b"
+}
+```
+
+Failure: Status Code 400
+
+```json
+{
+    "code": 400
 }
 ```
 
