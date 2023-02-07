@@ -22,8 +22,9 @@ func GetTinyRepository() *TinyRepository {
 }
 
 func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
+	var err error
 	OriMd5 := helpers.ConvertStringToMD5Hash(OriLink)
-	data, err := t.QueryOriLinkByOriMd5(OriMd5)
+	data, _ := t.QueryOriLinkByOriMd5(OriMd5)
 	// if err != nil {
 	// 	log.Println("SaveOriLink error:", err)
 	// 	return nil, err

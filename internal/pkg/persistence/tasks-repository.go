@@ -42,7 +42,11 @@ func (r *TaskRepository) Query(q *models.Task) (*[]models.Task, error) {
 }
 
 func (r *TaskRepository) Add(task *models.Task) error {
-	err := Create(&task)
+	var err error
+	err = Create(&task)
+	if err != nil {
+		return err
+	}
 	err = Save(&task)
 	return err
 }

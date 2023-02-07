@@ -53,7 +53,11 @@ func (r *UserRepository) Query(q *models.User) (*[]models.User, error) {
 }
 
 func (r *UserRepository) Add(user *models.User) error {
-	err := Create(&user)
+	var err error
+	err = Create(&user)
+	if err != nil {
+		return err
+	}
 	err = Save(&user)
 	return err
 }
@@ -61,8 +65,14 @@ func (r *UserRepository) Add(user *models.User) error {
 func (r *UserRepository) Update(user *models.User) error {
 	var userRole models.UserRole
 	_, err := First(models.UserRole{UserID: user.ID}, &userRole, []string{})
+	if err != nil {
+		return err
+	}
 	userRole.RoleName = user.Role.RoleName
 	err = Save(&userRole)
+	if err != nil {
+		return err
+	}
 	err = db.GetDB().Omit("Role").Save(&user).Error
 	user.Role = userRole
 	return err
@@ -70,6 +80,9 @@ func (r *UserRepository) Update(user *models.User) error {
 
 func (r *UserRepository) Delete(user *models.User) error {
 	err := db.GetDB().Unscoped().Delete(models.UserRole{UserID: user.ID}).Error
+	if err != nil {
+		return err
+	}
 	err = db.GetDB().Unscoped().Delete(&user).Error
 	return err
 }
