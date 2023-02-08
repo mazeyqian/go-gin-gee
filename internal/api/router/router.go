@@ -88,6 +88,7 @@ func Setup() *gin.Engine {
 		gee.GET("/check", controllers.CheckSitesHealth)
 		gee.GET("/query-short-link", controllers.GetTiny)
 		gee.POST("/generate-short-link", controllers.CreateTiny)
+		gee.GET("/get-tag-name", controllers.GetTag)
 	}
 	// Tiny
 	app.GET("/t/:key", controllers.RedirectTiny)
