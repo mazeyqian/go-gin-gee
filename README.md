@@ -235,7 +235,7 @@ bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-
 bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
 # Example
-bash ./scripts/docker-run.sh "mazeyqian/go-gin-gee:v20230131105843-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230131105843-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
 ## Contributing
