@@ -2,6 +2,7 @@ package persistence
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/go-resty/resty/v2"
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/docker"
@@ -37,14 +38,19 @@ func (d *DockerRepository) GetTagName(namespace string, repository string, inclu
 	// log.Println("  Body       :\n", resp)
 	// log.Println("dockerV2Tags:", dockerV2Tags)
 	// log.Println("dockerV2Tags.Results:", dockerV2Tags.Results)
-	findNames := lo.Find[*models.DockerV2TagsResult](dockerV2Tags.Results, func(v models.DockerV2TagsResult) bool {
+	res, ok := lo.Find(dockerV2Tags.Results, func(v models.DockerV2TagsResult) bool {
 		// log.Println("lo.Substring(v.Name, -3, 3)", lo.Substring(v.Name, -3, 3))
 		// log.Println("includedStr", includedStr)
 		// log.Println("lo.Substring(v.Name, -3, 3) == includedStr", lo.Substring(v.Name, -3, 3) == includedStr)
 		return lo.Substring(v.Name, -3, 3) == includedStr
 	})
-	// log.Println("findNames:", findNames)
-	// log.Println("findNames len:", len(findNames))
+	if !ok {
+		return tagName, err
+	}
+	tagName = res.Name
+	log.Println("findNames:", res)
+	log.Println("findNames ok:", ok)
+	log.Println("findNames name:", res.Name)
 	// log.Println("findNames[0]:", findNames[0])
 	// log.Println("findNames[0] Name:", findNames[0].Name)
 	return tagName, err
