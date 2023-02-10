@@ -1,12 +1,14 @@
 package startupjapan
 
 import (
+	"fmt"
 	"log"
 	"os/exec"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/persistence"
 	"github.com/mazeyqian/go-gin-gee/internal/startupjapan/router"
 )
 
@@ -15,12 +17,22 @@ func setConfiguration(configPath string, configType string) {
 	gin.SetMode(config.GetConfig().Server.Mode)
 }
 
-func Run(configPath string, configType string) {
+func Run(configPath string, configType string, projectPath string) {
 	// startup - begin
 	cmdLines := constants.ScriptStartMsg
+	backupTagName := "v20230131105843-api"
+	log.Println("backupTagName", backupTagName)
+	perDocker := persistence.GetDockerRepository()
+	latestTagName, err := perDocker.GetTagName("mazeyqian", "go-gin-gee", "api")
+	log.Println("latestTagName", latestTagName)
+	if err != nil && latestTagName == "" {
+		latestTagName = backupTagName
+	}
+	tagNameCMDStr := fmt.Sprintf(`. ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:%s" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be";`, latestTagName)
 	// cmdLines += `cd /web/go-gin-gee;`
-	cmdLines += `cd /Users/mazey/Web/Mazey/go-gin-gee;`
-	cmdLines += `. ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230131105843-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be";`
+	// cmdLines += `cd /Users/mazey/Web/Mazey/go-gin-gee;`
+	cmdLines += fmt.Sprintf("cd %s;", projectPath)
+	cmdLines += tagNameCMDStr
 	cmdLines += constants.ScriptEndMsg
 	// https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
 	cmd := exec.Command("/bin/sh", "-c", cmdLines)

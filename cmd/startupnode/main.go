@@ -8,5 +8,5 @@ import (
 
 func main() {
 	os.Setenv("TZ", "Asia/Shanghai")
-	startupnode.Run("data/startupnode-config.json", "json")
+	startupnode.Run("data/startup-config.json", "json")
 }

@@ -13,7 +13,7 @@ func Setup() *gin.Engine {
 	app := gin.New()
 
 	// Logging to a file.
-	f, _ := os.Create("log/startupnode.log")
+	f, _ := os.Create("log/startup.log")
 	gin.DisableConsoleColor()
 	gin.DefaultWriter = io.MultiWriter(f)
 
