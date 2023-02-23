@@ -44,6 +44,7 @@ func main() {
 		script.ListFiles(fmt.Sprintf("%s\\*\\.git", *projectPath)).FilterLine(func(s string) string {
 			cmdLines := constants.ScriptStartMsgInWin + " && "
 			cmdLines += fmt.Sprintf("echo Path: %s && ", s)
+			// https://stackoverflow.com/questions/607670/windows-shell-command-to-get-the-full-path-to-the-current-directory
 			cmdLines += fmt.Sprintf("cd %s && ", s)
 			cmdLines += `cd ../ && `
 			cmdLines += `git pull && `
