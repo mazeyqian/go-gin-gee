@@ -23,9 +23,11 @@ func main() {
 	// https://gobyexample.com/command-line-flags
 	projectPath := flag.String("path", placeholder, "folder of projects")
 	assignedProjects := flag.String("projects", ".", "assigned projects")
+	runCommands := flag.String("commands", "git pull;", "commands")
 	flag.Parse()
 	log.Println("projectPath:", *projectPath)
 	log.Println("assignedProjects:", *assignedProjects)
+	log.Println("runCommands:", *runCommands)
 	if *projectPath == placeholder {
 		log.Panicln("path is required")
 	}
@@ -38,7 +40,6 @@ func main() {
 	}
 	// Example: ^.+(placeholder|.)$
 	regexStr += fmt.Sprintf("%s)\\/\\.git$", *assignedProjects)
-	// log.Println("regexStr:", regexStr)
 	regex := regexp.MustCompile(regexStr)
 	if runtime.GOOS == "windows" {
 		script.ListFiles(fmt.Sprintf("%s\\*\\.git", *projectPath)).FilterLine(func(s string) string {
@@ -50,7 +51,6 @@ func main() {
 			cmdLines += `git pull && `
 			cmdLines += "echo All done in Windows CMD. && "
 			cmdLines += constants.ScriptEndMsgInWin
-			// log.Println("cmdLines:", cmdLines)
 			cmd := exec.Command("cmd", "/C", cmdLines)
 			result, err := cmd.CombinedOutput()
 			if err != nil {
@@ -66,7 +66,7 @@ func main() {
 			cmdLines += fmt.Sprintf("cd %s;", s)
 			// Control the branch: cmdLines += `git checkout master;`
 			cmdLines += `cd ../;`
-			cmdLines += `git pull;`
+			cmdLines += *runCommands // `git pull;`
 			cmdLines += constants.ScriptEndMsg
 			cmd := exec.Command("/bin/sh", "-c", cmdLines)
 			result, err := cmd.CombinedOutput()
