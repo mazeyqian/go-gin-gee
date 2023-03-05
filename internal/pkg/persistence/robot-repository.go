@@ -69,6 +69,9 @@ func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
 	ss.List["https://www.zhibaifa.com/"] = SiteStatus{"Treat White Home", 200}
 	ss.List["https://mazey.cn/server/weather/new-daily?location=shanghai"] = SiteStatus{"Weather Shanghai", 200}
 	ss.List["https://mazey.cn/server/user/info"] = SiteStatus{"Location", 200}
+	ss.List["https://i.mazey.net/cdn/bootstrap-3.4.1/css/bootstrap.min.css"] = SiteStatus{"Bootstrap CSS", 200}
+	ss.List["https://mazey.cn/cdn/layer/layer.js"] = SiteStatus{"Layer", 200}
+	ss.List["https://mazey.cn/cdn/jquery-2.1.1.min.js"] = SiteStatus{"jQuery", 200}
 	healthySites, failSites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("error:", err)
