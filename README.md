@@ -30,25 +30,29 @@ git clone https://github.com/mazeyqian/go-gin-gee.git
 
 ## Script Examples
 
-Change Git name and email for different projects.
+1\. Change Git name and email for different projects.
 
 ```
 go run scripts/change-git-user/main.go -path="/Users/X/Web" -username="Your Name" -useremail="your@email.com"
 ```
 
-`git pull` all projects in a folder.
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.0.0) | [简体中文](https://blog.mazey.net/2956.html)
+
+2\. `git pull` all projects in a folder.
 
 ```
 go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 ```
 
-Transfer apple note table to markdown table. 
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.1.0) | [简体中文](https://blog.mazey.net/3035.html)
+
+3\. Transfer apple note table to markdown table. 
 
 ```
 go run scripts/transfer-notes-to-md-table/main.go
 ```
 
-Convert Markdown text to TypeDoc comments.
+4\. Convert Markdown text to TypeDoc comments.
 
 ```
 go run scripts/convert-markdown-to-comments/main.go
@@ -277,4 +281,3 @@ pong/v1.0.0/2022-09-29 04:52:43
 2. [lo](https://github.com/samber/lo)
 3. [project-layout](https://github.com/golang-standards/project-layout)
 4. [script](https://github.com/bitfield/script)
-5. [go-shadowsocks2](https://github.com/shadowsocks/go-shadowsocks2)
