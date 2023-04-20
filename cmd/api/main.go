@@ -39,6 +39,8 @@ func main() {
 	log.Println("WECOM_ROBOT_CHECK:", WECOM_ROBOT_CHECK)
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	// os.Setenv("TZ", "Asia/Shanghai")
+	// Set the timezone to UTC
+	os.Setenv("TZ", "UTC")
 	controllers.RunCheck()
 	api.Run(*configPath, "json")
 }
