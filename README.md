@@ -226,9 +226,13 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
 # Example 1: Build
-bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+# RUN_FLAG is optional, default is "ONLY_BUILD"
+# WECOM_ROBOT_CHECK is unnecessary.
+bash ./scripts/docker-build.sh "ONLY_BUILD"
 
 # Example 2: Build and Run
+# RUN_FLAG is required.
+# WECOM_ROBOT_CHECK is optional.
 bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
@@ -239,7 +243,7 @@ bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-
 bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
 # Example
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230306200332-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230427102021-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
 ## Contributing
