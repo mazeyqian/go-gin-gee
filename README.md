@@ -30,25 +30,29 @@ git clone https://github.com/mazeyqian/go-gin-gee.git
 
 ## Script Examples
 
-Change Git name and email for different projects.
+1\. Change Git name and email for different projects.
 
 ```
 go run scripts/change-git-user/main.go -path="/Users/X/Web" -username="Your Name" -useremail="your@email.com"
 ```
 
-`git pull` all projects in a folder.
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.0.0) | [简体中文](https://blog.mazey.net/2956.html)
+
+2\. `git pull` all projects in a folder.
 
 ```
 go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 ```
 
-Transfer apple note table to markdown table. 
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.1.0) | [简体中文](https://blog.mazey.net/3035.html)
+
+3\. Transfer apple note table to markdown table. 
 
 ```
 go run scripts/transfer-notes-to-md-table/main.go
 ```
 
-Convert Markdown text to TypeDoc comments.
+4\. Convert Markdown text to TypeDoc comments.
 
 ```
 go run scripts/convert-markdown-to-comments/main.go
@@ -209,8 +213,6 @@ directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="data/config.json"
 autostart=true
 autorestart=true
-stderr_logfile=/web/go-gin-gee/log/api.err
-stdout_logfile=/web/go-gin-gee/log/api.log
 ```
 
 ### Docker
@@ -222,9 +224,13 @@ stdout_logfile=/web/go-gin-gee/log/api.log
 bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
 # Example 1: Build
-bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+# RUN_FLAG is optional, default is "ONLY_BUILD"
+# WECOM_ROBOT_CHECK is unnecessary.
+bash ./scripts/docker-build.sh "ONLY_BUILD"
 
 # Example 2: Build and Run
+# RUN_FLAG is required.
+# WECOM_ROBOT_CHECK is optional.
 bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
@@ -235,7 +241,7 @@ bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-
 bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
 
 # Example
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230306200332-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230427102021-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
 ```
 
 ## Contributing
@@ -277,4 +283,3 @@ pong/v1.0.0/2022-09-29 04:52:43
 2. [lo](https://github.com/samber/lo)
 3. [project-layout](https://github.com/golang-standards/project-layout)
 4. [script](https://github.com/bitfield/script)
-5. [go-shadowsocks2](https://github.com/shadowsocks/go-shadowsocks2)
