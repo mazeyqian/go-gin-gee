@@ -2,7 +2,7 @@ FROM docker.io/golang:1.19.5-alpine AS build_base
 
 ENV CGO_ENABLED=1
 ENV GO111MODULE=on
-RUN apk add --no-cache git  git gcc g++
+RUN apk add --no-cache git gcc g++
 
 # Set the Current Working Directory inside the container
 WORKDIR /src
