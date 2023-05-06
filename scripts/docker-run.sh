@@ -1,4 +1,4 @@
-# Example: bash ./scripts/docker-run.sh "mazeyqian/go-gin-gee:v202301191427" "deep=purple"
+# Example: bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v202301191427" "deep=purple"
 
 # ProjectName/SubName
 # preVersion="go-gin-gee/api"
@@ -33,7 +33,7 @@ docker rm $(docker ps -a -q)
 # docker build -t ${combinedVersion} . -f ./Dockerfile
 
 # Pull
-# Example: docker pull mazeyqian/go-gin-gee:v202301191427
+# Example: docker pull docker.io/mazeyqian/go-gin-gee:v202301191427
 docker pull ${combinedVersion}
 
 # Run
