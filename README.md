@@ -8,8 +8,9 @@ Gee provides several services for everyday work. The project is based on Gin [1]
   - [Install](#install)
   - [Script Examples](#script-examples)
   - [API Examples](#api-examples)
-    - [Save Data](#save-data)
     - [Generate Short Link](#generate-short-link)
+    - [Save Data](#save-data)
+    - [Get Data](#get-data)
   - [Build](#build)
     - [Linux](#linux)
     - [Mac](#mac)
@@ -63,6 +64,56 @@ More in folder `scripts`.
 ## API Examples
 
 Domain is `https://feperf.com`.
+
+### Generate Short Link
+
+**Description:**
+
+Generate the short link for the original link.
+
+**Path:** **/api/gee/generate-short-link**
+
+**Method:** **POST**
+
+**Params:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| ori_link | string | Original Link | Yes |
+
+**Example:**
+
+```shell
+curl --location --request POST 'https://feperf.com/api/gee/generate-short-link' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
+}'
+```
+
+**Returns:**
+
+| Params | Type | Description | Required |
+| :-------- | :--------| :------ | :------ |
+| tiny_link | string | Short Link | Yes |
+
+**Example:**
+
+Success: Status Code 201
+
+```json
+{
+    "tiny_link": "https://feperf.com/t/b"
+}
+```
+
+Failure: Status Code 400
+
+```json
+{
+    "code": 400
+}
+```
 
 ### Save Data
 
@@ -125,53 +176,59 @@ Failure: Status Code 400
 }
 ```
 
-### Generate Short Link
+### Get Data
 
 **Description:**
 
-Generate the short link for the original link.
+Get the data.
 
-**Path:** **/api/gee/generate-short-link**
-
-**Method:** **POST**
+**Path:** **/api/gee/get-data-by-alias**
+ 
+**Method:** **GET**
 
 **Params:**
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
-| ori_link | string | Original Link | Yes |
+| alias | string | Alias | Yes |
 
 **Example:**
 
 ```shell
-curl --location --request POST 'https://feperf.com/api/gee/generate-short-link' \
---header 'Content-Type: application/json' \
---data-raw '{
-	"ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
-}'
+curl --location 'https://feperf.com/api/gee/get-data-by-alias?alias=alias%20example'
 ```
 
 **Returns:**
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
-| tiny_link | string | Short Link | Yes |
+| id | int | ID | Yes |
+| alias | string | Alias | Yes |
+| data | string | Data | Yes |
 
 **Example:**
 
-Success: Status Code 201
+Success: Status Code 200
 
 ```json
 {
-    "tiny_link": "https://feperf.com/t/b"
+    "data": {
+        "id": 5,
+        "created_at": "2023-05-16T13:46:10.518769+08:00",
+        "updated_at": "2023-05-16T13:46:10.520977+08:00",
+        "alias": "alias example",
+        "data": "data example",
+        "public": true
+    }
 }
 ```
 
-Failure: Status Code 400
+Failure: Status Code 404
 
 ```json
 {
-    "code": 400
+    "code": 404,
+    "message": "data not found"
 }
 ```
 
