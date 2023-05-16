@@ -39,3 +39,17 @@ func CreateAlias2data(c *gin.Context) {
 		c.JSON(http.StatusCreated, alias2dataInput)
 	}
 }
+
+func CountAlias2data(c *gin.Context) {
+	alias := c.Query("alias")
+	log.Println("CountAlias2data alias", alias)
+
+	count, err := persistence.GetAlias2dataRepository().CountByAlias(alias)
+	if err != nil {
+		log.Println(err)
+		http_err.NewError(c, http.StatusNotFound, errors.New("unable to retrieve count"))
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
+}

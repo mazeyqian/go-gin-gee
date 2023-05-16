@@ -85,6 +85,7 @@ func Setup() *gin.Engine {
 	{
 		gee.GET("/get-data-by-alias", controllers.GetDataByAlias)
 		gee.POST("/create-alias2data", controllers.CreateAlias2data)
+		gee.GET("/count-alias2data", controllers.CountAlias2data)
 		gee.GET("/check", controllers.CheckSitesHealth)
 		gee.GET("/query-short-link", controllers.GetTiny)
 		gee.POST("/generate-short-link", controllers.CreateTiny)
