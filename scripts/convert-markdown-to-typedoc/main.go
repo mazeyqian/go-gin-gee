@@ -13,11 +13,11 @@ import (
 // Example: go run scripts/convert-markdown-to-comments/main.go
 func main() {
 	log.Println(constants.StartMsgStr)
-	alias := "markdown"
+	alias := "md2td"
 	endLine := " */"
 	// markdown-for-typedoc.md
-	iFilename := fmt.Sprintf("./data/%s-for-typedoc.md", alias)
-	oFilename := fmt.Sprintf("./data/%s-for-typedoc.js", alias)
+	iFilename := fmt.Sprintf("./data/%s.md", alias)
+	oFilename := fmt.Sprintf("./data/%s.js", alias)
 	index := 0
 	hasZH := false
 	// https://gobyexample.com/regular-expressions
