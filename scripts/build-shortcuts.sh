@@ -27,10 +27,14 @@ GOOS=darwin GOARCH=amd64 go build -o dist/convert-files-to-json-mac-darwin-amd64
 ### convert-typedoc-to-markdown
 
 GOOS=darwin GOARCH=amd64 go build -o dist/convert-typedoc-to-markdown-mac-darwin-amd64 scripts/convert-typedoc-to-markdown/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/convert-typedoc-to-markdown-linux-amd64 scripts/convert-typedoc-to-markdown/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/convert-typedoc-to-markdown-windows-amd64.exe scripts/convert-typedoc-to-markdown/main.go
 
 ### convert-markdown-to-typedoc
 
 GOOS=darwin GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-mac-darwin-amd64 scripts/convert-markdown-to-typedoc/main.go
+GOOS=linux GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-linux-amd64 scripts/convert-markdown-to-typedoc/main.go
+GOOS=windows GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-windows-amd64.exe scripts/convert-markdown-to-typedoc/main.go
 
 ## cmd
 
