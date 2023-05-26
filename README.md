@@ -47,16 +47,26 @@ go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 
 Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.1.0) | [简体中文](https://blog.mazey.net/3035.html)
 
-3\. Transfer apple note table to markdown table. 
+3\. Convert TypeDoc Comments to Markdown.
+
+```
+go run scripts/convert-typedoc-to-markdown/main.go
+```
+
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.2.0) | [简体中文](https://blog.mazey.net/3494.html#%E6%B3%A8%E9%87%8A%E8%BD%AC_Markdown)
+
+4\. Convert Markdown to TypeDoc Comments.
+
+```
+go run scripts/convert-markdown-to-typedoc/main.go
+```
+
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.3.0) | [简体中文](https://blog.mazey.net/3494.html#Markdown_%E8%BD%AC%E6%B3%A8%E9%87%8A)
+
+5\. Transfer Apple note table to Markdown table.
 
 ```
 go run scripts/transfer-notes-to-md-table/main.go
-```
-
-4\. Convert Markdown text to TypeDoc comments.
-
-```
-go run scripts/convert-markdown-to-comments/main.go
 ```
 
 More in folder `scripts`.
