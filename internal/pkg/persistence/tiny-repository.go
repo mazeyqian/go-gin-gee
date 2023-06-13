@@ -48,7 +48,7 @@ func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 	// https://github.com/takuoki/clmconv
 	converter := clmconv.New(clmconv.WithStartFromOne(), clmconv.WithLowercase())
 	TinyKey := converter.Itoa(int(TinyId))
-	TinyLink := fmt.Sprintf("https://feperf.com/t/%s", TinyKey) // `${domain}/t/${tiny_key}`;
+	TinyLink := fmt.Sprintf("https://s.feperf.com/t/%s", TinyKey) // `${domain}/t/${tiny_key}`;
 	_, err = t.SaveTinyLink(TinyId, TinyLink, TinyKey)
 	if err != nil {
 		return "", err

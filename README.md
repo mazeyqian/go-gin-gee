@@ -73,7 +73,7 @@ More in folder `scripts`.
 
 ## API Examples
 
-Domain is `https://feperf.com`.
+The base URL for this API is `https://feperf.com`.
 
 ### Generate Short Link
 
@@ -94,7 +94,7 @@ Generate the short link for the original link.
 **Example:**
 
 ```shell
-curl --location --request POST 'https://feperf.com/api/gee/generate-short-link' \
+curl --location --request POST '${BASE_URL}/api/gee/generate-short-link' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 	"ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
@@ -113,7 +113,7 @@ Success: Status Code 201
 
 ```json
 {
-    "tiny_link": "https://feperf.com/t/b"
+    "tiny_link": "${BASE_URL}/t/b"
 }
 ```
 
@@ -146,7 +146,7 @@ Save the data for searching.
 **Example:**
 
 ```shell
-curl --location --request POST 'https://feperf.com/api/gee/create-alias2data' \
+curl --location --request POST '${BASE_URL}/api/gee/create-alias2data' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "alias": "alias example",
@@ -205,7 +205,7 @@ Get the data.
 **Example:**
 
 ```shell
-curl --location 'https://feperf.com/api/gee/get-data-by-alias?alias=alias%20example'
+curl --location '${BASE_URL}/api/gee/get-data-by-alias?alias=alias%20example'
 ```
 
 **Returns:**
