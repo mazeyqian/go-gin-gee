@@ -20,7 +20,7 @@ func setConfiguration(configPath string, configType string) {
 func Run(configPath string, configType string, projectPath string) {
 	// startup - begin
 	cmdLines := constants.ScriptStartMsg
-	backupTagName := "v20230614140219-api"
+	backupTagName := "v20230615221222-api"
 	log.Println("backupTagName", backupTagName)
 	perDocker := persistence.GetDockerRepository()
 	latestTagName, err := perDocker.GetTagName("mazeyqian", "go-gin-gee", "api")
