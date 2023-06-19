@@ -73,7 +73,7 @@ More in folder `scripts`.
 
 ## API Examples
 
-The base URL for this API is `https://feperf.com`.
+The base URL for this API is an ENV variate `${BASE_URL}`, such as `https://example.com/path/`.
 
 ### Generate Short Link
 
@@ -288,27 +288,27 @@ autorestart=true
 
 ```
 # Command
-bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}" "BASE_URL={BASE_URL}"
+bash ./scripts/docker-build.sh "${RUN_FLAG}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
 
 # Example 1: Build
 # RUN_FLAG is optional, default is "ONLY_BUILD"
 # WECOM_ROBOT_CHECK is unnecessary.
-bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
+bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
 
 # Example 2: Build and Run
 # RUN_FLAG is required.
 # WECOM_ROBOT_CHECK is optional.
-bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
+bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
 ```
 
 #### Run
 
 ```
 # Command
-bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}" "BASE_URL={BASE_URL}"
+bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
 
 # Example
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
 ```
 
 ## Contributing

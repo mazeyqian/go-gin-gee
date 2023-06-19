@@ -1,4 +1,4 @@
-# Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
+# Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
 
 echo "Start Build Docker"
 

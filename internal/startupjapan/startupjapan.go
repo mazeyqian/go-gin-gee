@@ -28,7 +28,7 @@ func Run(configPath string, configType string, projectPath string) {
 	if err != nil && latestTagName == "" {
 		latestTagName = backupTagName
 	}
-	tagNameCMDStr := fmt.Sprintf(`. ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:%s" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be";`, latestTagName)
+	tagNameCMDStr := fmt.Sprintf(`. ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:%s" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe";`, latestTagName)
 	// cmdLines += `cd /web/go-gin-gee;`
 	// cmdLines += `cd /Users/mazey/Web/Mazey/go-gin-gee;`
 	cmdLines += fmt.Sprintf("cd %s;", projectPath)

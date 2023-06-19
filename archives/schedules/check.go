@@ -89,7 +89,7 @@ func Check() {
 	log.Println("Check data", data)
 	log.Println("Check WECOM_ROBOT_CHECK", data.Data)
 	// https://github.com/vimsucks/wxwork-bot-go
-	bot := wxworkbot.New(data.Data) // "b2d57746-7146-44f2-8207-86cb0ca832be")
+	bot := wxworkbot.New(data.Data)
 	markdown := wxworkbot.Markdown{
 		Content: mdStr, // "# 测试",
 	}
