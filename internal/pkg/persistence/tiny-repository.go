@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/tiny"
 	"github.com/mazeyqian/go-gin-gee/pkg/helpers"
@@ -48,7 +49,11 @@ func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 	// https://github.com/takuoki/clmconv
 	converter := clmconv.New(clmconv.WithStartFromOne(), clmconv.WithLowercase())
 	TinyKey := converter.Itoa(int(TinyId))
-	TinyLink := fmt.Sprintf("https://s.feperf.com/t/%s", TinyKey) // `${domain}/t/${tiny_key}`;
+	baseUrl := os.Getenv("BASE_URL")
+	if baseUrl == "" {
+		return "", errors.New("BASE_URL is required")
+	}
+	TinyLink := fmt.Sprintf("%s/t/%s", baseUrl, TinyKey) // `${domain}/t/${tiny_key}`;
 	_, err = t.SaveTinyLink(TinyId, TinyLink, TinyKey)
 	if err != nil {
 		return "", err

@@ -1,4 +1,4 @@
-# Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+# Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
 
 echo "Start Build Docker"
 
@@ -6,6 +6,8 @@ echo "Start Build Docker"
 RUN_FLAG=$1
 WECOM_ROBOT_CHECK_ENV_STR=$2
 echo ${WECOM_ROBOT_CHECK_ENV_STR}
+BASE_URL_ENV_STR=$3
+echo ${BASE_URL_ENV_STR}
 
 # ProjectName/SubName
 preVersion="go-gin-gee/api"
@@ -39,7 +41,8 @@ docker build -t ${combinedVersion} . -f ./Dockerfile
 # https://stackoverflow.com/questions/20449543/shell-equality-operators-eq
 if [ ${RUN_FLAG} = "RUN" ]; then
   echo "Run Docker"
-  docker run -e ${WECOM_ROBOT_CHECK_ENV_STR} -d -p ${visitPort}:${innerPort} ${combinedVersion}
+  # docker run -e ${WECOM_ROBOT_CHECK_ENV_STR} -d -p ${visitPort}:${innerPort} ${combinedVersion}
+  docker run -e ${WECOM_ROBOT_CHECK_ENV_STR} -e ${BASE_URL_ENV_STR} -d -p ${visitPort}:${innerPort} ${combinedVersion}
   # Notification
   echo "Complete, Visit: http://localhost:${visitPort}/api/ping"
 else

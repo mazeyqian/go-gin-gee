@@ -1,14 +1,16 @@
-# Example: bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v202301191427" "deep=purple"
+# Example: bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v202301191427" "BASE_URL=https://s.feperf.com/"
 
 # ProjectName/SubName
 # preVersion="go-gin-gee/api"
 combinedVersion=$1
 envStr=$2
+# echo ${WECOM_ROBOT_CHECK_ENV_STR}
+ENV_BASE_URL=$3
 # Port
 visitPort="3000"
 innerPort="3000"
 
-echo "Run Docker: ${combinedVersion} with ${envStr}"
+echo "Run Docker: ${combinedVersion} with ${envStr} and ${ENV_BASE_URL}"
 
 # Build
 # GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
@@ -38,7 +40,8 @@ docker pull ${combinedVersion}
 
 # Run
 echo "Run Docker"
-docker run -e ${envStr} -d -p ${visitPort}:${innerPort} ${combinedVersion}
+# docker run -e ${envStr} -d -p ${visitPort}:${innerPort} ${combinedVersion}
+docker run -e ${envStr} -e ${ENV_BASE_URL} -d -p ${visitPort}:${innerPort} ${combinedVersion}
 
 # Notification
 echo "Complete, Visit: http://localhost:${visitPort}/api/ping"

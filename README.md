@@ -288,27 +288,27 @@ autorestart=true
 
 ```
 # Command
-bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
+bash ./scripts/docker-build.sh "{RUN_FLAG}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}" "BASE_URL={BASE_URL}"
 
 # Example 1: Build
 # RUN_FLAG is optional, default is "ONLY_BUILD"
 # WECOM_ROBOT_CHECK is unnecessary.
-bash ./scripts/docker-build.sh "ONLY_BUILD"
+bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
 
 # Example 2: Build and Run
 # RUN_FLAG is required.
 # WECOM_ROBOT_CHECK is optional.
-bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
 ```
 
 #### Run
 
 ```
 # Command
-bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}"
+bash ./scripts/docker-run.sh "{DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK={WECOM_ROBOT_CHECK}" "BASE_URL={BASE_URL}"
 
 # Example
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2d57746-7146-44f2-8207-86cb0ca832be" "BASE_URL=https://s.feperf.com/"
 ```
 
 ## Contributing
