@@ -293,7 +293,7 @@ bash ./scripts/docker-build.sh "${RUN_FLAG}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CH
 # Example 1: Build
 # RUN_FLAG is optional, default is "ONLY_BUILD"
 # WECOM_ROBOT_CHECK is unnecessary.
-bash ./scripts/docker-build.sh "ONLY_BUILD" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
+bash ./scripts/docker-build.sh "ONLY_BUILD"
 
 # Example 2: Build and Run
 # RUN_FLAG is required.
