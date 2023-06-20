@@ -303,6 +303,8 @@ bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-
 
 #### Run
 
+Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/mazeyqian/go-gin-gee/tags?page=1&ordering=last_updated)
+
 ```
 # Command
 bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
