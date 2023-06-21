@@ -83,16 +83,3 @@ brew services restart supervisor
 brew services list
 nginx -t
 "
-
-## Shadowsocks
-
-# https://github.com/shadowsocks/go-shadowsocks2/releases
-./dist/shadowsocks2-macos-amd64 -s "ss://CHACHA20-IETF-POLY1305:your-password@:8488" -verbose
-
-./dist/shadowsocks2-macos-amd64 -s 'ss://CHACHA20-IETF-POLY1305:your-password@:8488' -verbose
-
-# verbose
-./dist/shadowsocks2-macos-amd64 -s "ss://CHACHA20-IETF-POLY1305:server.password@:1129" -verbose
-
-# clear
-./dist/shadowsocks2-macos-amd64 -s "ss://CHACHA20-IETF-POLY1305:server.password@:1129"
