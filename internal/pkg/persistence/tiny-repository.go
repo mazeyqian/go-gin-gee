@@ -22,17 +22,13 @@ func GetTinyRepository() *TinyRepository {
 	return tinyRepository
 }
 
-func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
+func (r *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 	var err error
 	OriMd5 := helpers.ConvertStringToMD5Hash(OriLink)
-	data, _ := t.QueryOriLinkByOriMd5(OriMd5)
-	// if err != nil {
-	// 	log.Println("SaveOriLink error:", err)
-	// 	return nil, err
-	// }
+	data, _ := r.QueryOriLinkByOriMd5(OriMd5)
 	if data != nil {
 		log.Println("Tiny Exist", data)
-		return data.TinyLink, nil // errors.New("data exist")
+		return data.TinyLink, nil
 	}
 	var tiny models.Tiny
 	tiny.OriLink = OriLink
@@ -54,7 +50,7 @@ func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 		return "", errors.New("BASE_URL is required")
 	}
 	TinyLink := fmt.Sprintf("%s/t/%s", baseUrl, TinyKey) // `${domain}/t/${tiny_key}`;
-	_, err = t.SaveTinyLink(TinyId, TinyLink, TinyKey)
+	_, err = r.SaveTinyLink(TinyId, TinyLink, TinyKey)
 	if err != nil {
 		return "", err
 	}
@@ -63,7 +59,7 @@ func (t *TinyRepository) SaveOriLink(OriLink string) (string, error) {
 	return tiny.TinyLink, err
 }
 
-func (t *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
+func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	var tiny models.Tiny
 	var err error
 	where := models.Tiny{}
@@ -79,7 +75,7 @@ func (t *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	return tiny.OriLink, err
 }
 
-func (t *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, error) {
+func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, error) {
 	log.Println("Tiny OriMd5:", OriMd5)
 	if OriMd5 == "" {
 		return nil, errors.New("OriMd5 is required")
@@ -97,7 +93,7 @@ func (t *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, erro
 	return &tiny, err
 }
 
-func (t *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string) (bool, error) {
+func (r *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string) (bool, error) {
 	var tiny models.Tiny
 	var err error
 	where := models.Tiny{}

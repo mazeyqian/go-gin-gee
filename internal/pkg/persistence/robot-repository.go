@@ -31,13 +31,13 @@ func GetRobotRepository() *Sites {
 	return robotRepository
 }
 
-func (s *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
+func (r *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
 	// http://c.biancheng.net/view/32.html
 	healthySites := []SiteStatus{}
 	failSites := []SiteStatus{}
 	client := resty.New()
 	// https://github.com/go-resty/resty/blob/master/redirect.go
-	for url, status := range s.List {
+	for url, status := range r.List {
 		resCode := 0
 		resp, err := client.R().
 			Get(url)
@@ -55,12 +55,9 @@ func (s *Sites) getWebSiteStatus() (*[]SiteStatus, *[]SiteStatus, error) {
 	return &healthySites, &failSites, nil
 }
 
-func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
-	ss := s
+func (r *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
+	ss := r
 	ss.List = map[string]SiteStatus{}
-	// ss.List = map[string]SiteStatus{
-	// 	"https://i.mazey.net/cdn/jquery-2.1.1.min.js": {"CDN jQuery", 200},
-	// }
 	// List - begin
 	// CDN
 	ss.List["https://i.mazey.net/cdn/jquery-2.1.1.min.js"] = SiteStatus{"CDN/Net/Arc/jQuery", 200}
@@ -92,18 +89,13 @@ func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
 	sort.Strings(sucessNames)
 	log.Println("sucessNames:", sucessNames)
 	mdStr := "Health Check Result:\n"
-	// for _, site := range *healthySites {
-	// 	mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", site.Name)
-	// }
 	lo.ForEach(sucessNames, func(name string, _ int) {
 		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", name)
 	})
 	lo.ForEach(*failSites, func(site SiteStatus, _ int) {
-		// log.Println("ForEach SiteStatus:", site.Name)
 		siteLink, _ := lo.FindKeyBy(ss.List, func(k string, v SiteStatus) bool {
 			return v.Name == site.Name
 		})
-		// log.Println("siteLink:", siteLink)
 		mdStr += fmt.Sprintf(
 			"<font color=\"warning\">%s FAIL</font>\n"+
 				"Error Code: %d\n"+
@@ -115,8 +107,8 @@ func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
 		)
 	})
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
-	persistenceGetAlias2dataRepository := GetAlias2dataRepository()
-	data, err := persistenceGetAlias2dataRepository.Get("WECOM_ROBOT_CHECK")
+	sA := GetAlias2dataRepository()
+	data, err := sA.Get("WECOM_ROBOT_CHECK")
 	log.Println("Robot data:", data)
 	wxworkRobotKey := ""
 	if err != nil {
@@ -128,8 +120,6 @@ func (s *Sites) ClearCheckResult() (*wxworkbot.Markdown, error) {
 		wxworkRobotKey = data.Data
 	}
 	log.Println("Robot wxworkRobotKey:", wxworkRobotKey)
-	// log.Println("Check data", data)
-	// log.Println("Check WECOM_ROBOT_CHECK", data.Data)
 	// https://github.com/vimsucks/wxwork-bot-go
 	bot := wxworkbot.New(wxworkRobotKey)
 	markdown := wxworkbot.Markdown{

@@ -20,11 +20,10 @@ func GetDockerRepository() *DockerRepository {
 	return dockerRepository
 }
 
-func (d *DockerRepository) GetTagName(namespace string, repository string, includedStr string) (string, error) {
+func (r *DockerRepository) GetTagName(namespace string, repository string, includedStr string) (string, error) {
 	var tagName string
 	var err error
 	// Duplicated ↓
-	// var dockerV2Tags *models.DockerV2Tags
 	dockerV2Tags := &models.DockerV2Tags{}
 	// https://registry.hub.docker.com/v2/repositories/mazeyqian/go-gin-gee/tags?page_size=100
 	url := fmt.Sprintf("https://registry.hub.docker.com/v2/repositories/%s/%s/tags?page_size=20", namespace, repository)
@@ -35,13 +34,7 @@ func (d *DockerRepository) GetTagName(namespace string, repository string, inclu
 	if err != nil {
 		return tagName, err
 	}
-	// log.Println("  Body       :\n", resp)
-	// log.Println("dockerV2Tags:", dockerV2Tags)
-	// log.Println("dockerV2Tags.Results:", dockerV2Tags.Results)
 	res, ok := lo.Find(dockerV2Tags.Results, func(v models.DockerV2TagsResult) bool {
-		// log.Println("lo.Substring(v.Name, -3, 3)", lo.Substring(v.Name, -3, 3))
-		// log.Println("includedStr", includedStr)
-		// log.Println("lo.Substring(v.Name, -3, 3) == includedStr", lo.Substring(v.Name, -3, 3) == includedStr)
 		return lo.Substring(v.Name, -3, 3) == includedStr
 	})
 	if !ok {
@@ -51,7 +44,5 @@ func (d *DockerRepository) GetTagName(namespace string, repository string, inclu
 	log.Println("findNames:", res)
 	log.Println("findNames ok:", ok)
 	log.Println("findNames name:", res.Name)
-	// log.Println("findNames[0]:", findNames[0])
-	// log.Println("findNames[0] Name:", findNames[0].Name)
 	return tagName, err
 }

@@ -19,7 +19,7 @@ func GetAlias2dataRepository() *Alias2dataRepository {
 	return alias2dataRepository
 }
 
-func (a *Alias2dataRepository) Get(alias string) (*models.Alias2data, error) {
+func (r *Alias2dataRepository) Get(alias string) (*models.Alias2data, error) {
 	log.Println("Get alias", alias)
 	if alias == "" {
 		return nil, errors.New("alias is required")
@@ -37,8 +37,8 @@ func (a *Alias2dataRepository) Get(alias string) (*models.Alias2data, error) {
 	return &alias2data, err
 }
 
-func (a *Alias2dataRepository) Add(alias2data *models.Alias2data) error {
-	data, _ := a.Get(alias2data.Alias)
+func (r *Alias2dataRepository) Add(alias2data *models.Alias2data) error {
+	data, _ := r.Get(alias2data.Alias)
 	if data != nil {
 		log.Println("Exist", data)
 		return errors.New("data exist")
@@ -51,7 +51,7 @@ func (a *Alias2dataRepository) Add(alias2data *models.Alias2data) error {
 	return err
 }
 
-func (a *Alias2dataRepository) CountByAlias(alias string) (int, error) {
+func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
 	if alias == "" {
 		return 0, errors.New("alias is required")
 	}

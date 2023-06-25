@@ -22,8 +22,8 @@ func Run(configPath string, configType string, projectPath string) {
 	cmdLines := constants.ScriptStartMsg
 	backupTagName := "v20230615221222-api"
 	log.Println("backupTagName", backupTagName)
-	perDocker := persistence.GetDockerRepository()
-	latestTagName, err := perDocker.GetTagName("mazeyqian", "go-gin-gee", "api")
+	sD := persistence.GetDockerRepository()
+	latestTagName, err := sD.GetTagName("mazeyqian", "go-gin-gee", "api")
 	log.Println("latestTagName", latestTagName)
 	if err != nil && latestTagName == "" {
 		latestTagName = backupTagName
