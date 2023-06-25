@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 
+	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
 	"github.com/spf13/viper"
 )
 
@@ -11,6 +12,7 @@ var Config *Configuration
 type Configuration struct {
 	Server   ServerConfiguration
 	Database DatabaseConfiguration
+	Data     DataConfiguration
 }
 
 type DatabaseConfiguration struct {
@@ -29,6 +31,10 @@ type ServerConfiguration struct {
 	Port   string
 	Secret string
 	Mode   string
+}
+
+type DataConfiguration struct {
+	Sites []models.WebSite
 }
 
 // SetupDB initialize configuration

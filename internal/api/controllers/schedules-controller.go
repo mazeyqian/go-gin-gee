@@ -9,13 +9,23 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-co-op/gocron"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/persistence"
+	http_err "github.com/mazeyqian/go-gin-gee/pkg/http-err"
 )
 
 func CheckSitesHealth(c *gin.Context) {
 	s := persistence.GetRobotRepository()
-	markdown, _ := s.ClearCheckResult()
-	c.JSON(http.StatusOK, gin.H{"data": *markdown})
+	conf := config.GetConfig()
+	webSites := &conf.Data.Sites
+	markdown, err := s.ClearCheckResult(webSites)
+	if err != nil {
+		log.Println("error:", err)
+		http_err.NewError(c, http.StatusInternalServerError, err)
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": *markdown})
+	}
+	// c.JSON(http.StatusOK, gin.H{"data": *markdown})
 }
 
 func ConvertShanghaiToUTC(shanghaiTime string) (string, error) {
@@ -50,6 +60,9 @@ func RunCheck() {
 	// Return an UTC TimeZone string, such as "02:05", "20:01".
 	everyDayAtStr, _ := ConvertShanghaiToUTC("10:00")
 	log.Println("UTC everyDayAtStr:", everyDayAtStr)
-	ss.Every(1).Day().At(everyDayAtStr).Do(s.ClearCheckResult)
+	everyDayAtFn := func() {
+		s.ClearCheckResult(&config.GetConfig().Data.Sites)
+	}
+	ss.Every(1).Day().At(everyDayAtStr).Do(everyDayAtFn)
 	ss.StartAsync()
 }
