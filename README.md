@@ -73,7 +73,7 @@ More in folder `scripts`.
 
 ## API Examples
 
-The base URL for this API is an ENV variate `${BASE_URL}`, such as `https://example.com/path/`.
+The base URL for this API is an environment variate `${BASE_URL}`, such as `https://example.com/path/`.
 
 ### Generate Short Link
 
@@ -272,6 +272,11 @@ GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 
 ## Deploy
 
+Environment Variates:
+
+- `${WECOM_ROBOT_CHECK}`: WeCom Robot Key.
+- `${BASE_URL}`: The Base URL for this Service.
+
 ### Supervisor
 
 ```
@@ -280,6 +285,7 @@ directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="data/config.json"
 autostart=true
 autorestart=true
+environment=WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe,BASE_URL=https://example.com/path/
 ```
 
 ### Docker
