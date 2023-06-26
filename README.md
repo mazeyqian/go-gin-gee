@@ -73,7 +73,7 @@ More in folder `scripts`.
 
 ## API Examples
 
-The base URL for this API is an environment variate `${BASE_URL}`, such as `https://example.com/path/`.
+The base URL for this API is an environment variate `${BASE_URL}`, such as `https://example.com/path`.
 
 ### Generate Short Link
 
@@ -282,10 +282,10 @@ Environment Variates:
 ```
 [program:api]
 directory=/web/go-gin-gee
-command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="data/config.json"
+command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="/web/go-gin-gee/data/config.json"
 autostart=true
 autorestart=true
-environment=WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe,BASE_URL=https://example.com/path/
+environment=WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe,BASE_URL=https://example.com/path
 ```
 
 ### Docker
@@ -304,7 +304,7 @@ bash ./scripts/docker-build.sh "ONLY_BUILD"
 # Example 2: Build and Run
 # RUN_FLAG is required.
 # WECOM_ROBOT_CHECK is optional.
-bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
+bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
 ```
 
 #### Run
@@ -316,7 +316,7 @@ Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/
 bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
 
 # Example
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
+bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
 ```
 
 ## Contributing
