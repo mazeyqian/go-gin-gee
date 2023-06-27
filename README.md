@@ -285,7 +285,7 @@ directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="/web/go-gin-gee/data/config.json"
 autostart=true
 autorestart=true
-environment=WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe,BASE_URL=https://example.com/path
+environment=WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe",BASE_URL="https://example.com/path"
 ```
 
 ### Docker
