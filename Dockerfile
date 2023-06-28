@@ -16,7 +16,7 @@ RUN go mod download
 COPY . .
 
 # Init
-RUN go run scripts/init/main.go
+RUN go run scripts/init/main.go -copyData="config.json,database.db"
 
 # Build the Go app
 RUN go build -o ./out/app ./cmd/api/main.go
