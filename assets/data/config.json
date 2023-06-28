@@ -15,5 +15,84 @@
     "secret": "wednov23rd2022",
     "_mode": "#release | debug",
     "mode": "release"
+  },
+  "data": {
+    "sites": [
+      {
+        "name": "CDN/Net/Arc/jQuery",
+        "link": "https://i.mazey.net/cdn/jquery-2.1.1.min.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/Net/Arc/Bootstrap CSS",
+        "link": "https://i.mazey.net/cdn/bootstrap-3.4.1/css/bootstrap.min.css",
+        "code": 200
+      },
+      {
+        "name": "CDN/Cn/Layer",
+        "link": "https://mazey.cn/cdn/layer/layer.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/Cn/jQuery",
+        "link": "https://mazey.cn/cdn/jquery-2.1.1.min.js",
+        "code": 200
+      },
+      {
+        "name": "Blog/Home",
+        "link": "https://blog.mazey.net/",
+        "code": 200
+      },
+      {
+        "name": "Blog/Search",
+        "link": "https://blog.mazey.net/?s=1634680806",
+        "code": 200
+      },
+      {
+        "name": "Blog/Image",
+        "link": "https://blog.mazey.net/wp-content/uploads/2023/02/chis-sweet-home.jpg",
+        "code": 200
+      },
+      {
+        "name": "White/Home",
+        "link": "https://www.zhibaifa.com/",
+        "code": 200
+      },
+      {
+        "name": "Tool/Arc/Markdown Converter",
+        "link": "https://i.mazey.net/tool/markdown/",
+        "code": 200
+      },
+      {
+        "name": "Server/Monitor Topic",
+        "link": "https://mazey.cn/feperf/monitor/get/topic?userName=%E5%90%8E%E9%99%A4",
+        "code": 200
+      },
+      {
+        "name": "Server/Nut Read Feeds",
+        "link": "https://mazey.cn/server/nut/feeds?currentPage=1&pageSize=10&total=0&isPrivacy=1",
+        "code": 200
+      },
+      {
+        "name": "Server/Tiny Redirect",
+        "link": "https://mazey.cn/t/k",
+        "code": 200
+      },
+      {
+        "name": "Server/Weather Shanghai",
+        "link": "https://mazey.cn/server/weather/new-daily?location=shanghai",
+        "code": 200
+      },
+      {
+        "name": "Server/Location",
+        "link": "https://mazey.cn/server/user/info",
+        "code": 200
+      },
+      {
+        "name": "Gee/Chu/NameId0920",
+        "link": "https://feperf.com/api/mazeychu/413fbc97-4bed-3228-9f07-9141ba07c9f3",
+        "code": 200
+      }
+    ]
   }
 }
