@@ -1,13 +1,44 @@
-# Example: bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path/"
+#!/bin/bash
+# bash ./scripts/docker-build.sh -r "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
 
 echo "Start Build Docker"
 
-# ENV
-RUN_FLAG=$1
-WECOM_ROBOT_CHECK_ENV_STR=$2
-echo ${WECOM_ROBOT_CHECK_ENV_STR}
-BASE_URL_ENV_STR=$3
-echo ${BASE_URL_ENV_STR}
+# Define command-line flags
+RUN_FLAG="RUN"
+ENV_VARS=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -r|--run)
+      RUN_FLAG="RUN"
+      shift
+      ;;
+    -b|--build)
+      RUN_FLAG="BUILD"
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: docker-build.sh [OPTIONS] [ENV_VARS...]"
+      echo "Build and run a Docker container for the go-gin-gee API."
+      echo ""
+      echo "Options:"
+      echo "  -r, --run     Run the Docker container after building (default)"
+      echo "  -b, --build   Build the Docker image but do not run it"
+      echo "  -h, --help    Print this help message and exit"
+      echo ""
+      echo "Environment variables:"
+      echo "  Any additional arguments passed to the script will be passed as environment variables to the Docker container."
+      echo ""
+      exit 0
+      ;;
+    *)
+      ENV_VARS="$ENV_VARS -e $1"
+      echo "Added environment variable: $1"
+      shift
+      ;;
+  esac
+done
+
+echo "ENV_VARS: $ENV_VARS"
 
 # ProjectName/SubName
 preVersion="go-gin-gee/api"
@@ -38,11 +69,10 @@ echo "Build Docker Image: ${combinedVersion}"
 docker build -t ${combinedVersion} . -f ./Dockerfile
 
 # Run
-# https://stackoverflow.com/questions/20449543/shell-equality-operators-eq
 if [ ${RUN_FLAG} = "RUN" ]; then
   echo "Run Docker"
-  # docker run -e ${WECOM_ROBOT_CHECK_ENV_STR} -d -p ${visitPort}:${innerPort} ${combinedVersion}
-  docker run -e ${WECOM_ROBOT_CHECK_ENV_STR} -e ${BASE_URL_ENV_STR} -d -p ${visitPort}:${innerPort} ${combinedVersion}
+  echo "Environment variables: $ENV_VARS"
+  docker run --name go-gin-gee ${ENV_VARS} -d -p ${visitPort}:${innerPort} ${combinedVersion}
   # Notification
   echo "Complete, Visit: http://localhost:${visitPort}/api/ping"
 else

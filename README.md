@@ -292,30 +292,72 @@ environment=WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe",BASE_URL="h
 
 #### Build
 
+Run `bash ./scripts/docker-build.sh -h` to see the help message.
+
 ```
-# Command
-bash ./scripts/docker-build.sh "${RUN_FLAG}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+Usage: docker-build.sh [OPTIONS] [ENV_VARS...]
+Build and run a Docker container for the go-gin-gee API.
 
-# Example 1: Build
-# RUN_FLAG is optional, default is "ONLY_BUILD"
-# WECOM_ROBOT_CHECK is unnecessary.
-bash ./scripts/docker-build.sh "ONLY_BUILD"
+Options:
+  -r, --run     Run the Docker container after building (default)
+  -b, --build   Build the Docker image but do not run it
+  -h, --help    Print this help message and exit
 
-# Example 2: Build and Run
-# RUN_FLAG is required.
-# WECOM_ROBOT_CHECK is optional.
-bash ./scripts/docker-build.sh "RUN" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
+Environment variables:
+  Any additional arguments passed to the script will be passed as environment variables to the Docker container.
+```
+
+**Usage**
+
+`${RUN_FLAG}` is optional, default is `-r`("RUN"). `${WECOM_ROBOT_CHECK}` is optional. If you don't want to send the message to WeCom Robot, just remove it. `${BASE_URL}` is required. It's the Base URL for this Service.
+
+```
+bash ./scripts/docker-build.sh ${RUN_FLAG} "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+```
+
+**Examples**
+
+Example 1: Build and Push
+
+```
+bash ./scripts/docker-build.sh -b "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
+```
+
+Example 2: Build and Run
+
+```
+bash ./scripts/docker-build.sh -r "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
 ```
 
 #### Run
 
-Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/mazeyqian/go-gin-gee/tags?page=1&ordering=last_updated)
+Run `bash ./scripts/docker-run.sh -h` to see the help message.
 
 ```
-# Command
-bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+Usage: docker-run.sh [OPTIONS] IMAGE_TAG [ENV_VARS...]
+Run a Docker container from the specified IMAGE_TAG with the specified environment variables.
 
-# Example
+Options:
+  -h, --help    Print this help message and exit
+
+Environment variables:
+  Any additional arguments passed to the script will be passed as environment variables to the Docker container.
+
+Note:
+  The first argument (IMAGE_TAG) must be the tag name of the Docker image to run.
+```
+
+Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/mazeyqian/go-gin-gee/tags?page=1&ordering=last_updated)
+
+**Usage**
+
+```
+bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+```
+
+**Example**
+
+```
 bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
 ```
 
