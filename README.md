@@ -320,7 +320,7 @@ bash ./scripts/docker-build.sh ${RUN_FLAG} "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHEC
 Example 1: Build and Push
 
 ```
-bash ./scripts/docker-build.sh -b "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
+bash ./scripts/docker-build.sh -b
 ```
 
 Example 2: Build and Run
