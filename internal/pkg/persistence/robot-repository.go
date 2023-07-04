@@ -66,25 +66,6 @@ func (r *Sites) ClearCheckResult(WebSites *[]models.WebSite) (*wxworkbot.Markdow
 	} else {
 		return nil, errors.New("WebSites is empty")
 	}
-	// List - begin
-	// CDN
-	// ss.List["https://i.mazey.net/cdn/jquery-2.1.1.min.js"] = SiteStatus{"CDN/Net/Arc/jQuery", 200}
-	// ss.List["https://i.mazey.net/cdn/bootstrap-3.4.1/css/bootstrap.min.css"] = SiteStatus{"CDN/Net/Arc/Bootstrap CSS", 200}
-	// ss.List["https://mazey.cn/cdn/layer/layer.js"] = SiteStatus{"CDN/Cn/Layer", 200}
-	// ss.List["https://mazey.cn/cdn/jquery-2.1.1.min.js"] = SiteStatus{"CDN/Cn/jQuery", 200}
-	// // Website
-	// ss.List["https://blog.mazey.net/"] = SiteStatus{"Blog/Home", 200}
-	// ss.List[fmt.Sprintf("%s%d", "https://blog.mazey.net/?s=", time.Now().Unix())] = SiteStatus{"Blog/Search", 200}
-	// ss.List["https://www.zhibaifa.com/"] = SiteStatus{"White/Home", 200}
-	// ss.List["https://i.mazey.net/tool/markdown/"] = SiteStatus{"Tool/Arc/Markdown Converter", 200}
-	// // Api
-	// ss.List["https://mazey.cn/feperf/monitor/get/topic?userName=%E5%90%8E%E9%99%A4"] = SiteStatus{"Server/Monitor Topic", 200}
-	// ss.List["https://mazey.cn/server/nut/feeds?currentPage=1&pageSize=10&total=0&isPrivacy=1"] = SiteStatus{"Server/Nut Read Feeds", 200}
-	// ss.List["https://mazey.cn/t/k"] = SiteStatus{"Server/Tiny Redirect", 200}
-	// ss.List["https://mazey.cn/server/weather/new-daily?location=shanghai"] = SiteStatus{"Server/Weather Shanghai", 200}
-	// ss.List["https://mazey.cn/server/user/info"] = SiteStatus{"Server/Location", 200}
-	// ss.List["https://feperf.com/api/mazeychu/413fbc97-4bed-3228-9f07-9141ba07c9f3"] = SiteStatus{"Gee/Chu/NameId0920", 200}
-	// List - end
 	healthySites, failSites, err := ss.getWebSiteStatus()
 	if err != nil {
 		log.Println("error:", err)
@@ -93,7 +74,7 @@ func (r *Sites) ClearCheckResult(WebSites *[]models.WebSite) (*wxworkbot.Markdow
 	lo.ForEach(*healthySites, func(site SiteStatus, _ int) {
 		sucessNames = append(sucessNames, site.Name)
 	})
-	// Sort sucessNames
+	// Sort Success Names
 	sort.Strings(sucessNames)
 	log.Println("sucessNames:", sucessNames)
 	mdStr := "Health Check Result:\n"

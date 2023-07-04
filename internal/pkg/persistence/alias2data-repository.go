@@ -26,7 +26,7 @@ func (r *Alias2dataRepository) Get(alias string) (*models.Alias2data, error) {
 	}
 	var alias2data models.Alias2data
 	where := models.Alias2data{}
-	where.Alias = alias // strconv.ParseUint(id, 10, 64)
+	where.Alias = alias
 	log.Println("Get where", where)
 	notFound, err := First(&where, &alias2data, []string{})
 	log.Println("Get notFound", notFound)
@@ -52,18 +52,17 @@ func (r *Alias2dataRepository) Add(alias2data *models.Alias2data) error {
 }
 
 func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
+	var err error
 	if alias == "" {
 		return 0, errors.New("alias is required")
 	}
 
 	alias2data := models.Alias2data{Alias: alias}
-	notFound, err := First(&alias2data, &alias2data, []string{})
-	if err != nil {
-		log.Println("First err", err)
-		// return 0, err
-	}
+	notFound, _ := First(&alias2data, &alias2data, []string{})
+	// if err != nil {
+	// 	log.Println("First err", err)
+	// }
 	if notFound {
-		// log.Println("First notFound", notFound)
 		alias2data.Data = "0"
 		err = Create(&alias2data)
 		if err != nil {
@@ -73,7 +72,6 @@ func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
 
 	count, err := strconv.Atoi(alias2data.Data)
 	if err != nil {
-		// log.Println("Atoi err", err)
 		return 0, err
 	}
 
@@ -82,7 +80,6 @@ func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
 
 	err = Save(&alias2data)
 	if err != nil {
-		// log.Println("Save err", err)
 		return 0, err
 	}
 
