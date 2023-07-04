@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,13 @@ func Setup() *gin.Engine {
 	app := gin.New()
 
 	// Logging to a file.
-	f, _ := os.Create("log/api.log")
+	if err := os.MkdirAll("log", 0755); err != nil {
+		log.Println("mkdir err:", err)
+	}
+	f, err := os.Create("log/api.log")
+	if err != nil {
+		log.Println("create err:", err)
+	}
 	gin.DisableConsoleColor()
 	gin.DefaultWriter = io.MultiWriter(f)
 
