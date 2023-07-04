@@ -12,9 +12,6 @@ Gee is a project that provides several services for everyday work. The project i
     - [Save Data](#save-data)
     - [Get Data](#get-data)
   - [Build](#build)
-    - [Linux](#linux)
-    - [Mac](#mac)
-    - [Windows](#windows)
   - [Deploy](#deploy)
     - [Supervisor](#supervisor)
     - [Docker](#docker)
@@ -250,7 +247,7 @@ Default:
 go build cmd/api/main.go
 ```
 
-### Linux
+**Linux**
 
 It's usually useful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
 
@@ -258,13 +255,13 @@ It's usually useful to run the command `chmod u+x script-name-linux-amd64` if th
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
 ```
 
-### Mac
+**macOS**
 
 ```
 GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
 ```
 
-### Windows
+**Windows**
 
 ```
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
@@ -397,6 +394,7 @@ pong/v1.0.0/2022-09-29 04:52:43
 ## References
 
 1. [Gin Web Framework](https://github.com/gin-gonic/gin)
-2. [lo](https://github.com/samber/lo)
-3. [project-layout](https://github.com/golang-standards/project-layout)
+2. [lo - Iterate over slices, maps, channels...](https://github.com/samber/lo)
+3. [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
 4. [script](https://github.com/bitfield/script)
+5. [go-rest-template](https://github.com/antonioalfa22/go-rest-template)
