@@ -88,6 +88,7 @@ func Setup() *gin.Engine {
 	// Gin Examples - end
 
 	// Gee API - begin
+	app.LoadHTMLFiles("data/index.tmpl")
 	gee := app.Group("/api/gee")
 	{
 		gee.GET("/get-data-by-alias", controllers.GetDataByAlias)
