@@ -360,11 +360,15 @@ bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api
 
 ## Contributing
 
-```
-# All Dependences
-go mod download
+**All Dependences**
 
-# Add
+```
+go mod download
+```
+
+**Add**
+
+```
 go get github.com/example/name
 ```
 
@@ -376,12 +380,15 @@ go env -w GOPROXY=https://goproxy.cn
 
 It's necessary to run the command `go run scripts/init/main.go` when serving the project first.
 
-```
-# Serve
-go run cmd/api/main.go -configpath="data/config.dev.json"
+**Serve**
 
-# Restart
-# cd /web/go-gin-gee
+```
+go run cmd/api/main.go -configpath="data/config.dev.json"
+```
+
+**Restart**
+
+```
 go run scripts/restart/main.go
 ```
 
