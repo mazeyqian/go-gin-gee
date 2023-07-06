@@ -85,6 +85,7 @@ else
   docker tag ${combinedVersion} ${REPOSITORY_TAGNAME}
   docker push ${REPOSITORY_TAGNAME}
   echo "RUN_FLAG: ${RUN_FLAG}"
+  echo "CURRENT_VERSION: v${DATE_FORMAT}"
   echo "REPOSITORY_TAGNAME: ${REPOSITORY_TAGNAME}"
   echo "All done."
 fi
