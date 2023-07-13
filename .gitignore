@@ -38,3 +38,4 @@ selenium-debug.log*
 *.secret.ini
 *.secret.yml
 *.secret.json
+*.secret.go
