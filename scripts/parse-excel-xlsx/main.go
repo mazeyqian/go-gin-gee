@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"log"
+	"net/url"
 
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
 	"github.com/szyhf/go-excel"
@@ -51,25 +52,49 @@ func defaultUsage(filePath string, sheetNamer interface{}) {
 	}
 	defer rd.Close()
 
-	// for rd.Next() {
-	// 	var s Standard
-	// 	// Read a row into a struct.
-	// 	err := rd.Read(&s)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// 	// fmt.Printf("%+v", s)
-	// 	log.Printf("I_P: %s", s.I_P)
-	// }
+	exampleNameMap := make(map[string]int)
+	exampleIdMap := map[string]int{}
+
+	for rd.Next() {
+		var s constants.Standard
+		// Read a row into a struct.
+		err := rd.Read(&s)
+		if err != nil {
+			panic(err)
+		}
+		urlStr := s.URL
+		uu, err := url.Parse(urlStr)
+		if err != nil {
+			panic(err)
+		}
+		exampleName := uu.Query().Get("exampleName")
+		if exampleName != "" {
+			exampleNameMap[exampleName]++
+			log.Printf("exampleName: %s", exampleName)
+		}
+		exampleId := uu.Query().Get("exampleId")
+		if exampleId != "" {
+			exampleIdMap[exampleId]++
+			log.Printf("exampleId: %s", exampleId)
+		}
+	}
+	log.Printf("exampleNameMap: %+v", exampleNameMap)
+	for k, v := range exampleNameMap {
+		log.Printf("name: %s, count: %d", k, v)
+	}
+	log.Printf("exampleIdMap: %+v", exampleIdMap)
+	for k, v := range exampleIdMap {
+		log.Printf("id: %s, count: %d", k, v)
+	}
 
 	// Read all is also supported.
-	var stdList []constants.Standard
-	err = rd.ReadAll(&stdList)
-	if err != nil {
-		panic(err)
-		// return
-	}
-	log.Printf("%+v", stdList)
+	// var stdList []constants.Standard
+	// err = rd.ReadAll(&stdList)
+	// if err != nil {
+	// 	panic(err)
+	// 	// return
+	// }
+	// log.Printf("%+v", stdList)
 
 	// map with string key is support, too.
 	// if value is not string
