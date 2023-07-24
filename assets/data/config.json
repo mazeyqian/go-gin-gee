@@ -19,6 +19,31 @@
   "data": {
     "sites": [
       {
+        "name": "CDN/Net/Layer CSS",
+        "link": "https://i.mazey.net/lib/layer/mobile/need/layer.css",
+        "code": 200
+      },
+      {
+        "name": "CDN/Net/Mazey",
+        "link": "https://i.mazey.net/mazey/lib/mazey.min.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/Net/Feperf",
+        "link": "https://i.mazey.net/feperf/sdk/prd/report.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/Net/WordPress",
+        "link": "https://i.mazey.net/polestar/lib/wordpress.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/Net/Arc/Layer JavaScript",
+        "link": "https://i.mazey.net/cdn/layer/mobile/layer.js",
+        "code": 200
+      },
+      {
         "name": "CDN/Net/Arc/jQuery",
         "link": "https://i.mazey.net/cdn/jquery-2.1.1.min.js",
         "code": 200
@@ -29,12 +54,22 @@
         "code": 200
       },
       {
-        "name": "CDN/Cn/Layer",
+        "name": "CDN/Net/Arc/Vue",
+        "link": "https://i.mazey.net/cdn/vue/2.6.12/vue.min.js",
+        "code": 200
+      },
+      {
+        "name": "CDN/CN/Layer JavaScript",
         "link": "https://mazey.cn/cdn/layer/layer.js",
         "code": 200
       },
       {
-        "name": "CDN/Cn/jQuery",
+        "name": "CDN/CN/Layer CSS",
+        "link": "https://mazey.cn/cdn/layer/theme/default/layer.css",
+        "code": 200
+      },
+      {
+        "name": "CDN/CN/jQuery",
         "link": "https://mazey.cn/cdn/jquery-2.1.1.min.js",
         "code": 200
       },
@@ -51,6 +86,11 @@
       {
         "name": "Blog/Image",
         "link": "https://blog.mazey.net/wp-content/uploads/2023/02/chis-sweet-home.jpg",
+        "code": 200
+      },
+      {
+        "name": "Blog/Footer",
+        "link": "https://blog.mazey.net/wp-content/themes/polestar/js/footer.min.js",
         "code": 200
       },
       {
@@ -86,6 +126,11 @@
       {
         "name": "Server/Location",
         "link": "https://mazey.cn/server/user/info",
+        "code": 200
+      },
+      {
+        "name": "Server/Feperf/Loader",
+        "link": "https://mazey.cn/feperf/sdk/loader",
         "code": 200
       },
       {
