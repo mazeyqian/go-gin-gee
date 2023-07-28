@@ -11,7 +11,7 @@
     "max_idle_conns": 0
   },
   "server": {
-    "port": "3002",
+    "port": "3022",
     "secret": "tuenov15th2022",
     "_mode": "#release | debug",
     "mode": "release"
