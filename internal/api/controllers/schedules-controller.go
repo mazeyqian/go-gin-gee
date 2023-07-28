@@ -7,9 +7,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-co-op/gocron"
+	"github.com/mazeyqian/asiatz"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	"github.com/mazeyqian/go-gin-gee/internal/pkg/persistence"
-	"github.com/mazeyqian/go-gin-gee/pkg/helpers"
 	http_err "github.com/mazeyqian/go-gin-gee/pkg/http-err"
 )
 
@@ -58,7 +58,7 @@ func RunCheck() {
 	// Get a given Asia/Shanghai TimeZone string, such as "10:05", "04:01".
 	// Return an UTC TimeZone string, such as "02:05", "20:01".
 
-	everyDayAtStr, _ := helpers.ConvertShanghaiToUTC("10:00")
+	everyDayAtStr, _ := asiatz.ShanghaiToUTC("10:00")
 	log.Println("UTC everyDayAtStr:", everyDayAtStr)
 	everyDayAtFn := func() {
 		s.ClearCheckResult(&config.GetConfig().Data.Sites)
