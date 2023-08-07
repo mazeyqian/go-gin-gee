@@ -94,7 +94,7 @@ Generate the short link for the original link.
 curl --location --request POST '${BASE_URL}/api/gee/generate-short-link' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-	"ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
+  "ori_link": "https://blog.mazey.net/tiny?ts=654321-221467-f22c24-493220-228e97-d90c73"
 }'
 ```
 
@@ -249,7 +249,7 @@ go build cmd/api/main.go
 
 **Linux**
 
-It's usually useful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
+It's usually helpful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
 
 ```
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
