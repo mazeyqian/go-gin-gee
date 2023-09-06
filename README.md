@@ -309,7 +309,10 @@ Environment variables:
 `${RUN_FLAG}` is optional, default is `-r`("RUN"). `${WECOM_ROBOT_CHECK}` is optional. If you don't want to send the message to WeCom Robot, just remove it. `${BASE_URL}` is required. It's the Base URL for this Service.
 
 ```
-bash ./scripts/docker-build.sh ${RUN_FLAG} "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+bash ./scripts/docker-build.sh \
+  ${RUN_FLAG} \
+  "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
+  "BASE_URL=${BASE_URL}"
 ```
 
 **Examples**
@@ -323,7 +326,10 @@ bash ./scripts/docker-build.sh -b
 Example 2: Build and Run
 
 ```
-bash ./scripts/docker-build.sh -r "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
+bash ./scripts/docker-build.sh \
+  -r \
+  "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
+  "BASE_URL=https://example.com/path"
 ```
 
 #### Run
@@ -349,13 +355,19 @@ Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/
 **Usage**
 
 ```
-bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" "BASE_URL=${BASE_URL}"
+bash ./scripts/docker-run.sh \
+  "${DOCKER_HUB_REPOSITORY_TAGNAME}" \
+  "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
+  "BASE_URL=${BASE_URL}"
 ```
 
 **Example**
 
 ```
-bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" "BASE_URL=https://example.com/path"
+bash ./scripts/docker-run.sh \
+  "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" \
+  "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
+  "BASE_URL=https://example.com/path"
 ```
 
 ## Contributing
