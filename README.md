@@ -5,7 +5,7 @@ Gee is a project that provides several services for everyday work. The project i
 **Table of Contents**
 
 - [go-gin-gee](#go-gin-gee)
-  - [Install](#install)
+  - [Download](#download)
   - [Script Examples](#script-examples)
   - [API Examples](#api-examples)
     - [Generate Short Link](#generate-short-link)
@@ -20,7 +20,7 @@ Gee is a project that provides several services for everyday work. The project i
   - [Contributing](#contributing)
   - [References](#references)
 
-## Install
+## Download
 
 ```
 git clone https://github.com/mazeyqian/go-gin-gee.git
