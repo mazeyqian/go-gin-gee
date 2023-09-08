@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"log"
 	"net/url"
@@ -14,23 +13,23 @@ import (
 // 	return "Some other sheet name if need"
 // }
 
-type Temp struct {
-	Foo string
-}
+// type Temp struct {
+// 	Foo string
+// }
 
 // self define a unmarshal interface to unmarshal string.
-func (this *Temp) UnmarshalBinary(d []byte) error {
-	return json.Unmarshal(d, this)
-}
+// func (this *Temp) UnmarshalBinary(d []byte) error {
+// 	return json.Unmarshal(d, this)
+// }
 
-func simpleUsage() {
-	// will assume the sheet name as "Standard" from the struct name.
-	var stdList []constants.Standard
-	err := excel.UnmarshalXLSX("./testdata/simple.xlsx", &stdList)
-	if err != nil {
-		panic(err)
-	}
-}
+// func simpleUsage() {
+// 	// will assume the sheet name as "Standard" from the struct name.
+// 	var stdList []constants.Standard
+// 	err := excel.UnmarshalXLSX("./testdata/simple.xlsx", &stdList)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// }
 
 func defaultUsage(filePath string, sheetNamer interface{}) {
 	conn := excel.NewConnecter()
