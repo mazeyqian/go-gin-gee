@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/url"
 
-	"github.com/mazeyqian/go-gin-gee/internal/pkg/constants"
 	"github.com/szyhf/go-excel"
 )
 
@@ -55,7 +54,9 @@ func defaultUsage(filePath string, sheetNamer interface{}) {
 	exampleIdMap := map[string]int{}
 
 	for rd.Next() {
-		var s constants.Standard
+		var s struct {
+			URL string `xlsx:"url"`
+		} // constants.Standard
 		// Read a row into a struct.
 		err := rd.Read(&s)
 		if err != nil {
