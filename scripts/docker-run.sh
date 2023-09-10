@@ -62,18 +62,22 @@ echo "Pull Docker Image: ${combinedVersion}"
 docker image pull ${combinedVersion}
 
 # Build the docker run command
-dockerRunCommand="docker run --name go-gin-gee"
+# dockerRunCommand="docker run --name go-gin-gee"
+ENV_VARS=""
 for envVar in "${envVars[@]}"; do
-  dockerRunCommand+=" -e ${envVar}"
+  ENV_VARS+=" -e ${envVar}"
 done
-dockerRunCommand+=" -d -p ${visitPort}:${innerPort} ${combinedVersion}"
+
+# dockerRunCommand+=" -d -p ${visitPort}:${innerPort} ${combinedVersion}"
 
 # Print the docker run command
-echo "Docker Run Command: ${dockerRunCommand}"
+# echo "Docker Run Command: ${dockerRunCommand}"
 
 # Run the container
 echo "Run Docker Container"
-eval "${dockerRunCommand}"
+# eval "${dockerRunCommand}"
+echo "Environment variables: $ENV_VARS"
+docker run --name go-gin-gee ${ENV_VARS} -d -p ${visitPort}:${innerPort} ${combinedVersion}
 
 # Print message
 echo "Complete, Visit: http://localhost:${visitPort}/api/ping"
