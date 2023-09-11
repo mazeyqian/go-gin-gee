@@ -19,7 +19,6 @@ func RedirectTiny(c *gin.Context) {
 		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
 		log.Println("GetTiny error:", err)
 	} else {
-		// c.JSON(http.StatusOK, gin.H{"ori_link": data})
 		c.Redirect(http.StatusFound, data)
 	}
 }
@@ -37,15 +36,21 @@ func GetTiny(c *gin.Context) {
 }
 
 func CreateTiny(c *gin.Context) {
-	s := persistence.GetTinyRepository()
-	var tiny *models.Tiny
-	var TinyLink string // *models.Tiny
+	type addParams struct {
+		models.Tiny
+		BaseUrl string `json:"base_url" form:"base_url"`
+	}
+	var tiny addParams // *models.Tiny
+	var TinyLink string
+	var baseUrl string
 	var err error
-	// OriLink := c.Query("ori_tiny")
+	s := persistence.GetTinyRepository()
 	_ = c.BindJSON(&tiny)
-	if TinyLink, err = s.SaveOriLink(tiny.OriLink); err != nil {
+	baseUrl = tiny.BaseUrl
+	// log.Println("add params baseUrl", baseUrl)
+	if TinyLink, err = s.SaveOriLink(tiny.OriLink, baseUrl); err != nil {
 		http_err.NewError(c, http.StatusBadRequest, err)
-		log.Println("GetTiny error:", err)
+		log.Println("GetTiny Error:", err)
 	} else {
 		c.JSON(http.StatusCreated, gin.H{"tiny_link": TinyLink})
 	}
