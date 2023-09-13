@@ -25,14 +25,19 @@ func GetTinyRepository() *TinyRepository {
 func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string, error) {
 	var err error
 	var tiny models.Tiny
-	OriMd5 := helpers.ConvertStringToMD5Hash(OriLink)
+	var linkForEncode string
+	if addBaseUrl != "" {
+		linkForEncode = fmt.Sprintf("%s#%s", OriLink, addBaseUrl)
+	} else {
+		linkForEncode = OriLink
+	}
+	OriMd5 := helpers.ConvertStringToMD5Hash(linkForEncode)
 	data, _ := r.QueryOriLinkByOriMd5(OriMd5)
 	if data != nil {
 		log.Println("Tiny Exist:", data)
 		return data.TinyLink, nil
 	}
 	baseUrl := os.Getenv("BASE_URL")
-	// log.Println("Tiny addBaseUrl:", addBaseUrl)
 	if addBaseUrl != "" {
 		baseUrl = addBaseUrl
 	}
@@ -54,7 +59,6 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string,
 	converter := clmconv.New(clmconv.WithStartFromOne(), clmconv.WithLowercase())
 	TinyKey := converter.Itoa(int(TinyId))
 	TinyLink := fmt.Sprintf("%s/t/%s", baseUrl, TinyKey)
-	// log.Println("TinyLink:", TinyLink)
 	_, err = r.SaveTinyLink(TinyId, TinyLink, TinyKey)
 	if err != nil {
 		return "", err

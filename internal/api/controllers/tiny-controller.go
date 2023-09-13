@@ -40,14 +40,13 @@ func CreateTiny(c *gin.Context) {
 		models.Tiny
 		BaseUrl string `json:"base_url" form:"base_url"`
 	}
-	var tiny addParams // *models.Tiny
+	var tiny addParams
 	var TinyLink string
 	var baseUrl string
 	var err error
 	s := persistence.GetTinyRepository()
 	_ = c.BindJSON(&tiny)
 	baseUrl = tiny.BaseUrl
-	// log.Println("add params baseUrl", baseUrl)
 	if TinyLink, err = s.SaveOriLink(tiny.OriLink, baseUrl); err != nil {
 		http_err.NewError(c, http.StatusBadRequest, err)
 		log.Println("GetTiny Error:", err)
