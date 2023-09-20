@@ -1,24 +1,24 @@
+<!-- omit from toc -->
 # go-gin-gee
 
 Gee is a project that provides several services for everyday work. The project is based on Gin [1], and follows the ProjectLayout [3] structure. In addition, some daily scripts in the folder `scripts` depend on Script [4], which can be used by the command `run` directly.
 
 **Table of Contents**
 
-- [go-gin-gee](#go-gin-gee)
-  - [Download](#download)
-  - [Script Examples](#script-examples)
-  - [API Examples](#api-examples)
-    - [Generate Short Link](#generate-short-link)
-    - [Save Data](#save-data)
-    - [Get Data](#get-data)
-  - [Build](#build)
-  - [Deploy](#deploy)
-    - [Supervisor](#supervisor)
-    - [Docker](#docker)
-      - [Build](#build-1)
-      - [Run](#run)
-  - [Contributing](#contributing)
-  - [References](#references)
+- [Download](#download)
+- [Script Examples](#script-examples)
+- [API Examples](#api-examples)
+  - [Generate Short Link](#generate-short-link)
+  - [Save Data](#save-data)
+  - [Get Data](#get-data)
+- [Build](#build)
+- [Deploy](#deploy)
+  - [Supervisor](#supervisor)
+  - [Docker](#docker)
+    - [Build](#build-1)
+    - [Run](#run)
+- [Contributing](#contributing)
+- [References](#references)
 
 ## Download
 
