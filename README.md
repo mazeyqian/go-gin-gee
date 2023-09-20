@@ -129,7 +129,7 @@ Failure: Status Code 400
 Save the data for searching.
 
 **Path:** **/api/gee/create-alias2data**
- 
+
 **Method:** **POST**
 
 **Params:**
@@ -190,7 +190,7 @@ Failure: Status Code 400
 Get the data.
 
 **Path:** **/api/gee/get-data-by-alias**
- 
+
 **Method:** **GET**
 
 **Params:**
@@ -380,7 +380,7 @@ go mod download
 go get github.com/example/name
 ```
 
-If `i/o timeout`, run the command to replace the proxy: 
+If `i/o timeout`, run the command to replace the proxy:
 
 ```
 go env -w GOPROXY=https://goproxy.cn
