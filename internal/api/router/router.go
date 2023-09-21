@@ -78,7 +78,7 @@ func Setup() *gin.Engine {
 	app.GET("/api/:name/:id", controllers.NameId0920)
 	app.POST("/api/postform-parameters", controllers.PostformParameters)
 	app.GET("/api/resty-ping", controllers.RestyPing)
-	app.GET("/api/resty-upload", controllers.RestyUpload)
+	// app.GET("/api/resty-upload", controllers.RestyUpload)
 	// Grouping routes
 	v2 := app.Group("/api/v2")
 	{
