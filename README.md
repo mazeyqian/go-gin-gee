@@ -3,7 +3,8 @@
 
 Gee is a project that provides several services for everyday work. The project is based on Gin [1], and follows the ProjectLayout [3] structure. In addition, some daily scripts in the folder `scripts` depend on Script [4], which can be used by the command `run` directly.
 
-**Table of Contents**
+<!-- omit from toc -->
+## Table of Contents
 
 - [Download](#download)
 - [Script Examples](#script-examples)
@@ -15,14 +16,14 @@ Gee is a project that provides several services for everyday work. The project i
 - [Deploy](#deploy)
   - [Supervisor](#supervisor)
   - [Docker](#docker)
-    - [Build](#build-1)
+    - [Build Image](#build-image)
     - [Run](#run)
 - [Contributing](#contributing)
 - [References](#references)
 
 ## Download
 
-```
+```shell
 git clone https://github.com/mazeyqian/go-gin-gee.git
 ```
 
@@ -30,7 +31,7 @@ git clone https://github.com/mazeyqian/go-gin-gee.git
 
 1\. Change Git name and email for different projects.
 
-```
+```shell
 go run scripts/change-git-user/main.go -path="/Users/X/Web" -username="Your Name" -useremail="your@email.com"
 ```
 
@@ -38,7 +39,7 @@ Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.0.0) | 
 
 2\. `git pull` all projects in a folder.
 
-```
+```shell
 go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 ```
 
@@ -46,7 +47,7 @@ Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.1.0) | 
 
 3\. Convert TypeDoc Comments to Markdown.
 
-```
+```shell
 go run scripts/convert-typedoc-to-markdown/main.go
 ```
 
@@ -54,7 +55,7 @@ Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.2.0) | 
 
 4\. Convert Markdown to TypeDoc Comments.
 
-```
+```shell
 go run scripts/convert-markdown-to-typedoc/main.go
 ```
 
@@ -62,7 +63,7 @@ Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.3.0) | 
 
 5\. Transfer Apple note table to Markdown table.
 
-```
+```shell
 go run scripts/transfer-notes-to-md-table/main.go
 ```
 
@@ -74,21 +75,21 @@ The base URL for this API is an environment variate `${BASE_URL}`, such as `http
 
 ### Generate Short Link
 
-**Description:**
+Description:
 
 Generate the short link for the original link.
 
-**Path:** **/api/gee/generate-short-link**
+Path: `/api/gee/generate-short-link`
 
-**Method:** **POST**
+Method: POST
 
-**Params:**
+Params:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
 | ori_link | string | Original Link | Yes |
 
-**Example:**
+Example:
 
 ```shell
 curl --location --request POST '${BASE_URL}/api/gee/generate-short-link' \
@@ -98,13 +99,13 @@ curl --location --request POST '${BASE_URL}/api/gee/generate-short-link' \
 }'
 ```
 
-**Returns:**
+Returns:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
 | tiny_link | string | Short Link | Yes |
 
-**Example:**
+Example:
 
 Success: Status Code 201
 
@@ -124,15 +125,15 @@ Failure: Status Code 400
 
 ### Save Data
 
-**Description:**
+Description:
 
 Save the data for searching.
 
-**Path:** **/api/gee/create-alias2data**
+Path: `/api/gee/create-alias2data`
 
-**Method:** **POST**
+Method: POST
 
-**Params:**
+Params:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
@@ -140,7 +141,7 @@ Save the data for searching.
 | data | string | Data | Yes |
 | public | bool | Public | Yes |
 
-**Example:**
+Example:
 
 ```shell
 curl --location --request POST '${BASE_URL}/api/gee/create-alias2data' \
@@ -152,7 +153,7 @@ curl --location --request POST '${BASE_URL}/api/gee/create-alias2data' \
 }'
 ```
 
-**Returns:**
+Returns:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
@@ -160,7 +161,7 @@ curl --location --request POST '${BASE_URL}/api/gee/create-alias2data' \
 | alias | string | Alias | Yes |
 | data | string | Data | Yes |
 
-**Example:**
+Example:
 
 Success: Status Code 201
 
@@ -185,27 +186,27 @@ Failure: Status Code 400
 
 ### Get Data
 
-**Description:**
+Description:
 
 Get the data.
 
-**Path:** **/api/gee/get-data-by-alias**
+Path: `/api/gee/get-data-by-alias`
 
-**Method:** **GET**
+Method: GET
 
-**Params:**
+Params:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
 | alias | string | Alias | Yes |
 
-**Example:**
+Example:
 
 ```shell
 curl --location '${BASE_URL}/api/gee/get-data-by-alias?alias=alias%20example'
 ```
 
-**Returns:**
+Returns:
 
 | Params | Type | Description | Required |
 | :-------- | :--------| :------ | :------ |
@@ -213,7 +214,7 @@ curl --location '${BASE_URL}/api/gee/get-data-by-alias?alias=alias%20example'
 | alias | string | Alias | Yes |
 | data | string | Data | Yes |
 
-**Example:**
+Example:
 
 Success: Status Code 200
 
@@ -243,27 +244,27 @@ Failure: Status Code 404
 
 Default:
 
-```
+```shell
 go build cmd/api/main.go
 ```
 
-**Linux**
+Linux:
 
 It's usually helpful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
 
-```
+```shell
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
 ```
 
-**macOS**
+macOS:
 
-```
+```shell
 GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
 ```
 
-**Windows**
+Windows:
 
-```
+```shell
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 ```
 
@@ -276,7 +277,7 @@ Environment Variates:
 
 ### Supervisor
 
-```
+```shell
 [program:api]
 directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="/web/go-gin-gee/data/config.json"
@@ -287,11 +288,11 @@ environment=WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe",BASE_URL="h
 
 ### Docker
 
-#### Build
+#### Build Image
 
 Run `bash ./scripts/docker-build.sh -h` to see the help message.
 
-```
+```text
 Usage: docker-build.sh [OPTIONS] [ENV_VARS...]
 Build and run a Docker container for the go-gin-gee API.
 
@@ -304,27 +305,27 @@ Environment variables:
   Any additional arguments passed to the script will be passed as environment variables to the Docker container.
 ```
 
-**Usage**
+Usage:
 
 `${RUN_FLAG}` is optional, default is `-r`("RUN"). `${WECOM_ROBOT_CHECK}` is optional. If you don't want to send the message to WeCom Robot, just remove it. `${BASE_URL}` is required. It's the Base URL for this Service.
 
-```
+```shell
 bash ./scripts/docker-build.sh ${RUN_FLAG} \
   "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
   "BASE_URL=${BASE_URL}"
 ```
 
-**Examples**
+Examples:
 
 Example 1: Build and Push
 
-```
+```shell
 bash ./scripts/docker-build.sh -b
 ```
 
 Example 2: Build and Run
 
-```
+```shell
 bash ./scripts/docker-build.sh -r \
   "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
   "BASE_URL=https://example.com/path"
@@ -334,7 +335,7 @@ bash ./scripts/docker-build.sh -r \
 
 Run `bash ./scripts/docker-run.sh -h` to see the help message.
 
-```
+```text
 Usage: docker-run.sh [OPTIONS] IMAGE_TAG [ENV_VARS...]
 Run a Docker container from the specified IMAGE_TAG with the specified environment variables.
 
@@ -350,17 +351,17 @@ Note:
 
 Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/mazeyqian/go-gin-gee/tags?page=1&ordering=last_updated)
 
-**Usage**
+Usage:
 
-```
+```shell
 bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" \
   "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
   "BASE_URL=${BASE_URL}"
 ```
 
-**Example**
+Example:
 
-```
+```shell
 bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" \
   "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
   "BASE_URL=https://example.com/path"
@@ -368,41 +369,41 @@ bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api
 
 ## Contributing
 
-**All Dependences**
+All Dependences:
 
-```
+```shell
 go mod download
 ```
 
-**Add**
+Add:
 
-```
+```shell
 go get github.com/example/name
 ```
 
 If `i/o timeout`, run the command to replace the proxy:
 
-```
+```shell
 go env -w GOPROXY=https://goproxy.cn
 ```
 
 It's necessary to run the command `go run scripts/init/main.go` when serving the project first.
 
-**Serve**
+Serve:
 
-```
+```shell
 go run cmd/api/main.go -configpath="data/config.dev.json"
 ```
 
-**Restart**
+Restart:
 
-```
+```shell
 go run scripts/restart/main.go
 ```
 
 Visit: `http://127.0.0.1:3000/api/ping`.
 
-```
+```shell
 pong/v1.0.0/2022-09-29 04:52:43
 ```
 
