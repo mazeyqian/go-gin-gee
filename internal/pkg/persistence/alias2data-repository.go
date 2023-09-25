@@ -59,9 +59,7 @@ func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
 
 	alias2data := models.Alias2data{Alias: alias}
 	notFound, _ := First(&alias2data, &alias2data, []string{})
-	// if err != nil {
-	// 	log.Println("First err", err)
-	// }
+
 	if notFound {
 		alias2data.Data = "0"
 		err = Create(&alias2data)

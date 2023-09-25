@@ -163,28 +163,3 @@ func RestyPing(c *gin.Context) {
 	fmt.Println("  RemoteAddr    :", ti.RemoteAddr.String())
 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
 }
-
-// func RestyUpload(c *gin.Context) {
-// 	var client = resty.New()
-// 	// POST of raw bytes for file upload.
-// 	fileBytes, _ := ioutil.ReadFile("./data/in.csv")
-
-// 	// See we are not setting content-type header, since go-resty automatically detects Content-Type for you
-// 	resp, err := client.R().
-// 		SetHeader("Content-Type", "application/octet-stream").
-// 		SetBody(bytes.NewReader(fileBytes)).
-// 		SetContentLength(true). // Dropbox expects this value
-// 		Post("http://localhost:3002/")
-
-// 	// Explore response object
-// 	log.Println("Response Info:")
-// 	log.Println("  Error      :", err)
-// 	log.Println("  Status Code:", resp.StatusCode())
-// 	log.Println("  Status     :", resp.Status())
-// 	log.Println("  Proto      :", resp.Proto())
-// 	log.Println("  Time       :", resp.Time())
-// 	log.Println("  Received At:", resp.ReceivedAt())
-// 	log.Println("  Body       :\n", resp)
-// 	log.Println()
-// 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
-// }

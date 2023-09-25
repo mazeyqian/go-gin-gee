@@ -8,28 +8,6 @@ import (
 	"github.com/szyhf/go-excel"
 )
 
-// func (this Standard) GetXLSXSheetName() string {
-// 	return "Some other sheet name if need"
-// }
-
-// type Temp struct {
-// 	Foo string
-// }
-
-// self define a unmarshal interface to unmarshal string.
-// func (this *Temp) UnmarshalBinary(d []byte) error {
-// 	return json.Unmarshal(d, this)
-// }
-
-// func simpleUsage() {
-// 	// will assume the sheet name as "Standard" from the struct name.
-// 	var stdList []constants.Standard
-// 	err := excel.UnmarshalXLSX("./testdata/simple.xlsx", &stdList)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// }
-
 func defaultUsage(filePath string, sheetNamer interface{}) {
 	conn := excel.NewConnecter()
 	err := conn.Open(filePath)
@@ -86,46 +64,6 @@ func defaultUsage(filePath string, sheetNamer interface{}) {
 	for k, v := range exampleIdMap {
 		log.Printf("id: %s, count: %d", k, v)
 	}
-
-	// Read all is also supported.
-	// var stdList []constants.Standard
-	// err = rd.ReadAll(&stdList)
-	// if err != nil {
-	// 	panic(err)
-	// 	// return
-	// }
-	// log.Printf("%+v", stdList)
-
-	// map with string key is support, too.
-	// if value is not string
-	// will try to unmarshal to target type
-	// but will skip if unmarshal failed.
-
-	// var stdSliceList [][]string
-	// err = rd.ReadAll(&stdSliceList)
-	// if err != nil {
-	//   panic(err)
-	//	 return
-	// }
-	// fmt.Printf("%+v",stdSliceList)
-
-	// var stdMapList []map[string]string
-	// err = rd.ReadAll(&stdMapList)
-	// if err != nil {
-	//   panic(err)
-	//	 return
-	// }
-	// fmt.Printf("%+v",stdMapList)
-
-	// Using binary instead of file.
-	// xlsxData, err := ioutil.ReadFile(filePath)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	return
-	// }
-
-	// conn := excel.NewConnecter()
-	// err = conn.OpenBinary(xlsxData)
 }
 
 // Example: go run scripts/parse-excel-xlsx/main.go -file="data/example_name.xlsx" -sheet="example_name"
