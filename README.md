@@ -18,6 +18,7 @@ Gee is a project that provides several services for everyday work. The project i
   - [Docker](#docker)
     - [Build Image](#build-image)
     - [Run](#run)
+- [Document](#document)
 - [Contributing](#contributing)
 - [References](#references)
 
@@ -367,6 +368,24 @@ bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api
   "BASE_URL=https://example.com/path"
 ```
 
+## Document
+
+Download [swag](https://github.com/swaggo/swag):
+
+```shell
+go install github.com/swaggo/swag/cmd/swag@v1.8.12
+```
+
+Generate:
+
+```shell
+swag init --dir cmd/api --parseDependency --output docs
+```
+
+Make sure your GO Path is on the PATH environment variable `export PATH=$(go env GOPATH)/bin:$PATH` if the following error occurs `command not found: swag`.
+
+Run and visit: <http://localhost:3000/docs/index.html>
+
 ## Contributing
 
 All Dependences:
@@ -401,7 +420,7 @@ Restart:
 go run scripts/restart/main.go
 ```
 
-Visit: `http://127.0.0.1:3000/api/ping`.
+Visit: <http://127.0.0.1:3000/api/ping>.
 
 ```shell
 pong/v1.0.0/2022-09-29 04:52:43

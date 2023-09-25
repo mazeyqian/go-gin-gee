@@ -3,7 +3,6 @@ module github.com/mazeyqian/go-gin-gee
 go 1.19
 
 require (
-	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/bitfield/script v0.20.2
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.8.1
