@@ -388,16 +388,10 @@ Run and visit: <http://localhost:3000/docs/index.html>
 
 ## Contributing
 
-All Dependences:
+Download modules:
 
 ```shell
 go mod download
-```
-
-Add:
-
-```shell
-go get github.com/example/name
 ```
 
 If `i/o timeout`, run the command to replace the proxy:
