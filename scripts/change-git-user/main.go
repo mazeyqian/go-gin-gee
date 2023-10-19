@@ -14,11 +14,11 @@ import (
 func main() {
 	log.Println("Change git user...")
 	// Examples:
-	// go run scripts/change-git-user/main.go -path="/Users/mazey/Web/Mazey" -username="Mazey Chu" -useremail="mazey@mazey.net"
+	// go run scripts/change-git-user/main.go -path="/Users/mazey/Web/Mazey" -username="Mazey" -useremail="mazey@mazey.net"
 	// Air Example: "/Volumes/ProjectX/Example"
 	// "example@example.net" "Example Na"
 	// Pro Mazey: "/Users/mazey/Web/Mazey"
-	// "mazey@mazey.net" "Mazey Chu"
+	// "mazey@mazey.net" "Mazey"
 	placeholder := "unknown"
 	absolutePath := flag.String("path", placeholder, "path of projects")
 	userName := flag.String("username", placeholder, "user name")
@@ -32,7 +32,7 @@ func main() {
 	}
 	// Previous:
 	// absolutePath := "/Users/mazey/Web/Mazey"
-	// userName := "Mazey Chu"
+	// userName := "Mazey"
 	// userEmail := "mazey@mazey.net"
 	// https://bitfieldconsulting.com/golang/scripting
 	// https://pkg.go.dev/github.com/bitfield/script#ListFiles

@@ -2,8 +2,8 @@ basePath: /api
 info:
   contact:
     email: mazeyqian@gmail.com
-    name: Mazey Chu
-    url: https://blog.mazey.net
+    name: Mazey
+    url: https://github.com/mazeyqian
   description: API in Golang with Gin Framework
   license:
     name: MIT
