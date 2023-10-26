@@ -14,7 +14,7 @@ import (
 // @version 1.0
 // @description API in Golang with Gin Framework
 
-// @contact.name Mazey
+// @contact.name Cheng
 // @contact.url https://github.com/mazeyqian
 // @contact.email mazeyqian@gmail.com
 
