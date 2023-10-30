@@ -36,6 +36,10 @@ GOOS=darwin GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-mac-darwin
 GOOS=linux GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-linux-amd64 scripts/convert-markdown-to-typedoc/main.go
 GOOS=windows GOARCH=amd64 go build -o dist/convert-markdown-to-typedoc-windows-amd64.exe scripts/convert-markdown-to-typedoc/main.go
 
+### eslint
+
+GOOS=darwin GOARCH=amd64 go build -o dist/eslint-files-mac-darwin-amd64 scripts/eslint-files/main.go
+
 ## cmd
 
 ### startup
