@@ -17,13 +17,27 @@ func find(absRoot, root, ext string) []string {
 	if absRoot != "" {
 		root = absRoot + root
 	}
+	exts := []string{}
+	if ext != "" {
+		exts = strings.Split(ext, ",")
+	}
 	filepath.WalkDir(root, func(s string, d fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
-		if filepath.Ext(d.Name()) == ext {
+		if ext == "" {
 			a = append(a, s)
+		} else {
+			for _, ext := range exts {
+				if filepath.Ext(d.Name()) == ext {
+					a = append(a, s)
+					break
+				}
+			}
 		}
+		//  else if filepath.Ext(d.Name()) == ext {
+		// 	a = append(a, s)
+		// }
 		return nil
 	})
 	return a
@@ -33,10 +47,10 @@ func main() {
 	count := 0
 	files := flag.String("files", "", "Files Formated")       // "file1,file2,file3"
 	folders := flag.String("folders", "", "Folders Formated") // "folder1,folder2,folder3"
-	esConf := flag.String("esConf", "", "Eslint Config Path") // ".eslintrc.js"
-	esCom := flag.String("esCom", "--fix", "Eslint Command")  // ""
+	esConf := flag.String("esConf", "", "ESLint Config Path") // ".eslintrc.js"
+	esCom := flag.String("esCom", "", "ESLint Command")       // "--fix"
 	root := flag.String("root", "", "Root of Folders")        // "src"
-	ext := flag.String("ext", "", "File Ext")                 // ".vue"
+	ext := flag.String("ext", ".js", "File Ext")              // ".vue,.js,.ts,.jsx,.tsx"
 	befCom := flag.String("befCom", "", "Before Commands")    // ""
 	aftCom := flag.String("aftCom", "", "After Commands")     // ""
 	filesRang := flag.String("filesRang", "", "Files Range")  // ""
@@ -73,10 +87,15 @@ func main() {
 	if *befCom != "" {
 		befStr := fmt.Sprintf("%s%s", rootCom, *befCom)
 		befCmd := exec.Command("/bin/bash", "-c", befStr)
-		_, err := befCmd.CombinedOutput()
+		result, err := befCmd.CombinedOutput()
 		if err != nil {
-			log.Println("Shell Error:", err)
+			log.Println("Bash Error:", err)
 		}
+		resultStr := string(result)
+		if resultStr == "" {
+			resultStr = "ok"
+		}
+		log.Printf("Bash Result: %s", resultStr)
 	}
 	for _, file := range fileArr {
 		log.Printf("File: %s", file)
@@ -84,26 +103,40 @@ func main() {
 		if *root != "" {
 			cmdLines += fmt.Sprintf("cd %s;", *root)
 		}
-		cmdLines += fmt.Sprintf("npx eslint %s %s -c %s;", file, *esCom, *esConf)
+		esConfCom := ""
+		if *esConf != "" {
+			esConfCom = fmt.Sprintf(" -c %s", *esConf)
+		}
+		esComCom := ""
+		if *esCom != "" {
+			esComCom = fmt.Sprintf(" %s", *esCom)
+		}
+		cmdLines += fmt.Sprintf("npx eslint %s%s%s;", file, esComCom, esConfCom)
+		// log.Printf("ESLint Command: %s", cmdLines)
 		cmd := exec.Command("/bin/bash", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
-			log.Println("Eslint Error:", err)
+			log.Println("ESLint Error:", err)
 		}
 		resultStr := string(result)
 		if resultStr == "" {
 			resultStr = "ok"
 		}
-		log.Printf("Eslint Result: %s", resultStr)
+		log.Printf("ESLint Result: %s", resultStr)
 		count++
 	}
 	if *aftCom != "" {
 		aftStr := fmt.Sprintf("%s%s", rootCom, *aftCom)
 		aftCmd := exec.Command("/bin/bash", "-c", aftStr)
-		_, err := aftCmd.CombinedOutput()
+		result, err := aftCmd.CombinedOutput()
 		if err != nil {
-			log.Println("Shell Error:", err)
+			log.Println("Bash Error:", err)
 		}
+		resultStr := string(result)
+		if resultStr == "" {
+			resultStr = "ok"
+		}
+		log.Printf("Bash Result: %s", resultStr)
 	}
 	if *filesRang != "" {
 		totalFiles := find("", *filesRang, *ext)

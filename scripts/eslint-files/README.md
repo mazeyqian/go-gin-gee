@@ -1,49 +1,83 @@
-# ESLint Files
+# Using Scripts to Consolidate Designated Files/Folders and Execute Customized ESLint Commands
 
-This Go script is designed to format a set of files using ESLint. ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
+## Background
 
-Here's a basic guide on how to use this script.
+Recently, I faced a large project where I only needed to modify a specific module. It was too cumbersome to manually input commands every time, so I thought about writing a script to assist in handling these tasks.
 
-## Command Line Flags
+## Solution
 
-The script accepts several command line flags:
+Customized one-click ESLint, download the executable file at:
 
-| Flag | Description | Example | Required |
-| --- | --- | --- | --- |
-| `files` | A comma-separated list of files to be formatted. | `file1.js,file2.js` | Optional |
-| `folders` | A comma-separated list of folders to be formatted. | `src/utils,src/components` | Optional |
-| `esConf` | The path to the ESLint configuration file. | `.eslintrc.js` | Optional |
-| `esCom` | The ESLint command to run. | `--fix` | Optional |
-| `root` | The root of the folders. | `src` | Optional |
-| `ext` | The file extension to look for when formatting files. | `.js` | Optional |
-| `befCom` | Commands to run before the formatting step. | `echo 'Starting format'` | Optional |
-| `aftCom` | Commands to run after the formatting step. | `echo 'Format completed'` | Optional |
-| `filesRang` | The range of files to format. | `1-10` | Optional |
+<https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.4.0>
 
-1. **File and Folder Selection**: The script allows you to specify the files and folders to be formatted using the `files` and `folders` flags. If a root directory is specified, it will prepend the root to each file or folder. It will also find all files with the specified extension within each folder.
-2. **Command Execution**: If any commands are specified in the `befCom` or `aftCom` flags, they will be executed before and after the formatting step, respectively.
-3. **ESLint Execution**: For each file in the list, the script will execute the ESLint command with the specified configuration file. It will log any errors that occur during this process.
-4. **File Range**: If a file range is specified, the script will find all files within this range with the specified extension. It will then filter out any files that were already formatted, and log the remaining files.
-5. **Logging**: The script logs various information throughout its execution, including the number of files worked on, any errors that occur, and any files within the specified range that were not formatted.
+### Basic Usage
 
-## Examples of Usage
+The following examples use MacOS as an example, please replace the corresponding files for other systems.
 
-To run the script, you would use a command like this:
-
-1\. Simplest command:
+Example 1: Specify files `file1.js` and `file2.js` with the default configuration.
 
 ```bash
-go run eslint-files.go -files="file1.js,file2.js"
+#!/bin/bash
+./eslint-files-mac-darwin-amd64 -files="file1.js,file2.js"
 ```
 
-This command will format the files `file1.js` and `file2.js` using the default ESLint configuration and command.
-
-2\. Complex command:
+Example 2: Specify folders `src/views` and `src/components`.
 
 ```bash
-go run eslint-files.go -files="file1.js,file2.js" -folders="src/utils,src/components" -esConf=".eslintrc.js" -esCom="--fix" -root="src" -ext=".js" -befCom="echo 'Starting format'" -aftCom="echo 'Format completed'" -filesRang="1-10"
+#!/bin/bash
+./eslint-files-mac-darwin-amd64 -folders="/root/app/src/views,/root/app/src/components"
 ```
 
-This command will format the files `file1.js` and `file2.js`, as well as all `.js` files in the `src/utils` and `src/components` folders. It will use the ESLint configuration in `.eslintrc.js` and the ESLint command `--fix`. It will also echo a start and end message, and only format files in the range 1-10.
+Specify folders using the root directory `root`:
 
-You can adjust these parameters as needed to suit your specific use case.
+```bash
+#!/bin/bash
+./eslint-files-mac-darwin-amd64 \
+  -folders="src/views,src/components" \
+  -root="/root/app/"
+```
+
+Example 3: Specify ESLint configuration file `custom.eslintrc.js` and command `--fix`.
+
+```bash
+#!/bin/bash
+./eslint-files-mac-darwin-amd64 \
+  -folders="/root/app/src/views" \
+  -esConf="custom.eslintrc.js" \
+  -esCom="--fix"
+```
+
+### Complex Scenarios
+
+1. Specify ESLint configuration file `custom.eslintrc.js`;
+2. Specify accompanying command `--fix`;
+3. Specify files and folders;
+4. Specify file suffix;
+5. Add prefix and postfix execution commands.
+
+```bash
+#!/bin/bash
+./eslint-files-mac-darwin-amd64 \
+  -files="file1.js,file2.js" \
+  -folders="src/views,src/components" \
+  -root="/root/app/" \
+  -esConf="custom.eslintrc.js" \
+  -esCom="--fix" \
+  -ext=".js,.ts,.jsx,.vue,.tsx" \
+  -befCom="echo 'Starting format';" \
+  -aftCom="echo 'Format completed';"
+```
+
+### Parameter Description
+
+| Parameter | Description | Default | Example | Required |
+| --- | --- | --- | --- | --- |
+| `files` | Specify files, multiple files are separated by `,`. | - | `file1.js,file2.js` | Optional |
+| `folders` | Specify folders, multiple folders are separated by `,`. | - | `src/views,src/components` | Optional |
+| `esConf` | Specify ESLint configuration file. | - | `custom.eslintrc.js` | Optional |
+| `esCom` | Specify accompanying command. | - | `--fix` | Optional |
+| `root` | Specify root directory, used with `folders`. | - | `/root/app/` | Optional |
+| `ext` | Specify file suffix. | `.js` | `.js,.ts,.jsx,.vue` | Optional |
+| `befCom` | Specify prefix execution command. | - | `echo 'Starting format';` | Optional |
+| `aftCom` | Specify postfix execution command. | - | `echo 'Format completed';` | Optional |
+| `filesRang` | Specify the range of files, count the processed and unprocessed files. | - | `/root/app/` | Optional |
