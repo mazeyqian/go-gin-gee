@@ -24,7 +24,7 @@ Gee is a project that provides several services for everyday work. The project i
 
 ## Download
 
-```shell
+```bash
 git clone https://github.com/mazeyqian/go-gin-gee.git
 ```
 
@@ -32,7 +32,7 @@ git clone https://github.com/mazeyqian/go-gin-gee.git
 
 1\. Change Git name and email for different projects.
 
-```shell
+```bash
 go run scripts/change-git-user/main.go -path="/Users/X/Web" -username="Your Name" -useremail="your@email.com"
 ```
 
@@ -40,31 +40,39 @@ Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.0.0) | 
 
 2\. `git pull` all projects in a folder.
 
-```shell
+```bash
 go run scripts/batch-git-pull/main.go -path="/Users/X/Web"
 ```
 
 Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.1.0) | [简体中文](https://blog.mazey.net/3035.html)
 
-3\. Convert TypeDoc Comments to Markdown.
+3\. Consolidate designated files/folders and execute customized ESLint commands.
 
-```shell
+```bash
+go run scripts/eslint-files/main.go -files="file1.js,file2.js" -esConf="custom.eslintrc.js" -esCom="--fix"
+```
+
+Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.4.0) | [简体中文](https://blog.mazey.net/4207.html)
+
+4\. Convert TypeDoc comments to Markdown.
+
+```bash
 go run scripts/convert-typedoc-to-markdown/main.go
 ```
 
 Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.2.0) | [简体中文](https://blog.mazey.net/3494.html#%E6%B3%A8%E9%87%8A%E8%BD%AC_Markdown)
 
-4\. Convert Markdown to TypeDoc Comments.
+5\. Convert Markdown to TypeDoc comments.
 
-```shell
+```bash
 go run scripts/convert-markdown-to-typedoc/main.go
 ```
 
 Usage: [English](https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.3.0) | [简体中文](https://blog.mazey.net/3494.html#Markdown_%E8%BD%AC%E6%B3%A8%E9%87%8A)
 
-5\. Transfer Apple note table to Markdown table.
+6\. Transfer Apple note table to Markdown table.
 
-```shell
+```bash
 go run scripts/transfer-notes-to-md-table/main.go
 ```
 
@@ -92,7 +100,7 @@ Params:
 
 Example:
 
-```shell
+```bash
 curl --location --request POST '${BASE_URL}/api/gee/generate-short-link' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -112,7 +120,7 @@ Success: Status Code 201
 
 ```json
 {
-    "tiny_link": "${BASE_URL}/t/b"
+  "tiny_link": "${BASE_URL}/t/b"
 }
 ```
 
@@ -120,7 +128,7 @@ Failure: Status Code 400
 
 ```json
 {
-    "code": 400
+  "code": 400
 }
 ```
 
@@ -144,13 +152,13 @@ Params:
 
 Example:
 
-```shell
+```bash
 curl --location --request POST '${BASE_URL}/api/gee/create-alias2data' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "alias": "alias example",
-    "data": "data example",
-    "public": true
+  "alias": "alias example",
+  "data": "data example",
+  "public": true
 }'
 ```
 
@@ -168,11 +176,11 @@ Success: Status Code 201
 
 ```json
 {
-    "id": 2,
-    "created_at": "2023-01-07T11:14:24.572495702+08:00",
-    "updated_at": "2023-01-07T11:14:24.57882362+08:00",
-    "alias": "alias example",
-    "data": "data example"
+  "id": 2,
+  "created_at": "2023-01-07T11:14:24.572495702+08:00",
+  "updated_at": "2023-01-07T11:14:24.57882362+08:00",
+  "alias": "alias example",
+  "data": "data example"
 }
 ```
 
@@ -180,8 +188,8 @@ Failure: Status Code 400
 
 ```json
 {
-    "code": 400,
-    "message": "data exist"
+  "code": 400,
+  "message": "data exist"
 }
 ```
 
@@ -203,7 +211,7 @@ Params:
 
 Example:
 
-```shell
+```bash
 curl --location '${BASE_URL}/api/gee/get-data-by-alias?alias=alias%20example'
 ```
 
@@ -221,14 +229,14 @@ Success: Status Code 200
 
 ```json
 {
-    "data": {
-        "id": 5,
-        "created_at": "2023-05-16T13:46:10.518769+08:00",
-        "updated_at": "2023-05-16T13:46:10.520977+08:00",
-        "alias": "alias example",
-        "data": "data example",
-        "public": true
-    }
+  "data": {
+    "id": 5,
+    "created_at": "2023-05-16T13:46:10.518769+08:00",
+    "updated_at": "2023-05-16T13:46:10.520977+08:00",
+    "alias": "alias example",
+    "data": "data example",
+    "public": true
+  }
 }
 ```
 
@@ -236,8 +244,8 @@ Failure: Status Code 404
 
 ```json
 {
-    "code": 404,
-    "message": "data not found"
+  "code": 404,
+  "message": "data not found"
 }
 ```
 
@@ -245,7 +253,7 @@ Failure: Status Code 404
 
 Default:
 
-```shell
+```bash
 go build cmd/api/main.go
 ```
 
@@ -253,19 +261,19 @@ Linux:
 
 It's usually helpful to run the command `chmod u+x script-name-linux-amd64` if the permission error happens.
 
-```shell
+```bash
 GOOS=linux GOARCH=amd64 go build -o dist/api-linux-amd64 cmd/api/main.go
 ```
 
 macOS:
 
-```shell
+```bash
 GOOS=darwin GOARCH=amd64 go build -o dist/api-mac-darwin-amd64 cmd/api/main.go
 ```
 
 Windows:
 
-```shell
+```bash
 GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 ```
 
@@ -278,7 +286,7 @@ Environment Variates:
 
 ### Supervisor
 
-```shell
+```text
 [program:api]
 directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="/web/go-gin-gee/data/config.json"
@@ -310,7 +318,7 @@ Usage:
 
 `${RUN_FLAG}` is optional, default is `-r`("RUN"). `${WECOM_ROBOT_CHECK}` is optional. If you don't want to send the message to WeCom Robot, just remove it. `${BASE_URL}` is required. It's the Base URL for this Service.
 
-```shell
+```bash
 bash ./scripts/docker-build.sh ${RUN_FLAG} \
   "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
   "BASE_URL=${BASE_URL}"
@@ -320,13 +328,13 @@ Examples:
 
 Example 1: Build and Push
 
-```shell
+```bash
 bash ./scripts/docker-build.sh -b
 ```
 
 Example 2: Build and Run
 
-```shell
+```bash
 bash ./scripts/docker-build.sh -r \
   "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
   "BASE_URL=https://example.com/path"
@@ -354,7 +362,7 @@ Find the latest image tag name: [Tags](https://hub.docker.com/repository/docker/
 
 Usage:
 
-```shell
+```bash
 bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" \
   "WECOM_ROBOT_CHECK=${WECOM_ROBOT_CHECK}" \
   "BASE_URL=${BASE_URL}"
@@ -362,7 +370,7 @@ bash ./scripts/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" \
 
 Example:
 
-```shell
+```bash
 bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" \
   "WECOM_ROBOT_CHECK=b2lsjd46-7146-4nv2-8767-86cb0cncjdbe" \
   "BASE_URL=https://example.com/path"
@@ -372,13 +380,13 @@ bash ./scripts/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api
 
 Download [swag](https://github.com/swaggo/swag):
 
-```shell
+```bash
 go install github.com/swaggo/swag/cmd/swag@v1.8.12
 ```
 
 Generate:
 
-```shell
+```bash
 swag init --dir cmd/api --parseDependency --output docs
 ```
 
@@ -390,13 +398,13 @@ Run and visit: <http://localhost:3000/docs/index.html>
 
 Download modules:
 
-```shell
+```bash
 go mod download
 ```
 
 If `i/o timeout`, run the command to replace the proxy:
 
-```shell
+```bash
 go env -w GOPROXY=https://goproxy.cn
 ```
 
@@ -404,19 +412,19 @@ It's necessary to run the command `go run scripts/init/main.go` when serving the
 
 Serve:
 
-```shell
+```bash
 go run cmd/api/main.go -configpath="data/config.dev.json"
 ```
 
 Restart:
 
-```shell
+```bash
 go run scripts/restart/main.go
 ```
 
 Visit: <http://127.0.0.1:3000/api/ping>.
 
-```shell
+```text
 pong/v1.0.0/2022-09-29 04:52:43
 ```
 

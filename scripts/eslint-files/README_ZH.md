@@ -1,14 +1,14 @@
-# 使用脚本整合指定文件/文件夹，执行定制化 ESLint 命令
-
 ## 背景
 
-最近面对一个庞大的项目，但是只需要修改其中某个模块，每次都手搓命令太麻烦了，于是就想着能不能写个脚本来辅助处理这些事情。
+最近面对一个庞大的项目，但是只需要修改某个模块，每次都手搓命令太麻烦了，于是就想着能不能写个脚本来辅助处理这些事情。
 
 ## 解决方案
 
 定制化一键 ESLint，执行文件下载地址：
 
 <https://github.com/mazeyqian/go-gin-gee/releases/tag/v1.4.0>
+
+![Assets](https://blog.mazey.net/wp-content/uploads/2023/10/assets-Releasev1.4.0-mazeyqian_go-gin-gee.png)
 
 ### 基础使用
 
@@ -81,3 +81,19 @@
 | `befCom` | 指定前置执行命令。 | - | `echo 'Starting format';` | 可选 |
 | `aftCom` | 指定后置执行命令。 | - | `echo 'Format completed';` | 可选 |
 | `filesRang` | 指定文件范围，统计处理过和未处理的文件。 | - | `/root/app/` | 可选 |
+
+### 演示效果
+
+![ESLint Files](https://blog.mazey.net/wp-content/uploads/2023/10/eslint-Screen-Shot-w601.png)
+
+## 项目地址
+
+该脚本使用 Go 语言开发，访问地址：
+
+<https://github.com/mazeyqian/go-gin-gee/tree/main/scripts/eslint-files>
+
+**版权声明**
+
+本博客所有的原创文章，作者皆保留版权。转载必须包含本声明，保持本文完整，并以超链接形式注明作者[后除](https://blog.mazey.net/author/mazey)和本文原始地址：<https://blog.mazey.net/4207.html>
+
+（完）
