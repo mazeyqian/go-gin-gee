@@ -8,6 +8,7 @@ import (
 
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/tiny"
 	"github.com/mazeyqian/go-gin-gee/pkg/helpers"
+	"github.com/mazeyqian/gurl"
 	"github.com/takuoki/clmconv"
 )
 
@@ -27,7 +28,12 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string,
 	var tiny models.Tiny
 	var linkForEncode string
 	if addBaseUrl != "" {
-		linkForEncode = fmt.Sprintf("%s#%s", OriLink, addBaseUrl)
+		// linkForEncode = fmt.Sprintf("%s#%s", OriLink, addBaseUrl)
+		linkForEncode, err = gurl.SetQueryParam(OriLink, "base_url", addBaseUrl)
+		log.Println("linkForEncode:", linkForEncode)
+		if err != nil {
+			return "", err
+		}
 	} else {
 		linkForEncode = OriLink
 	}
