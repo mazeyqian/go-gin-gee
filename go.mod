@@ -9,7 +9,7 @@ require (
 	github.com/go-co-op/gocron v1.17.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/mazeyqian/asiatz v1.1.3
-	github.com/mazeyqian/gurl v1.0.4
+	github.com/mazeyqian/gurl v1.0.5
 	github.com/samber/lo v1.33.0
 	github.com/spf13/viper v1.13.0
 	github.com/swaggo/swag v1.8.1
