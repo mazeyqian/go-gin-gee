@@ -230,12 +230,10 @@ github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27k
 github.com/mattn/go-runewidth v0.0.9/go.mod h1:H031xJmbD/WCDINGzjvQ9THkh0rPKHF+m2gUSrubnMI=
 github.com/mattn/go-sqlite3 v1.14.0 h1:mLyGNKR8+Vv9CAU7PphKa2hkEqxxhn8i32J6FPj1/QA=
 github.com/mattn/go-sqlite3 v1.14.0/go.mod h1:JIl7NbARA7phWnGvh0LKTyg7S9BA+6gx71ShQilpsus=
-github.com/mazeyqian/asiatz v1.0.0 h1:31g/j+VArVxDIH68Fq/8+JhPwdWb7fWkOgalcpwlrmg=
-github.com/mazeyqian/asiatz v1.0.0/go.mod h1:rzOhtefy2zJg4fKL6dn8Q8cezRFSv/qS4AO02D6cBUE=
 github.com/mazeyqian/asiatz v1.1.3 h1:vMOgRMyrF30JKCpD+x5Q5I6YYPgVwfDGmNd6usUdtJk=
 github.com/mazeyqian/asiatz v1.1.3/go.mod h1:rzOhtefy2zJg4fKL6dn8Q8cezRFSv/qS4AO02D6cBUE=
-github.com/mazeyqian/gurl v1.0.2 h1:Lt9hyffUzlh/r4ov9ylPWk0n3NYzF4hmsnmkloY/vdY=
-github.com/mazeyqian/gurl v1.0.2/go.mod h1:kxUHKRAcaElXXdEAI8lmfsgHeaWAaSEgIx7B6n3n+so=
+github.com/mazeyqian/gurl v1.0.4 h1:u53FyicbdlCkx1OI7EJZMkd/rGFF5hHr49kPR9XTPfY=
+github.com/mazeyqian/gurl v1.0.4/go.mod h1:kxUHKRAcaElXXdEAI8lmfsgHeaWAaSEgIx7B6n3n+so=
 github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=
 github.com/mitchellh/mapstructure v1.5.0/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
