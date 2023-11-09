@@ -29,7 +29,7 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string,
 	var linkForEncode string
 	if addBaseUrl != "" {
 		// linkForEncode = fmt.Sprintf("%s#%s", OriLink, addBaseUrl)
-		linkForEncode, err = gurl.SetQueryParam(OriLink, "base_url", addBaseUrl)
+		linkForEncode, err = gurl.SetHashParam(OriLink, "base_url", addBaseUrl)
 		log.Println("linkForEncode:", linkForEncode)
 		if err != nil {
 			return "", err
