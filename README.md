@@ -431,7 +431,7 @@ pong/v1.0.0/2022-09-29 04:52:43
 ## References
 
 1. [Gin Web Framework](https://github.com/gin-gonic/gin)
-2. [lo - Iterate over slices, maps, channels...](https://github.com/samber/lo)
+2. [lo - Iterate over slices, maps, channels...](https://pkg.go.dev/github.com/samber/lo)
 3. [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
-4. [script](https://github.com/bitfield/script)
+4. [script](https://pkg.go.dev/github.com/bitfield/script)
 5. [go-rest-template](https://github.com/antonioalfa22/go-rest-template)
