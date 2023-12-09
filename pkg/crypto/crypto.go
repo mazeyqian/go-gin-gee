@@ -31,13 +31,13 @@ func CreateToken(username string) (string, error) {
 	config := config2.GetConfig()
 
 	var err error
-	//Creating Access Token
+	// Creating Access Token
 	atClaims := jwt.MapClaims{}
 	atClaims["authorized"] = true
 	atClaims["username"] = username
 	atClaims["exp"] = time.Now().Add(time.Hour * 24 * 365).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS512, atClaims)
-	token, err := at.SignedString([]byte(config.Server.Secret)) // SECRET
+	token, err := at.SignedString([]byte(config.Server.Secret))
 	if err != nil {
 		return "token creation error", err
 	}

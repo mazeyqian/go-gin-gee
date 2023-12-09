@@ -27,9 +27,6 @@ func Logger() gin.HandlerFunc {
 
 		t := time.Now()
 
-		// Set example variable
-		// c.Set("example", "12345")
-
 		// before request
 		c.Next()
 

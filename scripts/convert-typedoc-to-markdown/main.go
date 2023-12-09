@@ -15,38 +15,27 @@ import (
 func main() {
 	log.Println(constants.StartMsgStr)
 	alias := "td2md"
-	// endLine := " */"
 	// td2md.js td2md.md
 	iFilename := fmt.Sprintf("./data/%s.js", alias)
 	oFilename := fmt.Sprintf("./data/%s.md", alias)
-	// index := 0
-	// hasZH := false
 	// https://gobyexample.com/regular-expressions
-	// rMatchZH, _ := regexp.Compile("^<!-- (.+) -->$")
-	// rMatchCommentBoth, _ := regexp.Compile("^<!-- (.+) -->$")
 	rMatchCommentStart, _ := regexp.Compile(`^ *\*?\s?(.*)$`)
 	rMatchCommentStartEN, _ := regexp.Compile(`^ *\*?\s?EN:\s(.*)$`)
 	placeholderChar := "#loading..."
 	script.File(iFilename).Match(" *").FilterLine(func(s string) string {
 		retStr := s
 		if strings.Contains(s, "/**") {
-			// log.Println("First Line: ", retStr)
-			retStr = placeholderChar // "#p"
+			retStr = placeholderChar
 		} else if strings.Contains(s, " */") {
-			// log.Println("Last Line: ", retStr)
-			retStr = placeholderChar // "#p"
+			retStr = placeholderChar
 		} else if strings.Contains(s, " * @") {
-			// log.Println("Ignore Line: ", retStr)
-			retStr = placeholderChar // "#p"
+			retStr = placeholderChar
 		} else if strings.Contains(s, " * ZH:") {
-			// log.Println("Ignore Line: ", retStr)
-			retStr = placeholderChar // "#p"
+			retStr = placeholderChar
 		} else if strings.Contains(s, " * EN:") {
-			// log.Println("Ignore Line: ", retStr)
 			retStr = rMatchCommentStartEN.FindStringSubmatch(retStr)[1]
 		} else if strings.Contains(s, " *") || strings.Contains(s, " * ") {
 			retStr = rMatchCommentStart.FindStringSubmatch(retStr)[1]
-			// log.Println("Normal Line: ", retStr)
 		} else {
 			log.Println("Error: ", retStr)
 		}

@@ -83,11 +83,3 @@ func (r *Alias2dataRepository) CountByAlias(alias string) (int, error) {
 
 	return count, nil
 }
-
-// With this query, you can retrieve the 10 aliases with the lowest counts from the last 2 months.
-// SELECT alias, MAX(created_at) AS last_count_date, SUM(data) AS count
-// FROM alias2data
-// WHERE created_at >= '2023-03-16 00:00:00'
-// GROUP BY alias
-// ORDER BY count ASC
-// LIMIT 10;

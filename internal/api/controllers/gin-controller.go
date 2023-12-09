@@ -10,7 +10,6 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// Struct - begin
 type StructA struct {
 	FieldA string `form:"field_a"`
 }
@@ -35,13 +34,10 @@ type PersonBindUrl struct {
 	Name string `uri:"name" binding:"required"`
 }
 
-// Struct - end
-
 func Ping(c *gin.Context) {
 	t := time.Now()
 	// https://stackoverflow.com/questions/33119748/convert-time-time-to-string
 	ret := "pong/v1.0.0/" + t.Format("2006-01-02 15:04:05")
-	// c.String(http.StatusOK, ret)
 	c.JSON(200, gin.H{
 		"message": ret,
 	})
@@ -58,11 +54,9 @@ func GetDataB(c *gin.Context) {
 
 func AsciiJSON(c *gin.Context) {
 	data := map[string]interface{}{
-		"lang": "GO语言",
+		"lang": "Go",
 		"tag":  "<br>",
 	}
-
-	// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
 	c.AsciiJSON(http.StatusOK, data)
 }
 
@@ -82,16 +76,12 @@ func StartPage(c *gin.Context) {
 		log.Println(person.Address)
 		log.Println(person.Birthday)
 	}
-
 	c.String(200, "Success")
 }
 
 func Middleware0920(c *gin.Context) {
 	example := c.MustGet("example").(string)
-
-	// it would print: "12345"
 	log.Println(example)
-
 	c.JSON(200, gin.H{"testMiddleware": example})
 }
 
@@ -105,9 +95,6 @@ func JSONP0920(c *gin.Context) {
 	data := map[string]interface{}{
 		"foo": "bar",
 	}
-
-	//callback is x
-	// Will output  :   x({\"foo\":\"bar\"})
 	c.JSONP(http.StatusOK, data)
 }
 

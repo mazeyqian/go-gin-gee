@@ -35,9 +35,6 @@ func find(absRoot, root, ext string) []string {
 				}
 			}
 		}
-		//  else if filepath.Ext(d.Name()) == ext {
-		// 	a = append(a, s)
-		// }
 		return nil
 	})
 	return a
@@ -112,7 +109,6 @@ func main() {
 			esComCom = fmt.Sprintf(" %s", *esCom)
 		}
 		cmdLines += fmt.Sprintf("npx eslint %s%s%s;", file, esComCom, esConfCom)
-		// log.Printf("ESLint Command: %s", cmdLines)
 		cmd := exec.Command("/bin/bash", "-c", cmdLines)
 		result, err := cmd.CombinedOutput()
 		if err != nil {
@@ -152,9 +148,6 @@ func main() {
 		for _, file := range otherFiles {
 			log.Printf("Other File: %s", file)
 		}
-		// for _, file := range totalFiles {
-		// 	log.Printf("Total File: %s", file)
-		// }
 	} else {
 		log.Printf("Worked Count: %d", count)
 	}

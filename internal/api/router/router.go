@@ -72,13 +72,11 @@ func Setup() *gin.Engine {
 	app.POST("/api/Bind-html-checkboxes", controllers.FormHandler)
 	app.GET("/api/bind-query-or-post", controllers.StartPage)
 	app.GET("/api/Middleware", controllers.Middleware0920)
-	// app.LoadHTMLGlob("templates/*")
 	app.GET("/api/index", controllers.Index0920)
 	app.GET("/api/JSONP", controllers.JSONP0920)
 	app.GET("/api/:name/:id", controllers.NameId0920)
 	app.POST("/api/postform-parameters", controllers.PostformParameters)
 	app.GET("/api/resty-ping", controllers.RestyPing)
-	// app.GET("/api/resty-upload", controllers.RestyUpload)
 	// Grouping routes
 	v2 := app.Group("/api/v2")
 	{

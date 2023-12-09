@@ -54,7 +54,8 @@ func main() {
 				retStr = " * " + rMatchCommentStart.FindStringSubmatch(retStr)[1]
 			} else if strings.Contains(s, " -->") {
 				retStr = " * " + rMatchCommentEnd.FindStringSubmatch(retStr)[1]
-			} else { // Normal Lines
+			} else {
+				// Normal Lines
 				retStr = " * " + retStr
 			}
 		}
