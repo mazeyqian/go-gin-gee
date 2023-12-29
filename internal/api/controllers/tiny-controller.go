@@ -16,7 +16,10 @@ func RedirectTiny(c *gin.Context) {
 	TinyKey := c.Param("key")
 	log.Println("GetTiny TinyKey:", TinyKey)
 	if data, err := s.QueryOriLinkByTinyKey(TinyKey); err != nil {
-		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
+		// http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
+		c.HTML(http.StatusNotFound, "index.tmpl", gin.H{
+			"title": "404 Link Not Found",
+		})
 		log.Println("GetTiny error:", err)
 	} else {
 		c.Redirect(http.StatusFound, data)
