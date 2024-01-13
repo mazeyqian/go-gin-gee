@@ -43,7 +43,7 @@ func Setup(configPath string, configType string) {
 
 	viper.SetConfigFile(configPath)
 	// https://pkg.go.dev/github.com/spf13/viper@v1.13.0#SetConfigType
-	viper.SetConfigType(configType) // "yaml")
+	viper.SetConfigType(configType)
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Error reading config file, %s", err)

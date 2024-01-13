@@ -30,10 +30,6 @@ func main() {
 	if *absolutePath == placeholder || *userName == placeholder || *userEmail == placeholder {
 		log.Panicln("params is required")
 	}
-	// Previous:
-	// absolutePath := "/Users/mazey/Web/Mazey"
-	// userName := "Mazey"
-	// userEmail := "mazey@mazey.net"
 	// https://bitfieldconsulting.com/golang/scripting
 	// https://pkg.go.dev/github.com/bitfield/script#ListFiles
 	// https://pkg.go.dev/runtime#pkg-constants
@@ -46,7 +42,6 @@ func main() {
 			cmdLines += fmt.Sprintf(`git config user.email %s && `, *userEmail)
 			cmdLines += "echo All done in Windows CMD. && "
 			cmdLines += constants.ScriptEndMsgInWin
-			// log.Println("cmdLines:", cmdLines)
 			// https://stackoverflow.com/questions/13008255/how-to-execute-a-simple-windows-command-in-golang
 			cmd := exec.Command("cmd", "/C", cmdLines)
 			result, err := cmd.CombinedOutput()
@@ -65,7 +60,6 @@ func main() {
 			cmdLines += fmt.Sprintf(`git config user.name "%s";`, *userName)
 			cmdLines += fmt.Sprintf(`git config user.email "%s";`, *userEmail)
 			cmdLines += constants.ScriptEndMsg
-			// windows /c/'Program Files'/Git/bin/sh.exe
 			cmd := exec.Command("/bin/sh", "-c", cmdLines)
 			result, err := cmd.CombinedOutput()
 			if err != nil {

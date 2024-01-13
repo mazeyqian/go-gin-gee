@@ -66,7 +66,7 @@ func main() {
 			cmdLines += fmt.Sprintf("cd %s;", s)
 			// Control the branch: cmdLines += `git checkout master;`
 			cmdLines += `cd ../;`
-			cmdLines += *runCommands // `git pull;`
+			cmdLines += *runCommands
 			cmdLines += constants.ScriptEndMsg
 			cmd := exec.Command("/bin/sh", "-c", cmdLines)
 			result, err := cmd.CombinedOutput()

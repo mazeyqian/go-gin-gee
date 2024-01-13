@@ -34,7 +34,7 @@ func defaultUsage(filePath string, sheetNamer interface{}) {
 	for rd.Next() {
 		var s struct {
 			URL string `xlsx:"url"`
-		} // constants.Standard
+		}
 		// Read a row into a struct.
 		err := rd.Read(&s)
 		if err != nil {
