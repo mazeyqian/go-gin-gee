@@ -23,13 +23,13 @@ func GetTinyRepository() *TinyRepository {
 	return tinyRepository
 }
 
-func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string, error) {
+func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime bool) (string, error) {
 	var err error
 	var tiny models.Tiny
 	var linkForEncode string
 	if addBaseUrl != "" {
 		linkForEncode, err = gurl.SetHashParam(OriLink, "base_url", addBaseUrl)
-		log.Println("linkForEncode:", linkForEncode)
+		// log.Println("linkForEncode:", linkForEncode)
 		if err != nil {
 			return "", err
 		}
@@ -39,7 +39,7 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string,
 	OriMd5 := helpers.ConvertStringToMD5Hash(linkForEncode)
 	data, _ := r.QueryOriLinkByOriMd5(OriMd5)
 	if data != nil {
-		log.Println("Tiny Exist:", data)
+		// log.Println("Tiny Exist:", data)
 		return data.TinyLink, nil
 	}
 	baseUrl := os.Getenv("BASE_URL")
@@ -64,7 +64,7 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string) (string,
 	converter := clmconv.New(clmconv.WithStartFromOne(), clmconv.WithLowercase())
 	TinyKey := converter.Itoa(int(TinyId))
 	TinyLink := fmt.Sprintf("%s/t/%s", baseUrl, TinyKey)
-	_, err = r.SaveTinyLink(TinyId, TinyLink, TinyKey)
+	_, err = r.SaveTinyLink(TinyId, TinyLink, TinyKey, oneTime)
 	if err != nil {
 		return "", err
 	}
@@ -83,8 +83,11 @@ func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	// log.Println("Tiny notFound:", notFound)
 	log.Printf("Tiny notFound: %t", notFound)
 	if err != nil {
-		log.Printf("Tiny error: %v", err)
+		// log.Printf("Tiny error: %v", err)
 		return "", err
+	}
+	if tiny.OneTime && tiny.VisitCount > 0 {
+		return "", errors.New("link expired")
 	}
 	go r.RecordVisitCountByTinyKey(TinyKey)
 	log.Printf("Tiny QueryOriLinkByTinyKey: %s", tiny.OriLink)
@@ -114,29 +117,31 @@ func (r *TinyRepository) RecordVisitCountByTinyKey(TinyKey string) (bool, error)
 
 func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, error) {
 	var tiny models.Tiny
-	log.Println("Tiny OriMd5:", OriMd5)
+	// log.Println("Tiny OriMd5:", OriMd5)
 	if OriMd5 == "" {
 		return nil, errors.New("OriMd5 is required")
 	}
 	where := models.Tiny{}
 	where.OriMd5 = OriMd5
-	log.Println("Tiny where:", where)
+	// log.Println("Tiny where:", where)
 	notFound, err := First(&where, &tiny, []string{})
-	log.Println("Tiny notFound:", notFound)
+	log.Printf("Tiny notFound: %t", notFound)
 	if err != nil {
-		log.Println("Tiny error:", err)
+		// log.Println("Tiny error:", err)
 		return nil, err
 	}
 	return &tiny, err
 }
 
-func (r *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string) (bool, error) {
+func (r *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string, oneTime bool) (bool, error) {
 	var tiny models.Tiny
 	var err error
+	log.Printf("Tiny OneTime: %t", oneTime)
 	where := models.Tiny{}
 	where.ID = TinyId
 	tiny.TinyLink = TinyLink
 	tiny.TinyKey = TinyKey
+	tiny.OneTime = oneTime
 	err = Updates(&where, &tiny)
 	if err != nil {
 		return false, err
