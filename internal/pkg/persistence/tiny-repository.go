@@ -78,15 +78,38 @@ func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	var err error
 	where := models.Tiny{}
 	where.TinyKey = TinyKey
-	log.Println("Tiny where:", where)
+	// log.Println("Tiny where:", where)
 	notFound, err := First(&where, &tiny, []string{})
-	log.Println("Tiny notFound:", notFound)
+	// log.Println("Tiny notFound:", notFound)
+	log.Printf("Tiny notFound: %t", notFound)
 	if err != nil {
-		log.Println("Tiny error:", err)
+		log.Printf("Tiny error: %v", err)
 		return "", err
 	}
-	log.Println("Tiny QueryOriLinkByTinyKey:", tiny)
+	go r.RecordVisitCountByTinyKey(TinyKey)
+	log.Printf("Tiny QueryOriLinkByTinyKey: %s", tiny.OriLink)
 	return tiny.OriLink, err
+}
+
+func (r *TinyRepository) RecordVisitCountByTinyKey(TinyKey string) (bool, error) {
+	var tiny models.Tiny
+	var err error
+	where := models.Tiny{}
+	where.TinyKey = TinyKey
+	notFound, err := First(&where, &tiny, []string{})
+	if err != nil {
+		return false, err
+	}
+	if notFound {
+		return false, errors.New("link not found")
+	}
+	tiny.VisitCount = tiny.VisitCount + 1
+	err = Updates(&where, &tiny)
+	if err != nil {
+		return false, err
+	}
+	log.Printf("Tiny Current Count: %d", tiny.VisitCount)
+	return true, err
 }
 
 func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, error) {
