@@ -84,10 +84,10 @@ func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	log.Printf("Tiny notFound: %t", notFound)
 	if err != nil {
 		// log.Printf("Tiny error: %v", err)
-		return "", err
+		return "", errors.New("404 Link Not Found")
 	}
 	if tiny.OneTime && tiny.VisitCount > 0 {
-		return "", errors.New("link expired")
+		return "", errors.New("404 Link Expired")
 	}
 	go r.RecordVisitCountByTinyKey(TinyKey)
 	log.Printf("Tiny QueryOriLinkByTinyKey: %s", tiny.OriLink)
