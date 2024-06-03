@@ -15,6 +15,12 @@ type Configuration struct {
 	Data     DataConfiguration
 }
 
+type ServerConfiguration struct {
+	Port   string
+	Secret string
+	Mode   string
+}
+
 type DatabaseConfiguration struct {
 	Driver       string
 	Dbname       string
@@ -25,12 +31,6 @@ type DatabaseConfiguration struct {
 	MaxLifetime  int
 	MaxOpenConns int
 	MaxIdleConns int
-}
-
-type ServerConfiguration struct {
-	Port   string
-	Secret string
-	Mode   string
 }
 
 type DataConfiguration struct {
