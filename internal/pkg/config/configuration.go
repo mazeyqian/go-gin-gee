@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/json"
 	"log"
 
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
@@ -47,6 +48,7 @@ func Setup(configPath string, configType string) {
 	viper.AutomaticEnv()
 	// Set the default value
 	viper.SetDefault("WECOM_ROBOT_CHECK", "")
+	viper.SetDefault("CONFIG_DATA_SITES", "")
 	// Config File
 	viper.SetConfigFile(configPath)
 	// https://pkg.go.dev/github.com/spf13/viper@v1.13.0#SetConfigType
@@ -67,6 +69,24 @@ func Setup(configPath string, configType string) {
 	log.Println("weComRobotCheck:", weComRobotCheck)
 	if weComRobotCheck != "" {
 		configuration.Data.WeComRobotCheck = weComRobotCheck
+	}
+	// var envSites []models.WebSite
+	// 	envSitesStr := os.Getenv("CONFIG_DATA_SITES")
+	// 	if envSitesStr != "" {
+	// 		err := json.Unmarshal([]byte(envSitesStr), &envSites)
+	// 		if err != nil {
+	// 			log.Println("error:", err)
+	// 			return nil, err
+	// 		}
+	// 		log.Println("envSites:", envSites)
+	// 		webSites = &envSites
+	// 	}
+	configDataSites := viper.GetString("CONFIG_DATA_SITES")
+	if configDataSites != "" {
+		err := json.Unmarshal([]byte(configDataSites), &configuration.Data.Sites)
+		if err != nil {
+			log.Println("error:", err)
+		}
 	}
 	Config = configuration
 }
