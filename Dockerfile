@@ -45,4 +45,4 @@ EXPOSE 3000
 
 # Run the binary program produced by `go install`
 # Or, "data/config.secret.json"
-ENTRYPOINT ./api -configpath="data/config.json"
+ENTRYPOINT ./api --config-path="data/config.json"

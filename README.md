@@ -289,7 +289,7 @@ Environment Variates:
 ```text
 [program:api]
 directory=/web/go-gin-gee
-command=/web/go-gin-gee/dist/api-linux-amd64 -configpath="/web/go-gin-gee/data/config.json"
+command=/web/go-gin-gee/dist/api-linux-amd64 --config-path="/web/go-gin-gee/data/config.json"
 autostart=true
 autorestart=true
 environment=WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe",BASE_URL="https://example.com/path"
@@ -413,7 +413,7 @@ It's necessary to run the command `go run scripts/init/main.go` when serving the
 Serve:
 
 ```bash
-go run cmd/api/main.go -configpath="data/config.dev.json"
+go run cmd/api/main.go --config-path="data/config.dev.json"
 ```
 
 Restart:
