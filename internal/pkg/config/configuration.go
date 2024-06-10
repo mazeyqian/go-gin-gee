@@ -5,7 +5,8 @@ import (
 	"flag"
 	"log"
 
-	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
+	modelsS "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
+	modelsT "github.com/mazeyqian/go-gin-gee/internal/pkg/models/tiny"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -37,9 +38,10 @@ type DatabaseConfiguration struct {
 }
 
 type DataConfiguration struct {
-	Sites           []models.WebSite
+	Sites           []modelsS.WebSite
 	WeComRobotCheck string
 	BaseURL         string
+	SpecialLinks    []modelsT.SpecialLink
 }
 
 // SetupDB initialize configuration
@@ -61,8 +63,6 @@ func Setup() { // configPath string, configType string) {
 	// Config File
 	configPath := viper.GetString("config-path")
 	configType := viper.GetString("CONFIG_TYPE")
-	// log.Println("configPath:", configPath)
-	// log.Println("configType:", configType)
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType(configType)
 
@@ -74,6 +74,8 @@ func Setup() { // configPath string, configType string) {
 	if err != nil {
 		log.Fatalf("Unable to decode into struct, %v", err)
 	}
+
+	log.Println("configuration SpecialLinks:", configuration.Data.SpecialLinks)
 
 	// Supply the environment variables
 	weComRobotCheck := viper.GetString("WECOM_ROBOT_CHECK")
