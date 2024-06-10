@@ -16,6 +16,8 @@ type TinyRepository struct{}
 
 var tinyRepository *TinyRepository
 
+const cusConPrefix = "[Tiny]"
+
 func GetTinyRepository() *TinyRepository {
 	if tinyRepository == nil {
 		tinyRepository = &TinyRepository{}
@@ -29,7 +31,6 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 	var linkForEncode string
 	if addBaseUrl != "" {
 		linkForEncode, err = gurl.SetHashParam(OriLink, "base_url", addBaseUrl)
-		// log.Println("linkForEncode:", linkForEncode)
 		if err != nil {
 			return "", err
 		}
@@ -39,10 +40,8 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 	OriMd5 := helpers.ConvertStringToMD5Hash(linkForEncode)
 	data, _ := r.QueryOriLinkByOriMd5(OriMd5)
 	if data != nil {
-		// log.Println("Tiny Exist:", data)
 		return data.TinyLink, nil
 	}
-	// baseUrl := os.Getenv("BASE_URL")
 	baseUrl := config.GetConfig().Data.BaseURL
 	if addBaseUrl != "" {
 		baseUrl = addBaseUrl
@@ -79,19 +78,16 @@ func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	var err error
 	where := models.Tiny{}
 	where.TinyKey = TinyKey
-	// log.Println("Tiny where:", where)
 	notFound, err := First(&where, &tiny, []string{})
-	// log.Println("Tiny notFound:", notFound)
-	log.Printf("Tiny notFound: %t", notFound)
+	log.Printf("%s Is this key not found: %t", cusConPrefix, notFound)
 	if err != nil {
-		// log.Printf("Tiny error: %v", err)
 		return "", errors.New("404 Link Not Found")
 	}
 	if tiny.OneTime && tiny.VisitCount > 0 {
 		return "", errors.New("404 Link Expired")
 	}
 	go r.RecordVisitCountByTinyKey(TinyKey)
-	log.Printf("Tiny QueryOriLinkByTinyKey: %s", tiny.OriLink)
+	// log.Printf("Tiny QueryOriLinkByTinyKey: %s", tiny.OriLink)
 	return tiny.OriLink, err
 }
 
@@ -112,23 +108,22 @@ func (r *TinyRepository) RecordVisitCountByTinyKey(TinyKey string) (bool, error)
 	if err != nil {
 		return false, err
 	}
-	log.Printf("Tiny Current Count: %d", tiny.VisitCount)
+	// log.Printf("Tiny Current Count: %d", tiny.VisitCount)
+	log.Printf("%s Current Count: %d", cusConPrefix, tiny.VisitCount)
 	return true, err
 }
 
 func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, error) {
 	var tiny models.Tiny
-	// log.Println("Tiny OriMd5:", OriMd5)
 	if OriMd5 == "" {
 		return nil, errors.New("OriMd5 is required")
 	}
 	where := models.Tiny{}
 	where.OriMd5 = OriMd5
-	// log.Println("Tiny where:", where)
 	notFound, err := First(&where, &tiny, []string{})
-	log.Printf("Tiny notFound: %t", notFound)
+	// log.Printf("Tiny notFound: %t", notFound)
+	log.Printf("%s Is this OriMd5 not found: %t", cusConPrefix, notFound)
 	if err != nil {
-		// log.Println("Tiny error:", err)
 		return nil, err
 	}
 	return &tiny, err
@@ -137,7 +132,6 @@ func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, erro
 func (r *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string, oneTime bool) (bool, error) {
 	var tiny models.Tiny
 	var err error
-	// log.Printf("Tiny OneTime: %t", oneTime)
 	where := models.Tiny{}
 	where.ID = TinyId
 	tiny.TinyLink = TinyLink

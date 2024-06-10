@@ -45,7 +45,7 @@ type DataConfiguration struct {
 }
 
 // SetupDB initialize configuration
-func Setup() { // configPath string, configType string) {
+func Setup() {
 	var configuration *Configuration
 
 	// Flags
@@ -54,6 +54,7 @@ func Setup() { // configPath string, configType string) {
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 	// Read environment variables
+	// Development: macOS, export WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe"
 	viper.AutomaticEnv()
 	// Default value
 	viper.SetDefault("WECOM_ROBOT_CHECK", "")
@@ -74,13 +75,12 @@ func Setup() { // configPath string, configType string) {
 	if err != nil {
 		log.Fatalf("Unable to decode into struct, %v", err)
 	}
-
-	log.Println("configuration SpecialLinks:", configuration.Data.SpecialLinks)
+	// log.Println("configuration SpecialLinks:", configuration.Data.SpecialLinks)
 
 	// Supply the environment variables
 	weComRobotCheck := viper.GetString("WECOM_ROBOT_CHECK")
-	log.Println("configuration.Data.WeComRobotCheck:", configuration.Data.WeComRobotCheck)
-	log.Println("weComRobotCheck:", weComRobotCheck)
+	// log.Println("configuration.Data.WeComRobotCheck:", configuration.Data.WeComRobotCheck)
+	// log.Println("weComRobotCheck:", weComRobotCheck)
 	if weComRobotCheck != "" {
 		configuration.Data.WeComRobotCheck = weComRobotCheck
 	}

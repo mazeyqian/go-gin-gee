@@ -17,8 +17,12 @@ type Tiny struct {
 }
 
 type SpecialLink struct {
-	Key  string
-	Link string
+	Key  string `json:"key"`
+	Link string `json:"link"`
+}
+
+func (Tiny) TableName() string {
+	return "tiny"
 }
 
 func (m *Tiny) BeforeCreate() error {

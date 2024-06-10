@@ -26,17 +26,10 @@ import (
 // @name Authorization
 
 func main() {
-	// configPath := flag.String("configpath", "data/config.json", "path of configuration")
-	// flag.Parse()
-	// log.Println("configPath:", *configPath)
-	// ENV: Robot
-	// Development: macOS, export WECOM_ROBOT_CHECK="b2lsjd46-7146-4nv2-8767-86cb0cncjdbe"
-	// https://knowhowcommunity.org/how-to-set-environment-variables-mac/
-	// WECOM_ROBOT_CHECK := os.Getenv("WECOM_ROBOT_CHECK")
-	// log.Println("WECOM_ROBOT_CHECK:", WECOM_ROBOT_CHECK)
 	// Set the timezone to UTC
 	// https://www.zeitverschiebung.net/en/timezone/asia--shanghai
 	os.Setenv("TZ", "UTC")
+	// Run before the API starts
 	controllers.RunCheck()
-	api.Run() // *configPath, "json")
+	api.Run()
 }
