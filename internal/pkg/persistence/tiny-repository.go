@@ -55,10 +55,6 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 	if err != nil {
 		return "", err
 	}
-	// err = Save(&tiny)
-	// if err != nil {
-	// 	return "", err
-	// }
 	TinyId := tiny.ID
 	// https://github.com/takuoki/clmconv
 	converter := clmconv.New(clmconv.WithStartFromOne(), clmconv.WithLowercase())
@@ -76,7 +72,6 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 				tiny.TinyLink = TinyLink
 				err = Save(&tiny)
 				if err != nil {
-					// log.Println("Save Error:", err)
 					return "", err
 				}
 				return r.SaveOriLink(OriLink, addBaseUrl, oneTime)
@@ -95,6 +90,15 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 func (r *TinyRepository) QueryOriLinkByTinyKey(TinyKey string) (string, error) {
 	var tiny models.Tiny
 	var err error
+	specialLinks := config.GetConfig().Data.SpecialLinks
+	if len(specialLinks) > 0 {
+		for _, v := range specialLinks {
+			if v.Key == TinyKey {
+				log.Printf("%s Key(%s) is found in special links(%s)", cusConPrefix, TinyKey, v.Link)
+				return v.Link, err
+			}
+		}
+	}
 	where := models.Tiny{}
 	where.TinyKey = TinyKey
 	notFound, err := First(&where, &tiny, []string{})
