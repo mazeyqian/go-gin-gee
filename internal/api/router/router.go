@@ -98,6 +98,7 @@ func Setup() *gin.Engine {
 		// server.GET("/get", controllers.AgentGet)
 		// server.POST("/post", controllers.AgentPost)
 		// server.POST("/put", controllers.AgentPost)
+		server.POST("/mock", controllers.AgentMock)
 	}
 	// Server API - end
 
