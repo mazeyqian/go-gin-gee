@@ -10,13 +10,13 @@ import (
 )
 
 func AgentMock(c *gin.Context) {
-	s := persistence.GetAgentRepository()
+	rep := persistence.GetAgentRepository()
 	var res models.Response
 	err := c.BindJSON(&res)
 	if err != nil {
 		http_err.NewError(c, http.StatusBadRequest, err)
 		return
 	}
-	data, _ := s.Mock(&res)
+	data, _ := rep.Mock(&res)
 	c.JSON(res.StatusCode, data)
 }

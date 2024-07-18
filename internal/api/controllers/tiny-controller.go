@@ -11,9 +11,9 @@ import (
 )
 
 func RedirectTiny(c *gin.Context) {
-	s := persistence.GetTinyRepository()
+	per := persistence.GetTinyRepository()
 	TinyKey := c.Param("key")
-	if data, err := s.QueryOriLinkByTinyKey(TinyKey); err != nil {
+	if data, err := per.QueryOriLinkByTinyKey(TinyKey); err != nil {
 		errStr := err.Error()
 		if errStr == "" {
 			errStr = "404 Link Not Found"
@@ -27,9 +27,9 @@ func RedirectTiny(c *gin.Context) {
 }
 
 func GetTiny(c *gin.Context) {
-	s := persistence.GetTinyRepository()
+	per := persistence.GetTinyRepository()
 	TinyKey := c.Query("tiny_key")
-	if data, err := s.QueryOriLinkByTinyKey(TinyKey); err != nil {
+	if data, err := per.QueryOriLinkByTinyKey(TinyKey); err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
 	} else {
 		c.JSON(http.StatusOK, gin.H{"ori_link": data})
