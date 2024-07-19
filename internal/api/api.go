@@ -27,7 +27,6 @@ func Run() {
 	log.Println("Config:", conf)
 	// Run before the API starts
 	if len(conf.Data.Sites) > 0 {
-		// log.Println("check for sites:", conf.Data.Sites)
 		controllers.RunCheck()
 	} else {
 		log.Println("no sites, unnecessary to run check")
