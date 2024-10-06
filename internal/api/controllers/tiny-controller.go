@@ -14,13 +14,20 @@ import (
 func RedirectTiny(c *gin.Context) {
 	s := persistence.GetTinyRepository()
 	TinyKey := c.Param("key")
-	log.Println("GetTiny TinyKey:", TinyKey)
+	// log.Println("GetTiny TinyKey:", TinyKey)
 	if data, err := s.QueryOriLinkByTinyKey(TinyKey); err != nil {
 		// http_err.NewError(c, http.StatusNotFound, errors.New("data not found"))
+		// log.Println("QueryOriLinkByTinyKey", err)
+		errStr := err.Error()
+		if errStr == "" {
+			errStr = "404 Link Not Found"
+		}
 		c.HTML(http.StatusNotFound, "index.tmpl", gin.H{
-			"title": "404 Link Not Found",
+			// "title": fmt.Sprintf("404%s", errStr),
+			"title": errStr, // fmt.Sprintf("404%s", errStr),
+			// "404 Link Not Found",
 		})
-		log.Println("GetTiny error:", err)
+		// log.Println("GetTiny error:", err)
 	} else {
 		c.Redirect(http.StatusFound, data)
 	}
