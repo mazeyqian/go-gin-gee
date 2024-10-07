@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -57,19 +55,19 @@ func RunCheck() {
 func getWebSites() (*[]models.WebSite, error) {
 	conf := config.GetConfig()
 	webSites := &conf.Data.Sites
-	if len(*webSites) == 0 {
-		var envSites []models.WebSite
-		envSitesStr := os.Getenv("CONFIG_DATA_SITES")
-		if envSitesStr != "" {
-			err := json.Unmarshal([]byte(envSitesStr), &envSites)
-			if err != nil {
-				log.Println("error:", err)
-				return nil, err
-			}
-			log.Println("envSites:", envSites)
-			webSites = &envSites
-		}
-	}
+	// if len(*webSites) == 0 {
+	// 	var envSites []models.WebSite
+	// 	envSitesStr := os.Getenv("CONFIG_DATA_SITES")
+	// 	if envSitesStr != "" {
+	// 		err := json.Unmarshal([]byte(envSitesStr), &envSites)
+	// 		if err != nil {
+	// 			log.Println("error:", err)
+	// 			return nil, err
+	// 		}
+	// 		log.Println("envSites:", envSites)
+	// 		webSites = &envSites
+	// 	}
+	// }
 	if len(*webSites) == 0 {
 		return nil, errors.New("no sites")
 	}

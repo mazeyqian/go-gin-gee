@@ -20,14 +20,14 @@ func GetAlias2dataRepository() *Alias2dataRepository {
 }
 
 func (r *Alias2dataRepository) Get(alias string) (*models.Alias2data, error) {
-	log.Println("Get alias", alias)
+	// log.Println("Get alias", alias)
 	if alias == "" {
 		return nil, errors.New("alias is required")
 	}
 	var alias2data models.Alias2data
 	where := models.Alias2data{}
 	where.Alias = alias
-	log.Println("Get where", where)
+	// log.Println("Get where", where)
 	notFound, err := First(&where, &alias2data, []string{})
 	log.Println("Get notFound", notFound)
 	if err != nil {

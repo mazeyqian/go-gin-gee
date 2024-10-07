@@ -1,9 +1,12 @@
 package config
 
 import (
+	"encoding/json"
+	"flag"
 	"log"
 
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
@@ -13,6 +16,12 @@ type Configuration struct {
 	Server   ServerConfiguration
 	Database DatabaseConfiguration
 	Data     DataConfiguration
+}
+
+type ServerConfiguration struct {
+	Port   string
+	Secret string
+	Mode   string
 }
 
 type DatabaseConfiguration struct {
@@ -27,31 +36,62 @@ type DatabaseConfiguration struct {
 	MaxIdleConns int
 }
 
-type ServerConfiguration struct {
-	Port   string
-	Secret string
-	Mode   string
-}
-
 type DataConfiguration struct {
-	Sites []models.WebSite
+	Sites           []models.WebSite
+	WeComRobotCheck string
+	BaseURL         string
 }
 
 // SetupDB initialize configuration
-func Setup(configPath string, configType string) {
+func Setup() { // configPath string, configType string) {
 	var configuration *Configuration
 
+	// Flags
+	flag.String("config-path", "data/config.json", "path of configuration")
+	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
+	pflag.Parse()
+	viper.BindPFlags(pflag.CommandLine)
+	// Read environment variables
+	viper.AutomaticEnv()
+	// Default value
+	viper.SetDefault("WECOM_ROBOT_CHECK", "")
+	viper.SetDefault("CONFIG_DATA_SITES", "")
+	viper.SetDefault("BASE_URL", "")
+	viper.SetDefault("CONFIG_TYPE", "json")
+	// Config File
+	configPath := viper.GetString("config-path")
+	configType := viper.GetString("CONFIG_TYPE")
+	// log.Println("configPath:", configPath)
+	// log.Println("configType:", configType)
 	viper.SetConfigFile(configPath)
-	// https://pkg.go.dev/github.com/spf13/viper@v1.13.0#SetConfigType
 	viper.SetConfigType(configType)
 
+	// Read the configuration file
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Error reading config file, %s", err)
 	}
-
 	err := viper.Unmarshal(&configuration)
 	if err != nil {
 		log.Fatalf("Unable to decode into struct, %v", err)
+	}
+
+	// Supply the environment variables
+	weComRobotCheck := viper.GetString("WECOM_ROBOT_CHECK")
+	log.Println("configuration.Data.WeComRobotCheck:", configuration.Data.WeComRobotCheck)
+	log.Println("weComRobotCheck:", weComRobotCheck)
+	if weComRobotCheck != "" {
+		configuration.Data.WeComRobotCheck = weComRobotCheck
+	}
+	configDataSites := viper.GetString("CONFIG_DATA_SITES")
+	if configDataSites != "" {
+		err := json.Unmarshal([]byte(configDataSites), &configuration.Data.Sites)
+		if err != nil {
+			log.Println("error:", err)
+		}
+	}
+	baseURL := viper.GetString("BASE_URL")
+	if baseURL != "" {
+		configuration.Data.BaseURL = baseURL
 	}
 
 	Config = configuration

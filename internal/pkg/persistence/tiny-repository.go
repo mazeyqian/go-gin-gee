@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/tiny"
 	"github.com/mazeyqian/go-gin-gee/pkg/helpers"
 	"github.com/mazeyqian/gurl"
@@ -42,7 +42,8 @@ func (r *TinyRepository) SaveOriLink(OriLink string, addBaseUrl string, oneTime 
 		// log.Println("Tiny Exist:", data)
 		return data.TinyLink, nil
 	}
-	baseUrl := os.Getenv("BASE_URL")
+	// baseUrl := os.Getenv("BASE_URL")
+	baseUrl := config.GetConfig().Data.BaseURL
 	if addBaseUrl != "" {
 		baseUrl = addBaseUrl
 	}
@@ -136,7 +137,7 @@ func (r *TinyRepository) QueryOriLinkByOriMd5(OriMd5 string) (*models.Tiny, erro
 func (r *TinyRepository) SaveTinyLink(TinyId uint64, TinyLink string, TinyKey string, oneTime bool) (bool, error) {
 	var tiny models.Tiny
 	var err error
-	log.Printf("Tiny OneTime: %t", oneTime)
+	// log.Printf("Tiny OneTime: %t", oneTime)
 	where := models.Tiny{}
 	where.ID = TinyId
 	tiny.TinyLink = TinyLink

@@ -40,9 +40,9 @@ COPY --from=build_base /src/data /app/data
 
 RUN chmod +x api
 
-# This container exposes port 8080 to the outside world
+# This container exposes port 3000 to the outside world
 EXPOSE 3000
 
 # Run the binary program produced by `go install`
 # Or, "data/config.secret.json"
-ENTRYPOINT ./api -configpath="data/config.json"
+ENTRYPOINT ./api --config-path="data/config.json"

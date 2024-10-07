@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"sort"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/sites"
 	"github.com/samber/lo"
 	wxworkbot "github.com/vimsucks/wxwork-bot-go"
@@ -98,13 +98,15 @@ func (r *Sites) ClearCheckResult(WebSites *[]models.WebSite) (*wxworkbot.Markdow
 	mdStr += fmt.Sprintf("<font color=\"comment\">*%s%d*</font>", "Sum: ", len(*healthySites)+len(*failSites))
 	sA := GetAlias2dataRepository()
 	data, err := sA.Get("WECOM_ROBOT_CHECK")
-	log.Println("Robot data:", data)
+	// log.Println("Robot data:", data)
 	wxworkRobotKey := ""
 	if err != nil {
 		log.Println("error:", err)
 		// Use ENV
-		wxworkRobotKey = os.Getenv("WECOM_ROBOT_CHECK")
-		log.Println("Robot Getenv:", wxworkRobotKey)
+		// wxworkRobotKey = os.Getenv("WECOM_ROBOT_CHECK")
+		// log.Println("Robot Getenv:", wxworkRobotKey)
+		conf := config.GetConfig()
+		wxworkRobotKey = conf.Data.WeComRobotCheck
 	} else {
 		wxworkRobotKey = data.Data
 	}
