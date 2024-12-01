@@ -20,3 +20,25 @@ func AgentMock(c *gin.Context) {
 	data, _ := rep.Mock(&res)
 	c.JSON(res.StatusCode, data)
 }
+
+func AgentRecord(c *gin.Context) {
+	rep := persistence.GetAgentRepository()
+	method := c.Query("method")
+	url := c.Query("url")
+	data1 := c.Query("data")
+	var req models.RecordRequestOrResponse
+	req.MethodOrStatusCode = method
+	req.URL = url
+	req.Data = data1
+	fileName, err := rep.Record(&req)
+	if err != nil {
+		http_err.NewError(c, http.StatusBadRequest, err)
+		return
+	}
+	data := models.ResponseData{
+		Code:    200,
+		Message: "success",
+		Data:    fileName,
+	}
+	c.JSON(200, data)
+}

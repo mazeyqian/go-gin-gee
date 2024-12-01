@@ -99,6 +99,7 @@ func Setup() *gin.Engine {
 		// server.POST("/post", controllers.AgentPost)
 		// server.POST("/put", controllers.AgentPost)
 		server.POST("/mock", controllers.AgentMock)
+		server.GET("/agent/record", controllers.AgentRecord)
 	}
 	// Server API - end
 

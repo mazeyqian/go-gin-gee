@@ -10,3 +10,9 @@ type Response struct {
 	StatusCode int          `json:"status_code"`
 	Data       ResponseData `json:"data"`
 }
+
+type RecordRequestOrResponse struct {
+	MethodOrStatusCode string `json:"method"`
+	URL                string `json:"url"`
+	Data               string `json:"data"`
+}
