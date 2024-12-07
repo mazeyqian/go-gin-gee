@@ -70,12 +70,15 @@ func Setup() {
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType(configType)
 	// Read the configuration file
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Error reading config file, %s", err)
-	}
-	err = viper.Unmarshal(&configuration)
-	if err != nil {
-		log.Fatalf("Unable to decode into struct, %v", err)
+	if err = viper.ReadInConfig(); err != nil {
+		// log.Println("Error reading config file:", err)
+		log.Println("No configuration file found, using default configuration")
+		configuration = &Configuration{}
+	} else {
+		err = viper.Unmarshal(&configuration)
+		if err != nil {
+			log.Fatalf("Unable to decode into struct, %v", err)
+		}
 	}
 
 	// Environment variables&Configuration File
@@ -85,7 +88,7 @@ func Setup() {
 	}
 	configDataSites := viper.GetString("CONFIG_DATA_SITES")
 	if configDataSites != "" {
-		err := json.Unmarshal([]byte(configDataSites), &configuration.Data.Sites)
+		err = json.Unmarshal([]byte(configDataSites), &configuration.Data.Sites)
 		if err != nil {
 			log.Println("error:", err)
 		}
@@ -95,10 +98,22 @@ func Setup() {
 		configuration.Data.BaseURL = baseURL
 	}
 
+	// Fallback
+	if configuration.Server.Port == "" {
+		configuration.Server.Port = "3000"
+	}
+	if configuration.Server.Secret == "" {
+		configuration.Server.Secret = "wednov23rd2022"
+	}
+	if configuration.Server.Mode == "" {
+		configuration.Server.Mode = "release"
+	}
+
 	Config = configuration
 }
 
 // GetConfig helps you to get configuration data
 func GetConfig() *Configuration {
+	// log.Println("Config:", Config)
 	return Config
 }

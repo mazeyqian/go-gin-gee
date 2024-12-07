@@ -26,6 +26,7 @@ func (r *AgentRepository) Mock(res *models.Response) (*models.ResponseData, erro
 	return &res.Data, nil
 }
 
+// TODO: Add user(Admin) authority check for the IO operations
 func (r *AgentRepository) Record(res *models.RecordRequestOrResponse) (string, error) {
 	// Format the log file name
 	var formattedTime string

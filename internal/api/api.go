@@ -24,15 +24,15 @@ func Run() {
 	os.Setenv("TZ", "UTC")
 	setConfiguration()
 	conf := config.GetConfig()
-	log.Println("Config:", conf)
+	// log.Println("Config:", conf)
 	// Run before the API starts
 	if len(conf.Data.Sites) > 0 {
 		controllers.RunCheck()
 	} else {
-		log.Println("no sites, unnecessary to run check")
+		log.Println("No sites found, unnecessary to run check")
 	}
 	web := router.Setup()
-	fmt.Println("Go API Running on port " + conf.Server.Port)
+	fmt.Println("API Running on port " + conf.Server.Port)
 	fmt.Println("==================>")
 	_ = web.Run(":" + conf.Server.Port)
 }

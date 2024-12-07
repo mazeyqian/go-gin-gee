@@ -20,6 +20,10 @@ func Setup() *gin.Engine {
 	if err := os.MkdirAll("log", 0755); err != nil {
 		log.Println("mkdir err:", err)
 	}
+	// log/records
+	if err := os.MkdirAll("log/records", 0755); err != nil {
+		log.Println("mkdir err:", err)
+	}
 	f, err := os.Create("log/api.log")
 	if err != nil {
 		log.Println("create err:", err)
@@ -49,7 +53,7 @@ func Setup() *gin.Engine {
 	// Routes
 	// ================== Login Routes
 	app.POST("/api/login", controllers.Login)
-	app.POST("/api/login/add", controllers.CreateUser)
+	app.POST("/api/login/add", middlewares.AuthRequired(), controllers.CreateUser)
 	// ================== Docs Routes
 	app.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// ================== User Routes
@@ -71,7 +75,16 @@ func Setup() *gin.Engine {
 	// Basic - end
 
 	// Static - begin
-	app.LoadHTMLFiles("data/index.tmpl")
+	templatePath := "data/index.tmpl"
+	if _, err := os.Stat(templatePath); err != nil {
+		if os.IsNotExist(err) {
+			log.Println("No template file found")
+		} else {
+			log.Println("Error checking template file:", err)
+		}
+	} else {
+		app.LoadHTMLFiles("data/index.tmpl")
+	}
 	// Static - end
 
 	// Gee - begin
@@ -99,7 +112,7 @@ func Setup() *gin.Engine {
 		// server.POST("/post", controllers.AgentPost)
 		// server.POST("/put", controllers.AgentPost)
 		server.POST("/mock", controllers.AgentMock)
-		server.GET("/agent/record", controllers.AgentRecord)
+		// server.GET("/agent/record", controllers.AgentRecord)
 	}
 	// Server API - end
 
