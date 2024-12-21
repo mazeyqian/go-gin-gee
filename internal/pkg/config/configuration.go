@@ -38,10 +38,11 @@ type DatabaseConfiguration struct {
 }
 
 type DataConfiguration struct {
-	Sites           []modelsS.WebSite
-	WeComRobotCheck string
-	BaseURL         string
-	SpecialLinks    []modelsT.SpecialLink
+	Sites            []modelsS.WebSite
+	WeComRobotCheck  string
+	BaseURL          string
+	SpecialLinks     []modelsT.SpecialLink
+	AgentRecordsPath string
 }
 
 // SetupDB initialize configuration
@@ -71,7 +72,6 @@ func Setup() {
 	viper.SetConfigType(configType)
 	// Read the configuration file
 	if err = viper.ReadInConfig(); err != nil {
-		// log.Println("Error reading config file:", err)
 		log.Println("No configuration file found, using default configuration")
 		configuration = &Configuration{}
 	} else {

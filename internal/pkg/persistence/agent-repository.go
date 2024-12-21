@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	models "github.com/mazeyqian/go-gin-gee/internal/pkg/models/agent"
 )
 
@@ -26,10 +27,13 @@ func (r *AgentRepository) Mock(res *models.Response) (*models.ResponseData, erro
 	return &res.Data, nil
 }
 
-// TODO: Add user(Admin) authority check for the IO operations
 func (r *AgentRepository) Record(res *models.RecordRequestOrResponse) (string, error) {
 	// Format the log file name
 	var formattedTime string
+	agentRecordsPath := config.GetConfig().Data.AgentRecordsPath
+	if agentRecordsPath == "" {
+		return "", fmt.Errorf("agent records path is not set")
+	}
 	loc, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
 		formattedTime = time.Now().Format("15-04-05.000")
@@ -41,7 +45,7 @@ func (r *AgentRepository) Record(res *models.RecordRequestOrResponse) (string, e
 		strings.ReplaceAll(strings.ReplaceAll(res.URL, "/", "-"), ":", "-"),
 		formattedTime,
 	)
-	filePath := fmt.Sprintf("./log/records/%s", fileName)
+	filePath := fmt.Sprintf("%s/%s", agentRecordsPath, fileName)
 
 	// Create the file and handle errors
 	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)

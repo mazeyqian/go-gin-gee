@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mazeyqian/go-gin-gee/internal/api/controllers"
 	"github.com/mazeyqian/go-gin-gee/internal/api/middlewares"
+	"github.com/mazeyqian/go-gin-gee/internal/pkg/config"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -17,14 +18,18 @@ func Setup() *gin.Engine {
 	app := gin.New()
 
 	// Logging to a file.
-	if err := os.MkdirAll("log", 0755); err != nil {
+	if err := os.MkdirAll("./log", 0755); err != nil {
 		log.Println("mkdir err:", err)
 	}
 	// log/records
-	if err := os.MkdirAll("log/records", 0755); err != nil {
-		log.Println("mkdir err:", err)
+	agentRecordsPath := config.GetConfig().Data.AgentRecordsPath
+	if agentRecordsPath != "" {
+		if err := os.MkdirAll(agentRecordsPath, 0755); err != nil {
+			log.Println("mkdir err:", err)
+		}
 	}
-	f, err := os.Create("log/api.log")
+	// log/api.log
+	f, err := os.Create("./log/api.log")
 	if err != nil {
 		log.Println("create err:", err)
 	}
@@ -112,7 +117,7 @@ func Setup() *gin.Engine {
 		// server.POST("/post", controllers.AgentPost)
 		// server.POST("/put", controllers.AgentPost)
 		server.POST("/mock", controllers.AgentMock)
-		// server.GET("/agent/record", controllers.AgentRecord)
+		server.GET("/agent/record", controllers.AgentRecord)
 	}
 	// Server API - end
 
