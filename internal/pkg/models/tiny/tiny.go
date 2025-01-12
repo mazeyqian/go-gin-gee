@@ -16,6 +16,15 @@ type Tiny struct {
 	VisitCount int    `gorm:"column:visit_count;not null;default:0" json:"visit_count" form:"visit_count"`
 }
 
+type SpecialLink struct {
+	Key  string `json:"key"`
+	Link string `json:"link"`
+}
+
+func (Tiny) TableName() string {
+	return "tiny"
+}
+
 func (m *Tiny) BeforeCreate() error {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
