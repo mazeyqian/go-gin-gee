@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gocolly/colly"
-	// "github.com/gocolly/colly/v2"
+	"github.com/gocolly/colly/v2"
 )
 
 func main() {
 	// colly
 	// 创建一个新的 Colly Collector
 	c := colly.NewCollector(
-		colly.AllowedDomains("example.com"), // 限制爬取的域名
+		colly.AllowedDomains("blog.mazey.net"), // 限制爬取的域名
 	)
 
 	// 找到每个 `<h1>` 标签并打印内容
@@ -26,7 +25,7 @@ func main() {
 	})
 
 	// 开始爬取
-	err := c.Visit("https://example.com") // 替换为目标网站 URL
+	err := c.Visit("https://blog.mazey.net/2956.html") // 替换为目标网站 URL
 	if err != nil {
 		log.Fatal(err)
 	}
