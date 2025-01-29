@@ -54,7 +54,7 @@ Title found: Example Domain
 
 Colly 提供了许多回调函数，以下是最常用的几个：
 
-#### **1. `OnHTML`**
+### `OnHTML`
 
 用于处理 HTML 元素，提取内容。
 
@@ -64,7 +64,7 @@ c.OnHTML("div.article", func(e *colly.HTMLElement) {
 })
 ```
 
-#### **2. `OnRequest`**
+### `OnRequest`
 
 在每次发送请求时触发，可以用来打印请求信息或修改请求头。
 
@@ -75,7 +75,7 @@ c.OnRequest(func(r *colly.Request) {
 })
 ```
 
-#### **3. `OnResponse`**
+### `OnResponse`
 
 在接收到响应时触发，可以用来处理原始的响应数据。
 
@@ -85,7 +85,7 @@ c.OnResponse(func(r *colly.Response) {
 })
 ```
 
-#### **4. `OnError`**
+### `OnError`
 
 在请求失败时触发。
 
@@ -95,13 +95,11 @@ c.OnError(func(r *colly.Response, err error) {
 })
 ```
 
----
+## 处理多个页面
 
-### **5. 处理分页**
+爬取所有页面需要递归访问下一页的链接，以下是一个分页爬取的示例：
 
-大多数网站的内容是分页的，爬取所有页面需要递归访问下一页的链接。以下是一个分页爬取的示例：
-
-#### 示例代码
+### 示例代码
 
 ```go
 package main
@@ -138,13 +136,11 @@ func main() {
 }
 ```
 
----
-
-### **6. 防反爬技巧**
+## 防反爬技巧
 
 许多网站会有反爬机制，以下是一些常见的防反爬策略：
 
-#### **1. 设置 User-Agent**
+### 设置 User-Agent
 
 模拟浏览器的请求头：
 
