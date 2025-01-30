@@ -150,7 +150,7 @@ c.OnRequest(func(r *colly.Request) {
 })
 ```
 
-#### **2. 添加请求延迟**
+### 添加请求延迟
 
 设置每次请求的间隔时间，避免频繁访问：
 
@@ -162,7 +162,7 @@ c.Limit(&colly.LimitRule{
 })
 ```
 
-#### **3. 使用代理**
+### 使用代理
 
 通过代理隐藏真实 IP：
 
@@ -170,7 +170,7 @@ c.Limit(&colly.LimitRule{
 c.SetProxy("http://proxy.example.com:8080")
 ```
 
-#### **4. 随机 User-Agent**
+### 随机 User-Agent
 
 使用 `github.com/corpix/uarand` 库，随机生成 User-Agent：
 
@@ -188,11 +188,9 @@ c.OnRequest(func(r *colly.Request) {
 
 ---
 
-### **7. 数据存储**
+## 数据存储
 
-爬取的数据可以存储到文件或数据库中：
-
-#### **存储到文件**
+### 存储到文件
 
 使用 Go 的 `os` 包将数据写入文件：
 
@@ -210,48 +208,11 @@ defer file.Close()
 file.WriteString("Your data here")
 ```
 
-#### **存储到数据库**
-
-可以使用 Go 的数据库库（如 `gorm`）将数据存储到数据库中。以下是将数据存储到 SQLite 的示例：
-
-```bash
-go get -u gorm.io/gorm
-go get -u gorm.io/driver/sqlite
-```
-
-```go
-import (
- "gorm.io/driver/sqlite"
- "gorm.io/gorm"
-)
-
-type Article struct {
- ID    uint   `gorm:"primaryKey"`
- Title string
-}
-
-db, err := gorm.Open(sqlite.Open("articles.db"), &gorm.Config{})
-if err != nil {
- log.Fatal(err)
-}
-
-db.AutoMigrate(&Article{})
-
-// 保存数据
-db.Create(&Article{Title: "Example Article"})
-```
-
----
-
-### **8. 处理动态内容**
+## 处理动态内容
 
 如果目标网站是通过 JavaScript 动态加载内容（如 SPA 网站），`Colly` 无法直接获取这些数据。这时可以使用以下方法：
 
-#### **1. 使用 API**
-
-检查网站的网络请求（浏览器开发者工具 -> Network），直接调用 API 获取数据。
-
-#### **2. 使用 `chromedp`**
+### 使用 `chromedp`
 
 `chromedp` 是一个基于 Chrome 的浏览器自动化工具，可以渲染动态页面并提取内容。
 
@@ -291,14 +252,8 @@ func main() {
 }
 ```
 
----
+## 学习资源
 
-### **9. 学习资源**
+- 官方文档：[Colly Documentation](https://pkg.go.dev/github.com/gocolly/colly/v2)
+- GitHub 示例：[Colly GitHub Repository](https://github.com/gocolly/colly)
 
-- **官方文档**：[Colly Documentation](https://pkg.go.dev/github.com/gocolly/colly/v2)
-- **GitHub 示例**：[Colly GitHub Repository](https://github.com/gocolly/colly)
-- **实践项目**：尝试爬取你感兴趣的网站，逐步增加功能。
-
----
-
-如果你有任何问题或需要帮助实现特定功能，请随时告诉我！ 😊
