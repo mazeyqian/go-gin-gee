@@ -76,7 +76,7 @@ func (r *Sites) ClearCheckResult(WebSites *[]models.WebSite) (*wxworkbot.Markdow
 	})
 	// Sort Success Names
 	sort.Strings(sucessNames)
-	log.Println("sucessNames:", sucessNames)
+	// log.Println("sucessNames:", sucessNames)
 	mdStr := "Health Check Result:\n"
 	lo.ForEach(sucessNames, func(name string, _ int) {
 		mdStr += fmt.Sprintf("<font color=\"info\">%s OK</font>\n", name)
