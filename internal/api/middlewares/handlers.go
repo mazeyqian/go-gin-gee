@@ -19,6 +19,7 @@ func NoMethodHandler() gin.HandlerFunc {
 func NoRouteHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.Path
+		// log.Println("path", path)
 		if len(path) > 5 && path[:5] == "/api/" {
 			c.JSON(http.StatusNotFound, gin.H{"message": "not found"})
 		} else {
