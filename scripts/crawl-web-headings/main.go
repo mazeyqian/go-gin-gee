@@ -23,7 +23,7 @@ func main() {
 		colly.AllowedDomains("blog.mazey.net"), // 限制爬取的域名
 	)
 
-	// 找到每个 `<h1>` 标签并打印内容
+	// 找到每个 `<h2>` 标签并打印内容
 	c.OnHTML("h2", func(e *colly.HTMLElement) {
 		thatTitle := e.Text
 		// 忽略标题
@@ -32,13 +32,6 @@ func main() {
 				return
 			}
 		}
-		// Ignore the title including "条评论"
-		// Include instead of ending with "条评论"
-		// "  条评论 444" not ok
-		// if len(thatTitle) > 6 && thatTitle[len(thatTitle)-6:] == "条评论" {
-		// 	fmt.Println("Ignore title:", thatTitle)
-		// 	return
-		// }
 		// Ignore the title including "条评论"
 		if len(thatTitle) > 6 && strings.Contains(thatTitle, "条评论") {
 			fmt.Println("Ignore title:", thatTitle)
