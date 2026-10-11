@@ -7,6 +7,7 @@ PowerShell utilities are in `scripts/powershell/`, with their regression tests i
 - [Filename Batch Rename Helpers](#filename-batch-rename-helpers)
   - [Other Filename Helpers](#other-filename-helpers)
   - [Pad Numeric Filename Prefixes](#pad-numeric-filename-prefixes)
+- [Remove Orphan Lyrics](#remove-orphan-lyrics)
 - [Extract Missing Files from Nginx Errors](#extract-missing-files-from-nginx-errors)
 - [Hanle Nginx Log](#hanle-nginx-log)
 - [Check Blog](#check-blog)
@@ -17,6 +18,37 @@ PowerShell utilities are in `scripts/powershell/`, with their regression tests i
 - [Convert Markdown to TypeDoc Comments](#convert-markdown-to-typedoc-comments)
 - [Transfer Apple Note Table to Markdown Table](#transfer-apple-note-table-to-markdown-table)
 - [Calculate Days Between Two Dates (datediff)](#calculate-days-between-two-dates-datediff)
+
+## Remove Orphan Lyrics
+
+`batch-remove-orphan-lrc.ps1` permanently deletes LRC files without a matching
+audio filename in the same directory. Matching ignores case and the final
+extension, but preserves spaces and punctuation. Audio contents are not inspected.
+Supported extensions: `mp3`, `ogg`, `oga`, `opus`, `flac`, `wav`, `wave`, `m4a`,
+`aac`, `wma`, `aif`, `aiff`, `aifc`, `ape`, `alac`, `wv`, `dsf`, and `dff`.
+
+Preview in Windows PowerShell:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-remove-orphan-lrc.ps1" -Path "E:\Music" -Recurse -WhatIf
+```
+
+Preview on macOS:
+
+```bash
+pwsh -NoProfile -File "./scripts/powershell/batch-remove-orphan-lrc.ps1" -Path "/path/to/music" -Recurse -WhatIf
+```
+
+Remove `-WhatIf` to permanently delete the listed files, bypassing Trash/Recycle Bin.
+Omit `-Recurse` to inspect only immediate files. Hidden files are included.
+Each directory is matched independently; audio in another directory does not keep
+an LRC file. Directory links are not traversed, a linked root is rejected, and LRC
+symbolic links are left untouched. Audio files and directories are never deleted.
+
+The full scan finishes before deletion begins. Each deleted path and a final count
+are logged. Success (including no orphans) returns `0`; scanning or deletion errors
+return `1`. Deletion is not atomic: runtime failures can leave partial progress.
+Do not change the directory contents while cleanup is running.
 
 ## Filename Batch Rename Helpers
 
