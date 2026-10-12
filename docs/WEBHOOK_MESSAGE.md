@@ -25,8 +25,8 @@ Backend must have:
 ```json
 {
   "Data": {
-    "WEBHOOK_ID": "your_discord_webhook_id",
-    "WEBHOOK_TOKEN": "your_discord_webhook_token",
+    "WebhookID": "your_discord_webhook_id",
+    "WebhookToken": "your_discord_webhook_token",
     "EnableWebhookAPI": "on",
     "WebhookAPIKeys": [
       "gee_webhook_12345"

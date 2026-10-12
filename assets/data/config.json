@@ -15,15 +15,22 @@
     "Mode": "release"
   },
   "Data": {
+    "BaseURL": "https://chengchuu.github.io",
     "EnableCORS": "on",
-    "WEBHOOK_ID": "",
-    "WEBHOOK_TOKEN": "",
-    "EnableWebhookAPI": "off",
-    "WebhookAPIKeys": [],
-    "CommonAPIKeys": [],
-    "LinkRedirectPageURL": "https://i.mazey.net/pages/redirect/",
-    "KVAPIKeys": [],
-    "Sites": [],
-    "SpecialLinks": []
+    "LinkRedirectPageURL": "https://chengchuu.github.io/pages/redirect/",
+    "SpecialLinks": [
+      {
+        "key": "a",
+        "link": "https://github.com/chengchuu/mazey"
+      },
+      {
+        "key": "b",
+        "link": "https://www.npmjs.com/package/mazey"
+      },
+      {
+        "key": "m",
+        "link": "https://chengchuu.github.io/mazey/"
+      }
+    ]
   }
 }

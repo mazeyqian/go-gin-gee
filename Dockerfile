@@ -1,7 +1,6 @@
 # STAGE: Go
 FROM golang:1.25.13-bookworm AS go-builder
-ENV CGO_ENABLED=1 \
-    GO111MODULE=on
+ENV CGO_ENABLED=1
 WORKDIR /gee
 # Dependencies
 RUN apt-get update && \

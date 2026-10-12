@@ -49,6 +49,9 @@ or use an existing application database for validation.
 
 - `assets/data/`
   - Example/default data files such as config, SQLite DB, and HTML template.
+  - `config.json` is the single application config example and uses release mode.
+    Default initialization copies it to `data/config.json`, also used for local
+    development. Set `Server.Mode` in the local copy when debug mode is needed.
 - `docs/`
   - Generated Swagger artifacts.
 - `Dockerfile`
@@ -179,7 +182,7 @@ Flow:
 1. Site list is read from config.
 2. Each site is checked via HTTP using `resty`.
 3. An HTML report is written to `log/robot.html`.
-4. A summary message may be sent to a Discord webhook when `WEBHOOK_ID` and `WEBHOOK_TOKEN` are configured.
+4. A summary message may be sent to a Discord webhook when `Data.WebhookID` and `Data.WebhookToken` are configured in JSON.
 5. `/api/gee/webhook-message` reuses the Discord sender and is disabled unless `Data.EnableWebhookAPI` is `on` with a matching `X-Webhook-API-Key`.
 
 ### API-key access control
@@ -233,8 +236,18 @@ Configuration is loaded in `internal/pkg/config/configuration.go`.
 Sources:
 
 - `--config-path` flag, defaulting to `data/config.json`
-- environment variables via Viper
+- `BASE_URL`, the only application configuration environment override
 - fallback defaults in code
+
+`Data.EnableCORS` and `Data.EnableWebhookAPI` default to `off`, including when
+the config file is missing. Other `Data` strings default to empty and lists to
+empty; omit these entries from JSON unless configuring them. Explicit JSON values
+override defaults. A nonempty `BASE_URL` overrides `Data.BaseURL`; empty or absent
+`BASE_URL` preserves the JSON value. Other environment variables do not configure
+the application. Config files always use JSON; select them with `--config-path`.
+Keep deployment-specific URLs, credentials, keys, paths, sites, and aliases in
+configuration. An empty warning URL preserves the 503 behavior for links requiring
+a warning; an empty agent records path leaves recording unavailable.
 
 Important config fields:
 
