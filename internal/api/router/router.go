@@ -14,15 +14,11 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func Setup() *gin.Engine {
+func Setup(accessLog io.Writer) *gin.Engine {
 	app := gin.New()
 
 	// Get Config
 	conf := config.GetConfig()
-	// Logging to a file.
-	if err := os.MkdirAll("./log", 0755); err != nil {
-		logger.Println("mkdir err:", err)
-	}
 	// log/records
 	agentRecordsPath := conf.Data.AgentRecordsPath
 	if agentRecordsPath != "" {
@@ -30,13 +26,8 @@ func Setup() *gin.Engine {
 			logger.Println("mkdir err:", err)
 		}
 	}
-	// log/api.log
-	f, err := os.Create("./log/api.log")
-	if err != nil {
-		logger.Println("create err:", err)
-	}
 	gin.DisableConsoleColor()
-	gin.DefaultWriter = io.MultiWriter(f)
+	gin.DefaultWriter = accessLog
 
 	// Middlewares
 	app.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
@@ -96,9 +87,9 @@ func registerRoutes(app *gin.Engine) {
 	{
 		gee.GET("/check", controllers.CheckSitesHealth)
 		gee.POST("/webhook-message", controllers.SendDiscordMessage)
-		gee.GET("/query-short-link", controllers.GetTiny)
-		gee.POST("/generate-short-link", controllers.CreateTiny)
-		gee.GET("/get-tag-name", controllers.GetTag)
+		gee.GET("/query-short-link", controllers.GetLink)
+		gee.POST("/generate-short-link", controllers.CreateLink)
+		gee.GET("/get-tag-name", controllers.RetiredAPI)
 	}
 	// Gee - end
 
@@ -111,9 +102,9 @@ func registerRoutes(app *gin.Engine) {
 	}
 	// Key-value - end
 
-	// Tiny - begin
-	app.GET("/t/:key", controllers.RedirectTiny)
-	// Tiny - end
+	// Link - begin
+	app.GET("/t/:link_key", controllers.RedirectLink)
+	// Link - end
 
 	// Server API - begin
 	server := app.Group("/server")
