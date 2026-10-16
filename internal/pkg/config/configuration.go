@@ -1,7 +1,6 @@
 package config
 
 import (
-	"encoding/json"
 	"flag"
 
 	modelsLink "github.com/chengchuu/go-gin-gee/internal/pkg/models/link"
@@ -37,10 +36,9 @@ type DatabaseConfiguration struct {
 }
 
 type DataConfiguration struct {
-	EnableCORS string
-	// mapstructure maps config-file keys such as Data.WEBHOOK_ID into these Go fields.
-	WebhookID           string `mapstructure:"WEBHOOK_ID"`
-	WebhookToken        string `mapstructure:"WEBHOOK_TOKEN"`
+	EnableCORS          string
+	WebhookID           string
+	WebhookToken        string
 	EnableWebhookAPI    string
 	WebhookAPIKeys      []string
 	CommonAPIKeys       []string
@@ -63,53 +61,29 @@ func Setup() {
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 
-	// Environment variables
-	// Development: macOS, export WEBHOOK_ID="x-x-x" WEBHOOK_TOKEN="x-x-x"
-	viper.AutomaticEnv()
+	// BASE_URL is the only configuration environment override.
+	if err = viper.BindEnv("BASE_URL"); err != nil {
+		logger.Fatal("Unable to bind BASE_URL, %v", err)
+	}
 	// Default value
-	viper.SetDefault("EnableCORS", "")
-	viper.SetDefault("WEBHOOK_ID", "")
-	viper.SetDefault("WEBHOOK_TOKEN", "")
 	viper.SetDefault("BASE_URL", "")
-	viper.SetDefault("CONFIG_DATA_SITES", "")
-	viper.SetDefault("CONFIG_TYPE", "json")
+	viper.SetDefault("Data.EnableCORS", "off")
+	viper.SetDefault("Data.EnableWebhookAPI", "off")
 
 	// Configuration File
 	configPath := viper.GetString("config-path")
-	configType := viper.GetString("CONFIG_TYPE")
 	viper.SetConfigFile(configPath)
-	viper.SetConfigType(configType)
+	viper.SetConfigType("json")
 	// Read the configuration file
 	if err = viper.ReadInConfig(); err != nil {
 		logger.Println("No configuration file found, using default configuration")
-		configuration = &Configuration{}
-	} else {
-		err = viper.Unmarshal(&configuration)
-		if err != nil {
-			logger.Fatal("Unable to decode into struct, %v", err)
-		}
+	}
+	err = viper.Unmarshal(&configuration)
+	if err != nil {
+		logger.Fatal("Unable to decode into struct, %v", err)
 	}
 
-	// Environment variables&Configuration File
-	enableCORS := viper.GetString("EnableCORS")
-	if enableCORS != "" {
-		configuration.Data.EnableCORS = enableCORS
-	}
-	webhookID := viper.GetString("WEBHOOK_ID")
-	if webhookID != "" {
-		configuration.Data.WebhookID = webhookID
-	}
-	webhookToken := viper.GetString("WEBHOOK_TOKEN")
-	if webhookToken != "" {
-		configuration.Data.WebhookToken = webhookToken
-	}
-	configDataSites := viper.GetString("CONFIG_DATA_SITES")
-	if configDataSites != "" {
-		err = json.Unmarshal([]byte(configDataSites), &configuration.Data.Sites)
-		if err != nil {
-			logger.Println("error:", err)
-		}
-	}
+	// A nonempty BASE_URL overrides the JSON value.
 	baseURL := viper.GetString("BASE_URL")
 	if baseURL != "" {
 		configuration.Data.BaseURL = baseURL
@@ -130,7 +104,7 @@ func Setup() {
 func GetConfig() *Configuration {
 	if Config != nil && Config.Server.Mode == "debug" {
 		logger.Info("Config.Server: %+v", Config.Server)
-		logger.Info("Config.Data.EnableWebhookAPI: %+v", Config.Data.EnableWebhookAPI)
+		// logger.Info("Config.Data.EnableWebhookAPI: %+v", Config.Data.EnableWebhookAPI)
 	}
 	return Config
 }
