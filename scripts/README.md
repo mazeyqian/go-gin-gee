@@ -19,37 +19,6 @@ PowerShell utilities are in `scripts/powershell/`, with their regression tests i
 - [Transfer Apple Note Table to Markdown Table](#transfer-apple-note-table-to-markdown-table)
 - [Calculate Days Between Two Dates (datediff)](#calculate-days-between-two-dates-datediff)
 
-## Remove Orphan Lyrics
-
-`batch-remove-orphan-lrc.ps1` permanently deletes LRC files without a matching
-audio filename in the same directory. Matching ignores case and the final
-extension, but preserves spaces and punctuation. Audio contents are not inspected.
-Supported extensions: `mp3`, `ogg`, `oga`, `opus`, `flac`, `wav`, `wave`, `m4a`,
-`aac`, `wma`, `aif`, `aiff`, `aifc`, `ape`, `alac`, `wv`, `dsf`, and `dff`.
-
-Preview in Windows PowerShell:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-remove-orphan-lrc.ps1" -Path "E:\Music" -Recurse -WhatIf
-```
-
-Preview on macOS:
-
-```bash
-pwsh -NoProfile -File "./scripts/powershell/batch-remove-orphan-lrc.ps1" -Path "/path/to/music" -Recurse -WhatIf
-```
-
-Remove `-WhatIf` to permanently delete the listed files, bypassing Trash/Recycle Bin.
-Omit `-Recurse` to inspect only immediate files. Hidden files are included.
-Each directory is matched independently; audio in another directory does not keep
-an LRC file. Directory links are not traversed, a linked root is rejected, and LRC
-symbolic links are left untouched. Audio files and directories are never deleted.
-
-The full scan finishes before deletion begins. Each deleted path and a final count
-are logged. Success (including no orphans) returns `0`; scanning or deletion errors
-return `1`. Deletion is not atomic: runtime failures can leave partial progress.
-Do not change the directory contents while cleanup is running.
-
 ## Filename Batch Rename Helpers
 
 ### Other Filename Helpers
@@ -86,11 +55,14 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\ba
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-format-date-filenames.ps1" -Path $PathB -Recurse -TargetType $TargetTypeB
 ```
 
+convert-replace-date:
+
 ```powershell
 $PathA = "C:\Directory\Path"
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-convert-filename-case.ps1" -Path $PathA -Mode Lower -Recurse
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-replace-filename-text.ps1" -Path $PathA -Replace "_=-" -Replace " =-" -Recurse
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-format-date-filenames.ps1" -Path $PathA -Recurse
+$TargetTypeA = "Directory"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-convert-filename-case.ps1" -Path $PathA -TargetType $TargetTypeA -Mode Upper
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-replace-filename-text.ps1" -Path $PathA -TargetType $TargetTypeA -Replace "_=-" -Replace " =-" -Recurse
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-format-date-filenames.ps1" -Path $PathA -TargetType $TargetTypeA
 ```
 
 macOS:
@@ -125,6 +97,37 @@ Before any rename, the script checks the entire batch for duplicate targets
 (case-insensitively) and existing targets. A conflict reports the paths and exits
 with status `1`, including during previews. Runtime failures also exit with `1`;
 renames completed before a runtime failure are not rolled back.
+
+## Remove Orphan Lyrics
+
+`batch-remove-orphan-lrc.ps1` permanently deletes LRC files without a matching
+audio filename in the same directory. Matching ignores case and the final
+extension, but preserves spaces and punctuation. Audio contents are not inspected.
+Supported extensions: `mp3`, `ogg`, `oga`, `opus`, `flac`, `wav`, `wave`, `m4a`,
+`aac`, `wma`, `aif`, `aiff`, `aifc`, `ape`, `alac`, `wv`, `dsf`, and `dff`.
+
+Preview in Windows PowerShell:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-remove-orphan-lrc.ps1" -Path "E:\Musics" -Recurse -WhatIf
+```
+
+Preview on macOS:
+
+```bash
+pwsh -NoProfile -File "./scripts/powershell/batch-remove-orphan-lrc.ps1" -Path "/path/to/music" -Recurse -WhatIf
+```
+
+Remove `-WhatIf` to permanently delete the listed files, bypassing Trash/Recycle Bin.
+Omit `-Recurse` to inspect only immediate files. Hidden files are included.
+Each directory is matched independently; audio in another directory does not keep
+an LRC file. Directory links are not traversed, a linked root is rejected, and LRC
+symbolic links are left untouched. Audio files and directories are never deleted.
+
+The full scan finishes before deletion begins. Each deleted path and a final count
+are logged. Success (including no orphans) returns `0`; scanning or deletion errors
+return `1`. Deletion is not atomic: runtime failures can leave partial progress.
+Do not change the directory contents while cleanup is running.
 
 ## Extract Missing Files from Nginx Errors
 
