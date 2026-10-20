@@ -5,6 +5,9 @@ PowerShell utilities are in `scripts/powershell/`, with their regression tests i
 `scripts/powershell/test/`. Run the examples below from the repository root.
 
 - [Filename Batch Rename Helpers](#filename-batch-rename-helpers)
+  - [Other Filename Helpers](#other-filename-helpers)
+  - [Pad Numeric Filename Prefixes](#pad-numeric-filename-prefixes)
+- [Remove Orphan Lyrics](#remove-orphan-lyrics)
 - [Extract Missing Files from Nginx Errors](#extract-missing-files-from-nginx-errors)
 - [Hanle Nginx Log](#hanle-nginx-log)
 - [Check Blog](#check-blog)
@@ -16,46 +19,52 @@ PowerShell utilities are in `scripts/powershell/`, with their regression tests i
 - [Transfer Apple Note Table to Markdown Table](#transfer-apple-note-table-to-markdown-table)
 - [Calculate Days Between Two Dates (datediff)](#calculate-days-between-two-dates-datediff)
 
-## Filename Batch Rename Helpers
+## Remove Orphan Lyrics
 
-### Pad Numeric Filename Prefixes
+`batch-remove-orphan-lrc.ps1` permanently deletes LRC files without a matching
+audio filename in the same directory. Matching ignores case and the final
+extension, but preserves spaces and punctuation. Audio contents are not inspected.
+Supported extensions: `mp3`, `ogg`, `oga`, `opus`, `flac`, `wav`, `wave`, `m4a`,
+`aac`, `wma`, `aif`, `aiff`, `aifc`, `ape`, `alac`, `wv`, `dsf`, and `dff`.
 
-Use `batch-pad-filenames.ps1` to left-pad ASCII digits before the first literal,
-case-sensitive separator. For example, `1S_A.mp3` becomes `001S_A.mp3` with
-`-Separator S -Length 3`. Non-numeric prefixes are skipped. Longer prefixes,
-extensions, and the remaining filename are preserved. Only files are renamed.
-
-Windows PowerShell preview:
+Preview in Windows PowerShell:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-pad-filenames.ps1" -Path "E:\Music" -Separator S -Length 3 -Recurse -WhatIf
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-remove-orphan-lrc.ps1" -Path "E:\Music" -Recurse -WhatIf
 ```
 
-macOS preview:
+Preview on macOS:
 
 ```bash
-pwsh -NoProfile -File "./scripts/powershell/batch-pad-filenames.ps1" -Path "/path/to/music" -Separator S -Length 3 -Recurse -WhatIf
+pwsh -NoProfile -File "./scripts/powershell/batch-remove-orphan-lrc.ps1" -Path "/path/to/music" -Recurse -WhatIf
 ```
 
-Remove `-WhatIf` to rename files. `-PadChar` defaults to `0` and accepts one
-filename-safe character. Omit `-Recurse` to process immediate files only.
-Before any rename, the script checks the entire batch for duplicate targets
-(case-insensitively) and existing targets. A conflict reports the paths and exits
-with status `1`, including during previews. Runtime failures also exit with `1`;
-renames completed before a runtime failure are not rolled back.
+Remove `-WhatIf` to permanently delete the listed files, bypassing Trash/Recycle Bin.
+Omit `-Recurse` to inspect only immediate files. Hidden files are included.
+Each directory is matched independently; audio in another directory does not keep
+an LRC file. Directory links are not traversed, a linked root is rejected, and LRC
+symbolic links are left untouched. Audio files and directories are never deleted.
+
+The full scan finishes before deletion begins. Each deleted path and a final count
+are logged. Success (including no orphans) returns `0`; scanning or deletion errors
+return `1`. Deletion is not atomic: runtime failures can leave partial progress.
+Do not change the directory contents while cleanup is running.
+
+## Filename Batch Rename Helpers
 
 ### Other Filename Helpers
 
 Windows 10 PowerShell:
 
 ```powershell
-$PathC = "E:\Web\list\Note\Dudu\00000000_MUSICS"
+$PathC = "C:\Directory\Path"
 $TargetTypeC = "Directory"
 $TargetTypeC = "File"
 
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-convert-filename-case.ps1" -Path $PathC -Recurse -TargetType $TargetTypeC -Mode Upper
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-replace-filename-text.ps1" -Path $PathC -Recurse -TargetType $TargetTypeC `
   -Replace " =-" -Replace "S-=S_" -Replace "-V=_V" -Replace "-202=_202"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-pad-filenames.ps1" -Path $PathC -Separator S -Length 3
 ```
 
 ```powershell
@@ -90,6 +99,32 @@ macOS:
 pwsh -NoProfile -ExecutionPolicy Bypass -File "./scripts/powershell/batch-convert-filename-case.ps1" -Path "/Users/Path" -Recurse
 pwsh -NoProfile -ExecutionPolicy Bypass -File "./scripts/powershell/batch-replace-filename-text.ps1" -Path "/Users/Path" -Replace "-=_" -Recurse
 ```
+
+### Pad Numeric Filename Prefixes
+
+Use `batch-pad-filenames.ps1` to left-pad ASCII digits before the first literal,
+case-sensitive separator. For example, `1S_A.mp3` becomes `001S_A.mp3` with
+`-Separator S -Length 3`. Non-numeric prefixes are skipped. Longer prefixes,
+extensions, and the remaining filename are preserved. Only files are renamed.
+
+Windows PowerShell preview:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\powershell\batch-pad-filenames.ps1" -Path "E:\Music" -Separator S -Length 3 -Recurse -WhatIf
+```
+
+macOS preview:
+
+```bash
+pwsh -NoProfile -File "./scripts/powershell/batch-pad-filenames.ps1" -Path "/path/to/music" -Separator S -Length 3 -Recurse -WhatIf
+```
+
+Remove `-WhatIf` to rename files. `-PadChar` defaults to `0` and accepts one
+filename-safe character. Omit `-Recurse` to process immediate files only.
+Before any rename, the script checks the entire batch for duplicate targets
+(case-insensitively) and existing targets. A conflict reports the paths and exits
+with status `1`, including during previews. Runtime failures also exit with `1`;
+renames completed before a runtime failure are not rolled back.
 
 ## Extract Missing Files from Nginx Errors
 

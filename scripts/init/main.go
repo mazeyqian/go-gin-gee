@@ -14,7 +14,7 @@ import (
 func main() {
 	logger.Println("Init ...")
 	// Define command-line flags
-	copyData := flag.String("copyData", "config.dev.json,database.db,index.tmpl", "Comma-separated list of files to copy from the assets/data directory")
+	copyData := flag.String("copyData", "config.json,database.db,index.tmpl", "Comma-separated list of files to copy from the assets/data directory")
 	flag.Parse()
 	targetDir := "data"
 

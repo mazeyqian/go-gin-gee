@@ -257,7 +257,9 @@ from `Data.CommonAPIKeys` create permanent direct links usable by anyone. Missin
 empty, and invalid keys create links that first open the Redirect warning page.
 The server derives this policy; a body field such as `direct_redirect` cannot override it. Opening headers and later API-key removal
 do not change an existing link's policy. Manually configured `SpecialLinks` are
-trusted and always redirect directly, taking precedence over database records.
+trusted and always redirect directly. Resolution checks configuration first, using
+the first matching key, then falls back to the database. Configured aliases work
+before their database records exist.
 
 The database deduplicates a fixed JSON representation of the exact original URL,
 effective base URL, `one_time`, and the authorized redirect policy using SHA-256.
@@ -283,8 +285,36 @@ publishing is a separate operation.
 This link schema targets a new database; no legacy link-data migration is provided.
 The model stores `original_url`, `dedup_hash`, and `direct_redirect`, with unique
 fingerprint and short-key indexes. Creation allocates the numeric ID and final key
-inside one transaction. A generated key reserved by `SpecialLinks` receives underscore
-suffixes. No incomplete link or reservation-only row is committed.
+inside one transaction. If its ID-derived key matches `SpecialLinks`, creation converts
+that new candidate into the configured direct, reusable link, then retries the original
+request with a fresh ID. A loop handles consecutive collisions without an arbitrary
+retry limit or underscore suffix. Failure rolls back all records from the request.
+For example, with `a` and `b` reserved, a fresh database stores those special links
+at IDs 1 and 2, then returns `/t/c` for the ordinary request at ID 3. Aliases such as
+`m` and `dl` consume no IDs until generation reaches them.
+
+Use `Data.SpecialLinks` for fixed department aliases such as `/t/ui`:
+
+```json
+{
+  "SpecialLinks": [
+    { "Key": "ui", "Link": "https://ui.example.com/" }
+  ]
+}
+```
+
+Keys are matched case-sensitively. Configure distinct keys and valid HTTP(S)
+destinations. There is no startup provisioning or snapshot verification.
+Special records created on collision use `fixed:<key>` as their internal identity,
+allowing multiple aliases to share a destination without ordinary URL deduplication
+merging them. Existing ordinary records are never converted during deduplication.
+
+Each new deployment uses a fresh SQLite database. Configuration is the durable source
+of fixed aliases; ordinary generated links do not survive replacement of that database.
+Configuration changes take effect after restart and override stored destinations.
+Removing an alias can reveal its previously stored destination; adding an alias can
+shadow a generated link. The application does not reset databases, migrate legacy
+link data, or synchronize stored special records with later configuration changes.
 
 `Data.CommonAPIKeys` defaults to an empty list and is independent of Webhook and KV
 keys. Send the optional `common_api_key` string in the creation JSON body.
@@ -346,12 +376,15 @@ GOOS=windows GOARCH=amd64 go build -o dist/api-windows-amd64 cmd/api/main.go
 
 Environment Variables:
 
-- `${WEBHOOK_ID}`: Discord Webhook ID.
-- `${WEBHOOK_TOKEN}`: Discord Webhook Token.
-- `${BASE_URL}`: The Base URL for this Service.
+- `${BASE_URL}`: The only application configuration environment override. A nonempty value overrides `Data.BaseURL`; an empty or absent value preserves the JSON setting.
 
-Config-file only private webhook API fields:
+Configuration files use JSON. Select the file with `--config-path`, which defaults
+to `data/config.json`. All other settings come from JSON or application defaults.
 
+Discord and private webhook API configuration:
+
+- `Data.WebhookID`: Discord webhook ID.
+- `Data.WebhookToken`: Discord webhook token.
 - `Data.EnableWebhookAPI`: Set to `on` to enable `POST /api/gee/webhook-message`.
 - `Data.WebhookAPIKeys`: API keys accepted by the private webhook API via `X-Webhook-API-Key`.
 
@@ -375,7 +408,7 @@ directory=/web/go-gin-gee
 command=/web/go-gin-gee/dist/api-linux-amd64 --config-path="/web/go-gin-gee/data/config.json"
 autostart=true
 autorestart=true
-environment=WEBHOOK_ID="WEBHOOK_ID",WEBHOOK_TOKEN="WEBHOOK_TOKEN",BASE_URL="https://example.com/path"
+environment=BASE_URL="https://example.com/path"
 ```
 
 ## Docker
@@ -408,12 +441,10 @@ Environment variables:
 
 Usage:
 
-`${RUN_FLAG}` is optional, default is `-r`("RUN"). `${WEBHOOK_ID}` and `${WEBHOOK_TOKEN}` are optional. If you don't want to send the message to Discord, just remove them. `${BASE_URL}` is required. It's the Base URL for this Service.
+`${RUN_FLAG}` is optional and defaults to `-r` (run). `${BASE_URL}` optionally overrides `Data.BaseURL`. Short-link creation requires either a configured base URL or a request-provided `base_url`. Configure Discord credentials in the JSON file.
 
 ```bash
 bash ./scripts/bash/docker-build.sh ${RUN_FLAG} \
-  "WEBHOOK_ID=${WEBHOOK_ID}" \
-  "WEBHOOK_TOKEN=${WEBHOOK_TOKEN}" \
   "BASE_URL=${BASE_URL}"
 ```
 
@@ -429,8 +460,6 @@ Example 2: Build and Run
 
 ```bash
 bash ./scripts/bash/docker-build.sh -r \
-  "WEBHOOK_ID=WEBHOOK_ID" \
-  "WEBHOOK_TOKEN=WEBHOOK_TOKEN" \
   "BASE_URL=https://example.com/path"
 ```
 
@@ -458,8 +487,6 @@ Usage:
 
 ```bash
 bash ./scripts/bash/docker-run.sh "${DOCKER_HUB_REPOSITORY_TAGNAME}" \
-  "WEBHOOK_ID=${WEBHOOK_ID}" \
-  "WEBHOOK_TOKEN=${WEBHOOK_TOKEN}" \
   "BASE_URL=${BASE_URL}"
 ```
 
@@ -467,8 +494,6 @@ Example:
 
 ```bash
 bash ./scripts/bash/docker-run.sh "docker.io/mazeyqian/go-gin-gee:v20230615221222-api" \
-  "WEBHOOK_ID=WEBHOOK_ID" \
-  "WEBHOOK_TOKEN=WEBHOOK_TOKEN" \
   "BASE_URL=https://example.com/path"
 ```
 
@@ -501,9 +526,10 @@ validation requirements.
 
 ```bash
 git clone https://github.com/chengchuu/go-gin-gee.git
+cd go-gin-gee
 go mod download
 go run scripts/init/main.go && \
-go run cmd/api/main.go --config-path="data/config.dev.json"
+go run cmd/api/main.go --config-path="data/config.json"
 ```
 
 ### Details
@@ -512,6 +538,7 @@ Download Project:
 
 ```bash
 git clone https://github.com/chengchuu/go-gin-gee.git
+cd go-gin-gee
 ```
 
 Download modules:
@@ -540,10 +567,14 @@ go env -w GOPROXY=https://proxy.golang.org,direct
 
 It's necessary to run the command `go run scripts/init/main.go` when serving the project first.
 
+Initialization copies `assets/data/config.json` to `data/config.json`. The shared
+example uses release mode. For Gin debug mode, set `Server.Mode` to `debug` in
+your local `data/config.json`.
+
 Serve:
 
 ```bash
-go run cmd/api/main.go --config-path="data/config.dev.json"
+go run cmd/api/main.go --config-path="data/config.json"
 ```
 
 Visit: <http://127.0.0.1:3000/api/ping>.
